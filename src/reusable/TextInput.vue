@@ -17,7 +17,7 @@ defineProps({
 
 const emit = defineEmits(["update:modelValue"])
 
-const handleInput = (event: Event) => {
+const emitHandler = (event: Event) => {
   const target = event.target as HTMLInputElement;
   emit("update:modelValue", target.value);
 }
@@ -32,7 +32,7 @@ const handleInput = (event: Event) => {
         :id="id"
         class="form-control"
         :value="modelValue"
-        @input="handleInput"
+        @input="emitHandler"
       />
     </div>
   </div>
