@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {ref} from "vue";
 
 const props = defineProps({
     label: {
@@ -34,7 +33,6 @@ const emitHandler = (event: Event) => {
     }
 
     const phoneNumber = countryCode + target.value;
-
     emit("update:modelValue", phoneNumber);
 }
 

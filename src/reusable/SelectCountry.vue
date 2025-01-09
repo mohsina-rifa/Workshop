@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+
 defineProps({
     label: {
         type: String,
@@ -19,12 +19,11 @@ defineProps({
     },
 })
 
-const modelEmit = defineEmits(["update:modelValue"])
-
+const emit = defineEmits(["update:modelValue"])
 
 const emitHandler = (event: Event) => {
     const target = event.target as HTMLInputElement;
-    modelEmit("update:modelValue", target.value);
+    emit("update:modelValue", target.value);
 }
 
 </script>

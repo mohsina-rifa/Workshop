@@ -1,4 +1,6 @@
 <script setup lang="ts">
+//import PasswordValidate from '../validation/PasswordValidate.vue';
+
 defineProps({
     label: {
         type: String,
@@ -20,6 +22,8 @@ const emitHandler = (event: Event) => {
     const target = event.target as HTMLInputElement;
     emit("update:modelValue", target.value);
 }
+
+
 </script>
 
 <template>
@@ -28,6 +32,7 @@ const emitHandler = (event: Event) => {
         <div class="mb-4 input-group">
             <input type="password" :id="id" class="form-control" placeholder="********" :value="modelValue"  @input="emitHandler"/>
         </div>
+        <!-- <PasswordValidate :password="modelValue"/> -->
     </div>
 </template>
 
