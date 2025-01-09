@@ -18,8 +18,6 @@ const emit = defineEmits(["update:modelValue"])
 
 const emitHandler = (event: Event) => {
     const target = event.target as HTMLInputElement;
-    // const hidePassword = '*'.repeat(target.value.length)
-    // emit("update:modelValue", hidePassword);
     emit("update:modelValue", target.value);
 }
 </script>

@@ -1,9 +1,5 @@
 <script setup lang="ts">
 defineProps({
-  modelValue: {
-    required: true,
-    type: String,
-  },
   label: {
     required: false,
     type: String,
@@ -15,12 +11,7 @@ defineProps({
   },
 })
 
-const emit = defineEmits(["update:modelValue"])
-
-const emitHandler = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  emit("update:modelValue", target.value);
-}
+const componentModel = defineModel()
 </script>
 
 <template>
@@ -31,8 +22,7 @@ const emitHandler = (event: Event) => {
         type="text"
         :id="id"
         class="form-control"
-        :value="modelValue"
-        @input="emitHandler"
+        v-model="componentModel"
       />
     </div>
   </div>

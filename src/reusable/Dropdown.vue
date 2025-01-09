@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 defineProps({
     label: {
         type: String,
@@ -18,12 +19,14 @@ defineProps({
     },
 })
 
-const emit = defineEmits(["update:modelValue"])
+const modelEmit = defineEmits(["update:modelValue"])
+
 
 const emitHandler = (event: Event) => {
     const target = event.target as HTMLInputElement;
-    emit("update:modelValue", target.value);
+    modelEmit("update:modelValue", target.value);
 }
+
 </script>
 
 <template>
@@ -31,11 +34,7 @@ const emitHandler = (event: Event) => {
         <label :for="id" class="form-label">{{ label }}</label>
         <div class="mb-4 input-group">            
             <select class="form-select" :id="id" :value="modelValue" @input="emitHandler">
-                <option v-for="(option, index) in options" :value="option" :key="index"> {{option}} </option>
-                <!-- <option value="bangladesh" selected>Bangladesh</option>
-                <option value="germany">Germany</option>
-                <option value="use">USA</option> -->
-                
+                <option v-for="option in options" :value="option"> {{option}} </option>
             </select>
         </div>
     </div>
