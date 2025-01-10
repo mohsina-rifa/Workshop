@@ -48,6 +48,9 @@ const countryCode = computed( () => SAARCCountryCodes.get(props.selectCountry) a
 <template>
     <label for="contact" class="form-label">Contact:</label>
     <div class="mb-4 input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">{{ SAARCCountryCodes.get(props.selectCountry) || '+' }}</span>
+        </div>
         <input type="text" :id="id" class="form-control" placeholder="e.g. 01XXX..." :v-model="modelValue" @input="emitHandler"/>
     </div>
     <ContactValidate :contact="modelValue" :countryCode="countryCode" :touched="isFieldTouched"/>
