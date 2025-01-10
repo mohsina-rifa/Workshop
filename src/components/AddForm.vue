@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref } from "vue";
 import Name from "../reusable/Name.vue";
 import SelectCountry from "../reusable/SelectCountry.vue";
 import Password from "../reusable/Password.vue";
 import Contact from "../reusable/Contact.vue";
-
+import Button from "../reusable/Button.vue";
 
 type Student = {
   firstName: string;
@@ -13,7 +13,7 @@ type Student = {
   country: string;
   password: string;
   contact: string;
-}
+};
 
 const student = ref<Student>({
   firstName: "",
@@ -21,26 +21,71 @@ const student = ref<Student>({
   lastName: "",
   country: "",
   password: "",
-  contact: ""
-})
+  contact: "",
+});
 
-const countryList = ref(['Afghanistan', 'Bangladesh', 'Bhutan', 'India', 'Maldives', 'Nepal', 'Pakistan', 'Sri Lanka'])
+const countryList = ref([
+  "Afghanistan",
+  "Bangladesh",
+  "Bhutan",
+  "India",
+  "Maldives",
+  "Nepal",
+  "Pakistan",
+  "Sri Lanka",
+]);
 </script>
 
 <template>
   <div class="row justify-content-center">
-
     <div class="col-6">
       <form>
-        <Name id="firstName" v-model="student.firstName" label="First Name:" :minLength="5" :maxLength="15" :isRequired="true"/>
-        <Name id="middleName" v-model="student.middleName" label="Middle Name:" :minLength="5" :maxLength="15" :isRequired="true"/>
-        <Name id="lastName" v-model="student.lastName" label="Last Name:" :minLength="5" :maxLength="15" :isRequired="true"/>
-        <SelectCountry id="country" v-model="student.country" label="Select Country:" :options="countryList" :isRequired="true"/>
-        <Password id="password" v-model="student.password" label="Password:" :isRequired="true"/>
-        <Contact id="contact" v-model="student.contact" label="Contact:" :selectCountry="student.country" :isRequired="true"/>
+        <Name
+          id="firstName"
+          v-model="student.firstName"
+          label="First Name:"
+          :minLength="5"
+          :maxLength="15"
+          :isRequired="true"
+        />
+        <Name
+          id="middleName"
+          v-model="student.middleName"
+          label="Middle Name:"
+          :minLength="5"
+          :maxLength="15"
+          :isRequired="true"
+        />
+        <Name
+          id="lastName"
+          v-model="student.lastName"
+          label="Last Name:"
+          :minLength="5"
+          :maxLength="15"
+          :isRequired="true"
+        />
+        <SelectCountry
+          id="country"
+          v-model="student.country"
+          label="Select Country:"
+          :options="countryList"
+          :isRequired="true"
+        />
+        <Password
+          id="password"
+          v-model="student.password"
+          label="Password:"
+          :isRequired="true"
+        />
+        <Contact
+          id="contact"
+          v-model="student.contact"
+          label="Contact:"
+          :selectCountry="student.country"
+          :isRequired="true"
+        />
+        <Button />
       </form>
     </div>
   </div>
-
-
 </template>

@@ -4,10 +4,8 @@ import AddForm from "./components/AddForm.vue";
 </script>
 
 <template>
-<!--  <Member/>-->
-  <AddForm/>
+  <!--  <Member/>-->
+  <AddForm />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
