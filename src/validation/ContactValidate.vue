@@ -28,6 +28,8 @@ const SAARCCountryContactLength = new Map<string, Number>([
 ]);
 
 const isContactNotValid = computed (() => {
+    if (props.countryCode) for (let idx=props.countryCode.length; idx<props.contact.length; idx++) if (props.contact[idx]<'0' || props.contact[idx]>'9') return true;
+
     const requiredDigits = props.countryCode && SAARCCountryContactLength.get(props.countryCode);
     return props.contact.length!=requiredDigits;
 })
