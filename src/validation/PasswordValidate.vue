@@ -9,12 +9,19 @@ const props = defineProps({
     touched: {
         required: true,
         type: Boolean,
+    },
+    isRequired: {
+      type: Boolean,
+      required: true,
     }
 })
 
 const isPasswordNotValid = computed(() => {
     let passwordScore = [false, false, false, false, false];
-    if (props.password.length >=8 ) passwordScore[0] = true;
+    if (props.password.length >=8 ) {
+        passwordScore[0] = true;
+        //props.isRequired already met here
+    }
 
     for (let idx=0; idx<props.password.length; idx++) {
         const char = props.password[idx];

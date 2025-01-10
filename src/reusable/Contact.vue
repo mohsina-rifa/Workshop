@@ -18,6 +18,10 @@ const props = defineProps({
     selectCountry: {
         type: String,
         required: true,
+    },
+    isRequired: {
+        type: Boolean,
+        required: true,
     }
 })
 
@@ -33,6 +37,7 @@ const SAARCCountryCodes = new Map<string, string>([
 ]);
 
 const isFieldTouched = ref(false);
+const isFieldRequired = ref(props.isRequired);
 
 const emit = defineEmits(["update:modelValue"])
 const emitHandler = (event: Event) => {
@@ -53,7 +58,7 @@ const countryCode = computed( () => SAARCCountryCodes.get(props.selectCountry) a
         </div>
         <input type="text" :id="id" class="form-control" placeholder="e.g. 01XXX..." :v-model="modelValue" @input="emitHandler"/>
     </div>
-    <ContactValidate :contact="modelValue" :countryCode="countryCode" :touched="isFieldTouched"/>
+    <ContactValidate :contact="modelValue" :countryCode="countryCode" :touched="isFieldTouched" :isRequired="isFieldRequired"/>
 </template>
 
 <style scoped>

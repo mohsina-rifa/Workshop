@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import CountryValidate from '../validation/CountryValidate.vue';
 
-defineProps({
+const props = defineProps({
     label: {
         type: String,
         required: true,
@@ -17,11 +19,19 @@ defineProps({
         type: String,
         required: true,
     },
+    isRequired: {
+      type: Boolean,
+      required: true,
+    }
 })
+
+const isFieldTouched = ref(false);
+const isFieldRequired = ref(props.isRequired);
 
 const emit = defineEmits(["update:modelValue"])
 
 const emitHandler = (event: Event) => {
+    isFieldTouched.value = true;
     const target = event.target as HTMLInputElement;
     emit("update:modelValue", target.value);
 }
@@ -36,6 +46,7 @@ const emitHandler = (event: Event) => {
                 <option v-for="option in options" :value="option"> {{option}} </option>
             </select>
         </div>
+        <CountryValidate :isRequired="isFieldRequired" :touched="isFieldTouched"/>
     </div>
 </template>
 

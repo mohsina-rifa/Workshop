@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import PasswordValidate from '../validation/PasswordValidate.vue';
 
-defineProps({
+const props = defineProps({
     label: {
         type: String,
         required: true,
@@ -15,10 +15,16 @@ defineProps({
         type: String,
         required: true,
     },
+    isRequired: {
+      type: Boolean,
+      required: true,
+    }
 })
 
-const emit = defineEmits(["update:modelValue"])
 const isFieldTouched = ref(false);
+const isFieldRequired = ref(props.isRequired);
+
+const emit = defineEmits(["update:modelValue"])
 
 const emitHandler = (event: Event) => {
     isFieldTouched.value = true;
@@ -35,7 +41,7 @@ const emitHandler = (event: Event) => {
         <div class="mb-4 input-group">
             <input type="password" :id="id" class="form-control" placeholder="********" :value="modelValue"  @input="emitHandler"/>
         </div>
-        <PasswordValidate :password="modelValue" :touched="isFieldTouched"/>
+        <PasswordValidate :password="modelValue" :touched="isFieldTouched" :isRequired="isFieldRequired"/>
     </div>
 </template>
 

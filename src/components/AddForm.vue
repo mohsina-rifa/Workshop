@@ -31,14 +31,13 @@ const countryList = ref(['Afghanistan', 'Bangladesh', 'Bhutan', 'India', 'Maldiv
   <div class="row justify-content-center">
 
     <div class="col-6">
-      <p>{{ student.contact }}</p>
       <form>
-        <Name id="firstName" v-model="student.firstName" label="First Name:" :minLength="5" :maxLength="15"/>
-        <Name id="middleName" v-model="student.middleName" label="Middle Name: "/>
-        <Name id="lastName" v-model="student.lastName" label="Last Name:" :minLength="5" :maxLength="15"/>
-        <SelectCountry id="country" v-model="student.country" label="Select Country:" :options="countryList"/>
-        <Password id="password" v-model="student.password" label="Password:"/>
-        <Contact id="contact" v-model="student.contact" label="Contact:" :selectCountry="student.country"/>
+        <Name id="firstName" v-model="student.firstName" label="First Name:" :minLength="5" :maxLength="15" :isRequired="true"/>
+        <Name id="middleName" v-model="student.middleName" label="Middle Name:" :minLength="5" :maxLength="15" :isRequired="true"/>
+        <Name id="lastName" v-model="student.lastName" label="Last Name:" :minLength="5" :maxLength="15" :isRequired="true"/>
+        <SelectCountry id="country" v-model="student.country" label="Select Country:" :options="countryList" :isRequired="true"/>
+        <Password id="password" v-model="student.password" label="Password:" :isRequired="true"/>
+        <Contact id="contact" v-model="student.contact" label="Contact:" :selectCountry="student.country" :isRequired="true"/>
       </form>
     </div>
   </div>

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import NameValidate from '../validation/NameValidate.vue';
 
-defineProps({
+const props = defineProps({
     label: {
       type: String,
       required: true,
@@ -22,11 +22,17 @@ defineProps({
     maxLength: {
       type: Number,
       required: false,
+    },
+    isRequired: {
+      type: Boolean,
+      required: true,
     }
 })
 
-const emit = defineEmits(["update:modelValue"])
 const isFieldTouched = ref(false);
+const isFieldRequired = ref(props.isRequired);
+
+const emit = defineEmits(["update:modelValue"])
 
 const emitHandler = (event: Event) => {
   isFieldTouched.value = true;
@@ -43,7 +49,7 @@ const emitHandler = (event: Event) => {
       <div class="mb-4 input-group">
         <input type="text" :id="id" class="form-control" placeholder="e.g. Anishom" :value="modelValue" @input="emitHandler"/>
       </div>
-      <NameValidate :name="modelValue" :minLength="minLength" :maxLength="maxLength"  :touched="isFieldTouched"/>
+      <NameValidate :name="modelValue" :minLength="minLength" :maxLength="maxLength"  :touched="isFieldTouched" :isRequired="isFieldRequired"/>
     </div>
 </template>
 
