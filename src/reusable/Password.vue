@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import PasswordValidate from '../validation/PasswordValidate.vue';
 
 defineProps({
@@ -17,8 +18,10 @@ defineProps({
 })
 
 const emit = defineEmits(["update:modelValue"])
+const isFieldTouched = ref(false);
 
 const emitHandler = (event: Event) => {
+    isFieldTouched.value = true;
     const target = event.target as HTMLInputElement;
     emit("update:modelValue", target.value);
 }
@@ -32,7 +35,7 @@ const emitHandler = (event: Event) => {
         <div class="mb-4 input-group">
             <input type="password" :id="id" class="form-control" placeholder="********" :value="modelValue"  @input="emitHandler"/>
         </div>
-        <PasswordValidate :password="modelValue"/>
+        <PasswordValidate :password="modelValue" :touched="isFieldTouched"/>
     </div>
 </template>
 

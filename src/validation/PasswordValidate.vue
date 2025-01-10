@@ -5,6 +5,10 @@ const props = defineProps({
     password: {
         required: true,
         type: String,
+    },
+    touched: {
+        required: true,
+        type: Boolean,
     }
 })
 
@@ -30,7 +34,7 @@ const isPasswordNotValid = computed(() => {
 
 <template>
     <div>
-        <p class="text-warning" v-if="isPasswordNotValid">Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a digit, and a special character.</p>
+        <p class="text-warning" v-if="isPasswordNotValid && props.touched">Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a digit, and a special character.</p>
     </div>
 </template>
 

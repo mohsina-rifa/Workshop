@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import NameValidate from '../validation/NameValidate.vue';
 
 defineProps({
@@ -25,10 +26,12 @@ defineProps({
 })
 
 const emit = defineEmits(["update:modelValue"])
+const isFieldTouched = ref(false);
 
 const emitHandler = (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    emit("update:modelValue", target.value);
+  isFieldTouched.value = true;
+  const target = event.target as HTMLInputElement;
+  emit("update:modelValue", target.value);
 }
 
 
@@ -38,9 +41,9 @@ const emitHandler = (event: Event) => {
     <div>
       <label :for="id" class="form-label"> {{ label }} </label>
       <div class="mb-4 input-group">
-        <input type="text" :id="id" class="form-control" placeholder="e.g. Anishom" :value="modelValue" :minlength="minLength" :maxlength="maxLength" @input="emitHandler"/>
+        <input type="text" :id="id" class="form-control" placeholder="e.g. Anishom" :value="modelValue" @input="emitHandler"/>
       </div>
-      <NameValidate :name="modelValue" :minLength="minLength" :maxLength="maxLength"/>
+      <NameValidate :name="modelValue" :minLength="minLength" :maxLength="maxLength"  :touched="isFieldTouched"/>
     </div>
 </template>
 
