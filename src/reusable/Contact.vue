@@ -18,21 +18,23 @@ const props = defineProps({
         required: true,
     }
 })
+
+const SAARCCountryCodes = new Map<string, string>([
+    ['Afghanistan', '+93'],
+    ['Bangladesh', '+880'],
+    ['Bhutan', '+975'],
+    ['India', '+91'],
+    ['Maldives', '+960'],
+    ['Nepal', '+977'],
+    ['Pakistan', '+92'],
+    ['Sri Lanka', '+94']
+]);
+
 const emit = defineEmits(["update:modelValue"])
 
 const emitHandler = (event: Event) => {
     const target = event.target as HTMLInputElement;
-
-    const country = props.selectCountry;
-    let countryCode = "";
-
-    if (country === 'Bangladesh') {
-        countryCode = "+880";
-    } else {
-        countryCode = "+49";
-    }
-
-    const phoneNumber = countryCode + target.value;
+    const phoneNumber = SAARCCountryCodes.get(props.selectCountry) + target.value;
     emit("update:modelValue", phoneNumber);
 }
 

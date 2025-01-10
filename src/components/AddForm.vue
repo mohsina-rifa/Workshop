@@ -4,7 +4,7 @@ import Name from "../reusable/Name.vue";
 import SelectCountry from "../reusable/SelectCountry.vue";
 import Password from "../reusable/Password.vue";
 import Contact from "../reusable/Contact.vue";
-//import PasswordValidate from "../validation/PasswordValidate.vue";
+
 
 type Student = {
   firstName: string;
@@ -24,7 +24,7 @@ const student = ref<Student>({
   contact: ""
 })
 
-const countryList = ref(['Bangladesh', 'Germany'])
+const countryList = ref(['Afghanistan', 'Bangladesh', 'Bhutan', 'India', 'Maldives', 'Nepal', 'Pakistan', 'Sri Lanka'])
 </script>
 
 <template>
