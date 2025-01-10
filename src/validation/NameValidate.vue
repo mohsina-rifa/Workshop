@@ -24,7 +24,7 @@ const isNameNotValid = computed(() => {
 
 <template>
     <div>
-        <p v-if="isNameNotValid">Name must have a length between 5 and 10 characters.</p>
+        <p class="text-warning" v-if="isNameNotValid">Name must have a length between 5 and 10 characters.</p>
     </div>
 </template>
 

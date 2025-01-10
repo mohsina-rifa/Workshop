@@ -31,12 +31,6 @@ const countryList = ref(['Bangladesh', 'Germany'])
   <div class="row justify-content-center">
 
     <div class="col-6">
-      <p>First name : {{ student.firstName }}</p>
-      <p>Middle name: {{ student.middleName }}</p>
-      <p>Last Name  : {{ student.lastName }}</p>
-      <p>Country    : {{ student.country }}</p>
-      <p>Password   : {{ student.password }}</p>
-      <p>Contact    : {{ student.contact }}</p>
       <form>
         <Name id="firstName" v-model="student.firstName" label="First Name:" :minLength="5" :maxLength="10"/>
         <Name id="middleName" v-model="student.middleName" label="Middle Name: " :minLength="5" :maxLength="10"/>
