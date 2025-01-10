@@ -38,9 +38,9 @@ const countryList = ref(['Bangladesh', 'Germany'])
       <p>Password   : {{ student.password }}</p>
       <p>Contact    : {{ student.contact }}</p>
       <form>
-        <Name id="firstName" v-model="student.firstName" label="First Name:" />
+        <Name id="firstName" v-model="student.firstName" label="First Name:" :minLength="5" :maxLength="10"/>
         <Name id="middleName" v-model="student.middleName" label="Middle Name: " :minLength="5" :maxLength="10"/>
-        <Name id="lastName" v-model="student.lastName" label="Last Name:" />
+        <Name id="lastName" v-model="student.lastName" label="Last Name:" :minLength="5" :maxLength="10"/>
         <SelectCountry id="country" v-model="student.country" label="Select Country:" :options="countryList"/>
         <Password id="password" v-model="student.password" label="Password:"/>
         <Contact id="contact" v-model="student.contact" label="Contact:" :selectCountry="student.country"/>

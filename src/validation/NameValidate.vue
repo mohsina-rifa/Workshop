@@ -4,26 +4,27 @@ import { computed } from 'vue'
 const props = defineProps({
     name: {
         required: true,
-        type: String
+        type: String,
     },
     minLength: {
-        required: false,
+        required: true,
         type: Number,
     },
     maxLength: {
-        required: false,
+        required: true,
         type: Number,
-    },
+    }
 })
 
 const isNameNotValid = computed(() => {
-    return (props.minLength && props.name.length<props.minLength) || (props.maxLength && props.name.length>props.maxLength);
+    return ((props.minLength && props.name.length<props.minLength) || (props.maxLength && props.name.length>props.maxLength));
 })
+
 </script>
 
 <template>
     <div>
-        <p class="text-warning" v-if="isNameNotValid">Name must have a length between 5 and 10 characters.</p>
+        <p v-if="isNameNotValid">Name must have a length between 5 and 10 characters.</p>
     </div>
 </template>
 
