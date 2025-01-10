@@ -16,12 +16,12 @@ defineProps({
       required: true,
     },
     minLength: {
-      required: true,
       type: Number,
+      required: false,
     },
     maxLength: {
-      required: true,
       type: Number,
+      required: false,
     }
 })
 
