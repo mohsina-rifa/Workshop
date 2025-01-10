@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed, ref } from "vue";
+import ContactValidate from "../validation/ContactValidate.vue";
 
 const props = defineProps({
     label: {
@@ -30,14 +32,17 @@ const SAARCCountryCodes = new Map<string, string>([
     ['Sri Lanka', '+94']
 ]);
 
-const emit = defineEmits(["update:modelValue"])
+const isFieldTouched = ref(false);
 
+const emit = defineEmits(["update:modelValue"])
 const emitHandler = (event: Event) => {
     const target = event.target as HTMLInputElement;
-    const phoneNumber = SAARCCountryCodes.get(props.selectCountry) + target.value;
-    emit("update:modelValue", phoneNumber);
+    isFieldTouched.value = true;
+    //const phoneNumber = SAARCCountryCodes.get(props.selectCountry) + target.value;
+    emit("update:modelValue", target.value);
 }
 
+const countryCode = computed( () => SAARCCountryCodes.get(props.selectCountry) as string);
 </script>
 
 <template>
@@ -45,6 +50,7 @@ const emitHandler = (event: Event) => {
     <div class="mb-4 input-group">
         <input type="text" :id="id" class="form-control" placeholder="e.g. 01XXX..." :v-model="modelValue" @input="emitHandler"/>
     </div>
+    <ContactValidate :contact="modelValue" :countryCode="countryCode" :touched="isFieldTouched"/>
 </template>
 
 <style scoped>

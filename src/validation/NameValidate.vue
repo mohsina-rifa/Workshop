@@ -7,11 +7,11 @@ const props = defineProps({
         type: String,
     },
     minLength: {
-        required: true,
+        required: false,
         type: Number,
     },
     maxLength: {
-        required: true,
+        required: false,
         type: Number,
     },
     touched: {

@@ -31,6 +31,7 @@ const countryList = ref(['Afghanistan', 'Bangladesh', 'Bhutan', 'India', 'Maldiv
   <div class="row justify-content-center">
 
     <div class="col-6">
+      <p>{{ student.contact }}</p>
       <form>
         <Name id="firstName" v-model="student.firstName" label="First Name:" :minLength="5" :maxLength="15"/>
         <Name id="middleName" v-model="student.middleName" label="Middle Name: "/>
