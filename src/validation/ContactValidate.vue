@@ -32,14 +32,20 @@ const SAARCCountryContactLength = new Map<string, Number>([
 ]);
 
 const isContactNotValid = computed(() => {
-  if (props.countryCode)
-    for (let idx = props.countryCode.length; idx < props.contact.length; idx++)
-      if (props.contact[idx] < "0" || props.contact[idx] > "9") return true;
+  let isNotDigit;
+
+  if (props.countryCode && props.contact) {
+    const validContactRegex = /[^0-9+]/;
+    isNotDigit = validContactRegex.test(props.contact)
+  }
 
   const requiredDigits =
     props.countryCode && SAARCCountryContactLength.get(props.countryCode);
   //already requirement satisfied
-  return props.contact.length != requiredDigits;
+  return (
+    props.contact.length != requiredDigits ||
+    isNotDigit
+  );
 });
 
 const emit = defineEmits(["update:touched"]);
@@ -49,7 +55,7 @@ if (props.touched) emit("update:touched", true);
 <template>
   <div>
     <p class="text-warning" v-if="isContactNotValid && touched && countryCode">
-      Contact number must have {{ SAARCCountryContactLength.get(countryCode) }} digits.
+      Contact number must have digits only and must be of length {{ SAARCCountryContactLength.get(countryCode) }}.
     </p>
   </div>
 </template>

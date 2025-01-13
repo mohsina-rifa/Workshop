@@ -25,18 +25,18 @@ const props = defineProps({
 });
 
 const isNameNotValid = computed(() => {
-  let isAlphabet;
+  let isNotAlphabet;
 
   if (props.name) {
     const nonAlphabetRegex = /[^a-zA-Z]/;
-    isAlphabet = nonAlphabetRegex.test(props.name);
+    isNotAlphabet = nonAlphabetRegex.test(props.name);
   }
 
   return (
     (props.minLength && props.name.length < props.minLength) ||
     (props.maxLength && props.name.length > props.maxLength) ||
     (props.isRequired && !props.name.length) ||
-    (isAlphabet)
+    (isNotAlphabet)
   );
 });
 
