@@ -25,10 +25,18 @@ const props = defineProps({
 });
 
 const isNameNotValid = computed(() => {
+  let isAlphabet;
+
+  if (props.name) {
+    const nonAlphabetRegex = /[^a-zA-Z]/;
+    isAlphabet = nonAlphabetRegex.test(props.name);
+  }
+
   return (
     (props.minLength && props.name.length < props.minLength) ||
     (props.maxLength && props.name.length > props.maxLength) ||
-    (props.isRequired && !props.name.length)
+    (props.isRequired && !props.name.length) ||
+    (isAlphabet)
   );
 });
 
@@ -39,7 +47,7 @@ if (props.touched) emit("update:touched", true);
 <template>
   <div>
     <p class="text-warning" v-if="isNameNotValid && props.touched">
-      Name must have a length between {{ minLength }} and {{ maxLength }} characters.
+      Name must have all alphabetic characters and a length between {{ minLength }} and {{ maxLength }}.
     </p>
   </div>
 </template>
