@@ -1,8 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
+import Homepage from "./components/Homepage.vue";
 import AddForm from "./components/AddForm.vue";
 import Employee from "./components/Employee.vue";
 
 const routes = [
+  {
+    path: "/",
+    name: "Homepage",
+    component: Homepage,
+  },
   {
     path: "/join",
     name: "Join",

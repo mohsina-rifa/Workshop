@@ -50,7 +50,7 @@ const submitForm = () => {
   }
 
   const newEmployee = {
-    name: '${employee.value.firstname} ${employee.value.middleName} ${employee.value.lastName}',
+    name: `${employee.value.firstName} ${employee.value.middleName} ${employee.value.lastName}`,
     country: employee.value.country,
     contact: employee.value.contact,
     password: employee.value.password

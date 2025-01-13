@@ -1,5 +1,4 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="container-lg d-flex min-vh-100">
@@ -12,14 +11,12 @@
         <p class="lead my-4 text-muted">
           Join millions of others in the community!
         </p>
-        <a href="#" class="btn btn-info btn-lg">Sign up</a>
+        <router-link to="/join" class="btn btn-info btn-lg"
+          >Sign up</router-link
+        >
       </div>
       <div class="col-md-5 text-center d-none d-md-block">
-        <img
-          class="img-fluid"
-          src="../assets/workshop.svg"
-          alt="workshop"
-        />
+        <img class="img-fluid" src="../assets/workshop.svg" alt="workshop" />
       </div>
     </div>
   </div>
