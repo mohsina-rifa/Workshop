@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
+
+import { useEmployeeStore } from "../stores/employeeStore";
+
 import Name from "../reusable/Name.vue";
 import SelectCountry from "../reusable/SelectCountry.vue";
 import Password from "../reusable/Password.vue";
 import Contact from "../reusable/Contact.vue";
 import Button from "../reusable/Button.vue";
 
-type Student = {
+type Employee = {
   firstName: string;
   middleName: string;
   lastName: string;
@@ -15,7 +18,7 @@ type Student = {
   contact: string;
 };
 
-const student = ref<Student>({
+const employee = ref<Employee>({
   firstName: "",
   middleName: "",
   lastName: "",
@@ -34,6 +37,20 @@ const countryList = ref([
   "Pakistan",
   "Sri Lanka",
 ]);
+
+const employeeStore = useEmployeeStore();
+
+const submitForm = () => {
+  const newEmployee = {
+    name: '${employee.value.firstname} ${employee.value.middleName} ${employee.value.lastName}',
+    country: employee.value.country,
+    contact: employee.value.contact,
+    password: employee.value.password
+  };
+
+  employeeStore.addEmployee(newEmployee);
+}
+
 </script>
 
 <template>
@@ -42,7 +59,7 @@ const countryList = ref([
       <form>
         <Name
           id="firstName"
-          v-model="student.firstName"
+          v-model="employee.firstName"
           label="First Name:"
           :minLength="5"
           :maxLength="15"
@@ -50,7 +67,7 @@ const countryList = ref([
         />
         <Name
           id="middleName"
-          v-model="student.middleName"
+          v-model="employee.middleName"
           label="Middle Name:"
           :minLength="5"
           :maxLength="15"
@@ -58,7 +75,7 @@ const countryList = ref([
         />
         <Name
           id="lastName"
-          v-model="student.lastName"
+          v-model="employee.lastName"
           label="Last Name:"
           :minLength="5"
           :maxLength="15"
@@ -66,25 +83,25 @@ const countryList = ref([
         />
         <SelectCountry
           id="country"
-          v-model="student.country"
+          v-model="employee.country"
           label="Select Country:"
           :options="countryList"
           :isRequired="true"
         />
         <Password
           id="password"
-          v-model="student.password"
+          v-model="employee.password"
           label="Password:"
           :isRequired="true"
         />
         <Contact
           id="contact"
-          v-model="student.contact"
+          v-model="employee.contact"
           label="Contact:"
-          :selectCountry="student.country"
+          :selectCountry="employee.country"
           :isRequired="true"
         />
-        <Button label="Submit" />
+        <Button label="Submit" @click="submitForm"/>
       </form>
     </div>
   </div>

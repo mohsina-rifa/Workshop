@@ -67,9 +67,8 @@ const emitHandler = () => {
     >
       {{ props.label }}
     </button>
-
-    <ButtonValidate :isContactGiven="isContactGiven" :isCountryGiven="isCountryGiven" :isNameGiven="isNameGiven" :isPasswordGiven="isPasswordGiven" />
   </div>
+  <ButtonValidate :isContactGiven="isContactGiven" :isCountryGiven="isCountryGiven" :isNameGiven="isNameGiven" :isPasswordGiven="isPasswordGiven" />
 </template>
 
 <style scoped></style>
