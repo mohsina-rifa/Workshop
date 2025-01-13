@@ -7,6 +7,7 @@ import type { Employee } from "../types/auth";
 import { useEmployeeStore } from "../stores/employeeStore";
 
 import Name from "../reusable/Name.vue";
+import Username from "../reusable/Username.vue";
 import SelectCountry from "../reusable/SelectCountry.vue";
 import Password from "../reusable/Password.vue";
 import Contact from "../reusable/Contact.vue";
@@ -91,7 +92,7 @@ employee.value = {
               :isRequired="true"
             />
 
-            <Name
+            <Username
               id="username"
               v-model="employee.username"
               label="Userame:"
