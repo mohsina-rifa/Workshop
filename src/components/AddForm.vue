@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 import { useEmployeeStore } from "../stores/employeeStore";
 
@@ -60,6 +60,10 @@ const submitForm = () => {
   return true;
 }
 
+const isEligible = computed(() => {
+  return !Object.values(employee.value).some(value => value === '');
+})
+
 employee.value = {
   firstName: "",
   middleName: "",
@@ -118,7 +122,7 @@ employee.value = {
           :selectCountry="employee.country"
           :isRequired="true"
         />
-        <Button label="Submit" :isEligible="submitForm" @click="submitForm"/>
+        <Button label="Submit" :isEligible="isEligible" @click="submitForm"/>
       </form>
     </div>
   </div>

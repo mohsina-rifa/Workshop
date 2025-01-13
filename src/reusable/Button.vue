@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import ButtonValidate from '../validation/ButtonValidate.vue';
 
 const props = defineProps({
   label: {
@@ -14,11 +13,6 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(["update:isEligible"]);
-
-if (props.isEligible) emit("update:isEligible", true);
-else emit("update:isEligible", false);
-
 const allFieldsGiven = computed(() => {
   return props.isEligible;
 });
@@ -29,25 +23,14 @@ const allFieldsGiven = computed(() => {
     <button
       data-mdb-button-init
       data-mdb-ripple-init
-      class="btn btn-success btn-lg btn-block"
+      class="btn btn-lg btn-block"
+      :class="allFieldsGiven?'btn-success':'btn-warning'"
       type="button"
-      v-if="allFieldsGiven"
-    >
-      {{ props.label }}
-    </button>
-
-    <button
-      data-mdb-button-init
-      data-mdb-ripple-init
-      class="btn btn-warning btn-lg btn-block"
-      type="button"
-      disabled
-      v-else
+      :disabled="!allFieldsGiven"
     >
       {{ props.label }}
     </button>
   </div>
-  <ButtonValidate :isMissing="!allFieldsGiven" />
 </template>
 
 <style scoped></style>
