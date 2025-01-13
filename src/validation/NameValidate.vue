@@ -39,7 +39,7 @@ if (props.touched) emit("update:touched", true);
 <template>
   <div>
     <p class="text-warning" v-if="isNameNotValid && props.touched">
-      Name must have a length between 5 and 15 characters.
+      Name must have a length between {{ minLength }} and {{ maxLength }} characters.
     </p>
   </div>
 </template>

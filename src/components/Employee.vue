@@ -29,7 +29,7 @@ const SAARCCountryCodes = new Map<string, string>([
         </tr>
       </thead>
       <tbody>
-        <tr v-for="employee in employeeStore.employeeList" :key="employee.id">
+        <tr v-for="employee in employeeStore.getEmployeeList" :key="employee.id">
           <td>{{ employee.id }}</td>
           <td>{{ employee.name }}</td>
           <td>{{ employee.country }}</td>

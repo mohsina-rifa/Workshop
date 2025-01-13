@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Homepage from "./components/Homepage.vue";
-import AddForm from "./components/AddForm.vue";
+// import AddForm from "./components/AddForm.vue";
 import Employee from "./components/Employee.vue";
+import Members from "./components/Members.vue";
 
 const routes = [
   {
@@ -9,10 +10,15 @@ const routes = [
     name: "Homepage",
     component: Homepage,
   },
+  // {
+  //   path: "/join",
+  //   name: "Join",
+  //   component: AddForm,
+  // },
   {
     path: "/join",
     name: "Join",
-    component: AddForm,
+    component: Members,
   },
   {
     path: "/employee",

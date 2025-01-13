@@ -1,27 +1,65 @@
 <script setup lang="ts">
-import { reactive } from "vue";
-//import { toRefs } from 'vue'
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+
 import type { Employee } from "../types/auth";
 
-const employee = reactive<Employee>({
+import { useEmployeeStore } from "../stores/employeeStore";
+
+import Name from "../reusable/Name.vue";
+import SelectCountry from "../reusable/SelectCountry.vue";
+import Password from "../reusable/Password.vue";
+import Contact from "../reusable/Contact.vue";
+import Button from "../reusable/Button.vue";
+
+const employee = ref<Employee>({
   firstname: "",
   lastname: "",
-  fathername: "",
+  username: "",
   country: "",
   contact: "",
   password: "",
 });
 
-const showEmployee = () => {
-  console.log(employee.firstname);
-  console.log(employee.lastname);
-  console.log(employee.fathername);
-  console.log(employee.country);
-  console.log(employee.contact);
-  console.log(employee.password);
-};
+const countryList = ref([
+  "Afghanistan",
+  "Bangladesh",
+  "Bhutan",
+  "India",
+  "Maldives",
+  "Nepal",
+  "Pakistan",
+  "Sri Lanka",
+]);
 
-//const { firstname, lastname, fathername, country, contact, password } = toRefs(employee)
+const employeeStore = useEmployeeStore();
+const router = useRouter();
+
+const submitForm = () => {
+  const newEmployee = {
+    name: `${employee.value.firstname} ${employee.value.lastname}`,
+    fathername: employee.value.username,
+    country: employee.value.country,
+    contact: employee.value.contact,
+    password: employee.value.password
+  };
+
+  employeeStore.addEmployee(newEmployee);
+  router.push("/employee");
+}
+
+const isEligible = computed(() => {
+  return !Object.values(employee).some(value => value === '');
+})
+
+employee.value = {
+  firstname: "",
+  lastname: "",
+  username: "",
+  country: "",
+  password: "",
+  contact: "",
+};
 </script>
 
 <template>
@@ -35,91 +73,58 @@ const showEmployee = () => {
       <div class="row justify-content-center my-5">
         <div class="col-lg-6">
           <form>
-            <label for="firstname" class="form-label">First Name:</label>
-            <div class="mb-4 input-group">
-              <input
-                type="text"
-                id="firstname"
-                class="form-control"
-                placeholder="e.g. Anishom"
-                required
-                v-model="employee.firstname"
-              />
-            </div>
+            <Name
+              id="firstname"
+              v-model="employee.firstname"
+              label="First Name:"
+              :minLength="5"
+              :maxLength="15"
+              :isRequired="true"
+            />
 
-            <label for="lastname" class="form-label">Last Name:</label>
-            <div class="mb-4 input-group">
-              <input
-                type="text"
-                id="lastname"
-                class="form-control"
-                placeholder="e.g. Frost"
-                required
-                v-model="employee.lastname"
-              />
-            </div>
+            <Name
+              id="lastname"
+              v-model="employee.lastname"
+              label="Last Name:"
+              :minLength="5"
+              :maxLength="15"
+              :isRequired="true"
+            />
 
-            <label for="fathername" class="form-label">Father's Name:</label>
-            <div class="mb-4 input-group">
-              <input
-                type="text"
-                id="fathername"
-                class="form-control"
-                placeholder="e.g. Alan Frost"
-                required
-                v-model="employee.fathername"
-              />
-            </div>
+            <Name
+              id="username"
+              v-model="employee.username"
+              label="Userame:"
+              :minLength="3"
+              :maxLength="7"
+              :isRequired="true"
+            />
 
-            <label for="country" class="form-label">Select Country:</label>
-            <div class="mb-4 input-group">
-              <select
-                class="form-select"
-                id="country"
-                required
-                v-model="employee.country"
-              >
-                <option value="bangladesh" selected>Bangladesh</option>
-                <option value="germany">Germany</option>
-                <option value="use">USA</option>
-              </select>
-            </div>
-
-            <label for="contact" class="form-label">Contact:</label>
-            <div class="mb-4 input-group">
-              <input
-                type="text"
-                id="contact"
-                class="form-control"
-                placeholder="e.g. 01XXX..."
-                required
-                v-model="employee.contact"
-              />
-            </div>
-
-            <label for="password" class="form-label">Password:</label>
-            <div class="mb-4 input-group">
-              <input
-                type="password"
-                id="password"
-                class="form-control"
-                placeholder="********"
-                required
-                v-model="employee.password"
-              />
-            </div>
-
-            <div class="mb-4 input-group">
-              <button
-                data-mdb-button-init
-                data-mdb-ripple-init
-                class="btn btn-dark btn-lg btn-block"
-                type="button"
-                @click.prevent="showEmployee"
-              >
-                Sign Up
-              </button>
-            </div>
+            <SelectCountry
+              id="country"
+              v-model="employee.country"
+              label="Select Country:"
+              :options="countryList"
+              :isRequired="true"
+            />
+            <Password
+              id="password"
+              v-model="employee.password"
+              label="Password:"
+              :isRequired="true"
+            />
+            <Contact
+              id="contact"
+              v-model="employee.contact"
+              label="Contact:"
+              :selectCountry="employee.country"
+              :isRequired="true"
+            />
+            <Button
+              label="Submit"
+              :isEligible="isEligible"
+              @click="submitForm"
+            />
           </form>
         </div>
       </div>

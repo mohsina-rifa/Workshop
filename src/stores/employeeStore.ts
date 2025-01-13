@@ -15,4 +15,8 @@ export const useEmployeeStore = defineStore("employeeStore", {
       this.employeeList.push(newEmployee);
     },
   },
+
+  getters: {
+    getEmployeeList: (state) => state.employeeList,
+  }  
 });
