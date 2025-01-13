@@ -37,6 +37,9 @@ const isPasswordNotValid = computed(() => {
 
   return false;
 });
+
+const emit = defineEmits(["update:touched"]);
+if (props.touched) emit("update:touched", true);
 </script>
 
 <template>

@@ -41,6 +41,9 @@ const isContactNotValid = computed(() => {
   //already requirement satisfied
   return props.contact.length != requiredDigits;
 });
+
+const emit = defineEmits(["update:touched"]);
+if (props.touched) emit("update:touched", true);
 </script>
 
 <template>
