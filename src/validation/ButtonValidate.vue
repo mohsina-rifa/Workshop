@@ -2,45 +2,28 @@
 import { computed } from "vue";
 
 const props = defineProps({
-  isContactGiven: {
-    required: true,
+  isMissing: {
     type: Boolean,
-  },
-  isCountryGiven: {
     required: true,
-    type: Boolean,
-  },
-  isNameGiven: {
-    required: true,
-    type: Boolean,
-  },
-  isPasswordGiven: {
-    required: true,
-    type: Boolean,
-  },
+  }
 });
 
-const allFieldsGiven = computed(() => {
-  return (
-    props.isContactGiven &&
-    props.isCountryGiven &&
-    props.isNameGiven &&
-    props.isPasswordGiven
-  );
+const isFieldMissing = computed(() => {
+  return props.isMissing;
 });
 
-const emit = defineEmits(["isEligible"]);
+const emit = defineEmits(["isMissing"]);
 
-if (allFieldsGiven) {
-  emit("isEligible", true);
+if (isFieldMissing) {
+  emit("isMissing", true);
 } else {
-  emit("isEligible", false);
+  emit("isMissing", false);
 }
 </script>
 
 <template>
   <div>
-    <p class="text-warning" v-if="allFieldsGiven===false">
+    <p class="text-warning" v-if="isFieldMissing">
       Please fill up all the input fields.
     </p>
   </div>

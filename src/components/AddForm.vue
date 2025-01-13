@@ -41,6 +41,14 @@ const countryList = ref([
 const employeeStore = useEmployeeStore();
 
 const submitForm = () => {
+  if (!employee.value.firstName || 
+      !employee.value.lastName || 
+      !employee.value.contact || 
+      !employee.value.password || 
+      !employee.value.country) {
+    return false;
+  }
+
   const newEmployee = {
     name: '${employee.value.firstname} ${employee.value.middleName} ${employee.value.lastName}',
     country: employee.value.country,
@@ -49,8 +57,17 @@ const submitForm = () => {
   };
 
   employeeStore.addEmployee(newEmployee);
+  return true;
 }
 
+employee.value = {
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  country: "",
+  password: "",
+  contact: "",
+};
 </script>
 
 <template>
@@ -101,7 +118,7 @@ const submitForm = () => {
           :selectCountry="employee.country"
           :isRequired="true"
         />
-        <Button label="Submit" @click="submitForm"/>
+        <Button label="Submit" :isEligible="submitForm" @click="submitForm"/>
       </form>
     </div>
   </div>

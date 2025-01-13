@@ -1,30 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import ButtonValidate from '../validation/ButtonValidate.vue';
-import ContactValidate from "../validation/ContactValidate.vue";
-import CountryValidate from "../validation/CountryValidate.vue";
-import NameValidate from "../validation/NameValidate.vue";
-import PasswordValidate from "../validation/PasswordValidate.vue";
 
 const props = defineProps({
   label: {
     type: String,
     required: true,
-  },
-  isContactGiven: {
-    required: true,
-    type: Boolean,
-  },
-  isCountryGiven: {
-    required: true,
-    type: Boolean,
-  },
-  isNameGiven: {
-    required: true,
-    type: Boolean,
-  },
-  isPasswordGiven: {
-    required: true,
-    type: Boolean,
   },
   isEligible: {
     type: Boolean,
@@ -34,15 +16,12 @@ const props = defineProps({
 
 const emit = defineEmits(["update:isEligible"]);
 
-const emitHandler = () => {
-  if (props.isEligible) {
-    emit("update:isEligible", true);
-    return true;
-  } else {
-    emit("update:isEligible", false);
-    return false;
-  }
-};
+if (props.isEligible) emit("update:isEligible", true);
+else emit("update:isEligible", false);
+
+const allFieldsGiven = computed(() => {
+  return props.isEligible;
+});
 </script>
 
 <template>
@@ -50,9 +29,9 @@ const emitHandler = () => {
     <button
       data-mdb-button-init
       data-mdb-ripple-init
-      class="btn btn-dark btn-lg btn-block"
+      class="btn btn-success btn-lg btn-block"
       type="button"
-      v-if="emitHandler()"
+      v-if="allFieldsGiven"
     >
       {{ props.label }}
     </button>
@@ -60,7 +39,7 @@ const emitHandler = () => {
     <button
       data-mdb-button-init
       data-mdb-ripple-init
-      class="btn btn-dark btn-lg btn-block"
+      class="btn btn-warning btn-lg btn-block"
       type="button"
       disabled
       v-else
@@ -68,7 +47,7 @@ const emitHandler = () => {
       {{ props.label }}
     </button>
   </div>
-  <ButtonValidate :isContactGiven="isContactGiven" :isCountryGiven="isCountryGiven" :isNameGiven="isNameGiven" :isPasswordGiven="isPasswordGiven" />
+  <ButtonValidate :isMissing="!allFieldsGiven" />
 </template>
 
 <style scoped></style>
