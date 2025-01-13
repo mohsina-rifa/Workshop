@@ -84,7 +84,7 @@ const countryList = ref([
           :selectCountry="student.country"
           :isRequired="true"
         />
-        <Button />
+        <Button label="Submit" />
       </form>
     </div>
   </div>

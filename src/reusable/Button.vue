@@ -1,4 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps({
+  label: {
+    type: String,
+    required: true,
+  },
+});
+</script>
 
 <template>
   <div class="mb-4 input-group">
@@ -8,7 +15,7 @@
       class="btn btn-dark btn-lg btn-block"
       type="button"
     >
-      Sign Up
+      {{ props.label }}
     </button>
   </div>
 </template>
