@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import UsernameValidate from "../validation/UsernameValidate.vue";
 
 const props = defineProps({
   label: {
@@ -53,6 +54,13 @@ const emitHandler = (event: Event) => {
         @input="emitHandler"
       />
     </div>
+    <UsernameValidate
+      :username="modelValue"
+      :minLength="minLength"
+      :maxLength="maxLength"
+      :touched="isFieldTouched"
+      :isRequired="isFieldRequired"
+    />
   </div>
 </template>
 
