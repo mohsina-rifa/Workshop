@@ -44,7 +44,7 @@ const router = useRouter();
 const submitForm = () => {
   const newEmployee = {
     name: `${employee.value.firstname} ${employee.value.lastname}`,
-    fathername: employee.value.username,
+    username: employee.value.username,
     country: employee.value.country,
     contact: employee.value.contact,
     password: employee.value.password,

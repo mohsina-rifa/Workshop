@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
 import { useEmployeeStore } from "../stores/employeeStore";
 
 const employeeStore = useEmployeeStore();
@@ -13,6 +15,8 @@ const SAARCCountryCodes = new Map<string, string>([
   ["Pakistan", "+92"],
   ["Sri Lanka", "+94"],
 ]);
+
+const isModalVisible = ref(false);
 </script>
 
 <template>
@@ -28,6 +32,7 @@ const SAARCCountryCodes = new Map<string, string>([
         <thead>
           <tr>
             <th>ID</th>
+            <th>Username</th>
             <th>Name</th>
             <th>Country</th>
             <th>Contact</th>
@@ -40,6 +45,7 @@ const SAARCCountryCodes = new Map<string, string>([
             :key="employee.id"
           >
             <td>{{ employee.id }}</td>
+            <td>{{ employee.username }}</td>
             <td>{{ employee.name }}</td>
             <td>{{ employee.country }}</td>
             <td>
@@ -48,11 +54,71 @@ const SAARCCountryCodes = new Map<string, string>([
               }}
             </td>
             <td>
-              <p class="cursor-pointer text-info">See Password</p>
+              <p
+                class="cursor-pointer text-info"
+                @click="isModalVisible = true"
+              >
+                See Password
+              </p>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div v-if="isModalVisible" class="modal" tabindex="-1" role="dialog">
+      <!-- Modal -->
+      <div
+        v-if="isModalVisible"
+        class="modal fade show"
+        tabindex="-1"
+        style="display: block"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Password Information</h5>
+              <button
+                type="button"
+                class="btn-close"
+                @click="isModalVisible = false"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  class="form-control"
+                  v-model="username"
+                  readonly
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="text"
+                  id="password"
+                  class="form-control"
+                  v-model="password"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                @click="isModalVisible = false"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
