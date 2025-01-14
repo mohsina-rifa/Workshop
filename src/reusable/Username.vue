@@ -46,9 +46,9 @@ const emitHandler = (event: Event) => {
 </script>
 
 <template>
-  <div>
+  <div class="mb-4">
     <label :for="id" class="form-label"> {{ label }} </label>
-    <div class="mb-4 input-group">
+    <div class="input-group">
       <input
         type="text"
         :id="id"

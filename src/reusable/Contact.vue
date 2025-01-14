@@ -47,32 +47,36 @@ const emitHandler = (event: Event) => {
   emit("update:modelValue", target.value);
 };
 
-const countryCode = computed(() => SAARCCountryCodes.get(props.selectCountry) as string);
+const countryCode = computed(
+  () => SAARCCountryCodes.get(props.selectCountry) as string
+);
 </script>
 
 <template>
   <label for="contact" class="form-label">Contact:</label>
-  <div class="mb-4 input-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text">{{
-        SAARCCountryCodes.get(props.selectCountry) || "+"
-      }}</span>
+  <div class="mb-4">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">{{
+          SAARCCountryCodes.get(props.selectCountry) || "+"
+        }}</span>
+      </div>
+      <input
+        type="text"
+        :id="id"
+        class="form-control"
+        placeholder="e.g. XXXX....."
+        :v-model="modelValue"
+        @input="emitHandler"
+      />
     </div>
-    <input
-      type="text"
-      :id="id"
-      class="form-control"
-      placeholder="e.g. XXXX....."
-      :v-model="modelValue"
-      @input="emitHandler"
+    <ContactValidate
+      :contact="modelValue"
+      :countryCode="countryCode"
+      :touched="isFieldTouched"
+      :isRequired="isFieldRequired"
     />
   </div>
-  <ContactValidate
-    :contact="modelValue"
-    :countryCode="countryCode"
-    :touched="isFieldTouched"
-    :isRequired="isFieldRequired"
-  />
 </template>
 
 <style scoped></style>
