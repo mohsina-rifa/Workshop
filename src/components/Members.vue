@@ -11,7 +11,6 @@ import Username from "../reusable/Username.vue";
 import SelectCountry from "../reusable/SelectCountry.vue";
 import Password from "../reusable/Password.vue";
 import Contact from "../reusable/Contact.vue";
-import Button from "../reusable/Button.vue";
 
 const employee = ref<Employee>({
   firstname: "",
@@ -36,8 +35,8 @@ const countryList = ref([
 const placeHolders = ref({
   firstname: "e.g. Anishom",
   lastname: "e.g. Frost",
-  username: "e.g. khi0ne"
-})
+  username: "e.g. khi0ne",
+});
 
 const employeeStore = useEmployeeStore();
 const router = useRouter();
@@ -48,16 +47,16 @@ const submitForm = () => {
     fathername: employee.value.username,
     country: employee.value.country,
     contact: employee.value.contact,
-    password: employee.value.password
+    password: employee.value.password,
   };
 
   employeeStore.addEmployee(newEmployee);
   router.push("/employee");
-}
+};
 
 const isEligible = computed(() => {
-  return !Object.values(employee).some(value => value === '');
-})
+  return !Object.values(employee.value).some((value) => value === "");
+});
 
 employee.value = {
   firstname: "",
@@ -130,11 +129,17 @@ employee.value = {
               :selectCountry="employee.country"
               :isRequired="true"
             />
-            <Button
-              label="Submit"
-              :isEligible="isEligible"
+            <button
+              data-mdb-button-init
+              data-mdb-ripple-init
+              class="btn btn-lg btn-block"
+              :class="isEligible ? 'btn-success' : 'btn-warning'"
+              type="button"
+              :disabled="!isEligible"
               @click="submitForm"
-            />
+            >
+              Submit!
+            </button>
           </form>
         </div>
       </div>
