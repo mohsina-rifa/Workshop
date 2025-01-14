@@ -16,28 +16,42 @@ const SAARCCountryCodes = new Map<string, string>([
 </script>
 
 <template>
-  <div class="container mt-4">
-    <h3>Employee List</h3>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Country</th>
-          <th>Contact</th>
-          <th>Password</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="employee in employeeStore.getEmployeeList" :key="employee.id">
-          <td>{{ employee.id }}</td>
-          <td>{{ employee.name }}</td>
-          <td>{{ employee.country }}</td>
-          <td>{{ `${SAARCCountryCodes.get(employee.country)} ${employee.contact}` }}</td>
-          <td>{{ employee.password }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="container">
+    <div class="mt-4 d-flex justify-content-between">
+      <h3>Employee List</h3>
+      <router-link to="/join-the-community" class="btn btn-info"
+        >Add New Employee</router-link
+      >
+    </div>
+    <div class="mt-4">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Contact</th>
+            <th>Password</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="employee in employeeStore.getEmployeeList"
+            :key="employee.id"
+          >
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.country }}</td>
+            <td>
+              {{
+                `${SAARCCountryCodes.get(employee.country)} ${employee.contact}`
+              }}
+            </td>
+            <td>{{ employee.password }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
