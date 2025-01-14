@@ -62,7 +62,7 @@ const countryCode = computed(() => SAARCCountryCodes.get(props.selectCountry) as
       type="text"
       :id="id"
       class="form-control"
-      placeholder="e.g. 01XXX..."
+      placeholder="e.g. XXXX....."
       :v-model="modelValue"
       @input="emitHandler"
     />

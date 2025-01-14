@@ -15,6 +15,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  placeHolder: {
+    type: String,
+    required: false
+  },
   minLength: {
     type: Number,
     required: false,
@@ -49,7 +53,7 @@ const emitHandler = (event: Event) => {
         type="text"
         :id="id"
         class="form-control"
-        placeholder="e.g. Anishom"
+        :placeHolder=placeHolder
         :value="modelValue"
         @input="emitHandler"
       />

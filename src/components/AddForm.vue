@@ -1,81 +1,81 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+// import { ref, computed } from "vue";
 
-import { useEmployeeStore } from "../stores/employeeStore";
+// import { useEmployeeStore } from "../stores/employeeStore";
 
-import Name from "../reusable/Name.vue";
-import SelectCountry from "../reusable/SelectCountry.vue";
-import Password from "../reusable/Password.vue";
-import Contact from "../reusable/Contact.vue";
-import Button from "../reusable/Button.vue";
+// import Name from "../reusable/Name.vue";
+// import SelectCountry from "../reusable/SelectCountry.vue";
+// import Password from "../reusable/Password.vue";
+// import Contact from "../reusable/Contact.vue";
+// import Button from "../reusable/Button.vue";
 
-type Employee = {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  country: string;
-  password: string;
-  contact: string;
-};
+// type Employee = {
+//   firstName: string;
+//   middleName: string;
+//   lastName: string;
+//   country: string;
+//   password: string;
+//   contact: string;
+// };
 
-const employee = ref<Employee>({
-  firstName: "",
-  middleName: "",
-  lastName: "",
-  country: "",
-  password: "",
-  contact: "",
-});
+// const employee = ref<Employee>({
+//   firstName: "",
+//   middleName: "",
+//   lastName: "",
+//   country: "",
+//   password: "",
+//   contact: "",
+// });
 
-const countryList = ref([
-  "Afghanistan",
-  "Bangladesh",
-  "Bhutan",
-  "India",
-  "Maldives",
-  "Nepal",
-  "Pakistan",
-  "Sri Lanka",
-]);
+// const countryList = ref([
+//   "Afghanistan",
+//   "Bangladesh",
+//   "Bhutan",
+//   "India",
+//   "Maldives",
+//   "Nepal",
+//   "Pakistan",
+//   "Sri Lanka",
+// ]);
 
-const employeeStore = useEmployeeStore();
+// const employeeStore = useEmployeeStore();
 
-const submitForm = () => {
-  if (!employee.value.firstName || 
-      !employee.value.lastName || 
-      !employee.value.contact || 
-      !employee.value.password || 
-      !employee.value.country) {
-    return false;
-  }
+// const submitForm = () => {
+//   if (!employee.value.firstName || 
+//       !employee.value.lastName || 
+//       !employee.value.contact || 
+//       !employee.value.password || 
+//       !employee.value.country) {
+//     return false;
+//   }
 
-  const newEmployee = {
-    name: `${employee.value.firstName} ${employee.value.middleName} ${employee.value.lastName}`,
-    country: employee.value.country,
-    contact: employee.value.contact,
-    password: employee.value.password
-  };
+//   const newEmployee = {
+//     name: `${employee.value.firstName} ${employee.value.middleName} ${employee.value.lastName}`,
+//     country: employee.value.country,
+//     contact: employee.value.contact,
+//     password: employee.value.password
+//   };
 
-  employeeStore.addEmployee(newEmployee);
-  return true;
-}
+//   employeeStore.addEmployee(newEmployee);
+//   return true;
+// }
 
-const isEligible = computed(() => {
-  return !Object.values(employee.value).some(value => value === '');
-})
+// const isEligible = computed(() => {
+//   return !Object.values(employee.value).some(value => value === '');
+// })
 
-employee.value = {
-  firstName: "",
-  middleName: "",
-  lastName: "",
-  country: "",
-  password: "",
-  contact: "",
-};
+// employee.value = {
+//   firstName: "",
+//   middleName: "",
+//   lastName: "",
+//   country: "",
+//   password: "",
+//   contact: "",
+// };
 </script>
 
 <template>
-  <div class="row justify-content-center">
+  <!-- <div class="row justify-content-center">
     <div class="col-6">
       <form>
         <Name
@@ -125,5 +125,7 @@ employee.value = {
         <Button label="Submit" :isEligible="isEligible" @click="submitForm"/>
       </form>
     </div>
-  </div>
+  </div> -->
 </template>
+
+<style scoped></style>

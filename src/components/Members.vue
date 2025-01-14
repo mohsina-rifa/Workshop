@@ -33,6 +33,12 @@ const countryList = ref([
   "Sri Lanka",
 ]);
 
+const placeHolders = ref({
+  firstname: "e.g. Anishom",
+  lastname: "e.g. Frost",
+  username: "e.g. khi0ne"
+})
+
 const employeeStore = useEmployeeStore();
 const router = useRouter();
 
@@ -81,6 +87,7 @@ employee.value = {
               :minLength="5"
               :maxLength="15"
               :isRequired="true"
+              :placeHolder="placeHolders.firstname"
             />
 
             <Name
@@ -90,6 +97,7 @@ employee.value = {
               :minLength="5"
               :maxLength="15"
               :isRequired="true"
+              :placeHolder="placeHolders.lastname"
             />
 
             <Username
@@ -99,6 +107,7 @@ employee.value = {
               :minLength="3"
               :maxLength="7"
               :isRequired="true"
+              :placeHolder="placeHolders.username"
             />
 
             <SelectCountry

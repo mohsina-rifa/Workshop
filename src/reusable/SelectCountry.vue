@@ -41,7 +41,13 @@ const emitHandler = (event: Event) => {
   <div>
     <label :for="id" class="form-label">{{ label }}</label>
     <div class="mb-4 input-group">
-      <select class="form-select" :id="id" :value="modelValue" @input="emitHandler">
+      <select
+        class="form-select"
+        :id="id"
+        :value="modelValue"
+        @input="emitHandler"
+      >
+        <option value="" disabled selected>choose an option</option>
         <option v-for="option in options" :value="option">{{ option }}</option>
       </select>
     </div>

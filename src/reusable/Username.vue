@@ -15,6 +15,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  placeHolder: {
+    type: String,
+    required: false
+  },
   minLength: {
     type: Number,
     required: false,
