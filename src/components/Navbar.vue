@@ -6,12 +6,12 @@
       <router-link to="/" class="navbar-brand">WORKSHOP</router-link>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link to="/join" class="nav-link"
+          <router-link to="/join-the-community" class="nav-link"
             >Join The Community</router-link
           >
         </li>
         <li class="nav-item">
-          <router-link to="/employee" class="nav-link"
+          <router-link to="/see-all-members" class="nav-link"
             >See All Members</router-link
           >
         </li>

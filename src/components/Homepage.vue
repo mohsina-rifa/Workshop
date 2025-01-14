@@ -11,7 +11,7 @@
         <p class="lead my-4 text-muted">
           Join millions of others in the community!
         </p>
-        <router-link to="/join" class="btn btn-info btn-lg"
+        <router-link to="/join-the-community" class="btn btn-info btn-lg"
           >Sign up</router-link
         >
       </div>

@@ -57,15 +57,6 @@ const submitForm = () => {
 const isEligible = computed(() => {
   return !Object.values(employee.value).some((value) => value === "");
 });
-
-employee.value = {
-  firstname: "",
-  lastname: "",
-  username: "",
-  country: "",
-  password: "",
-  contact: "",
-};
 </script>
 
 <template>
