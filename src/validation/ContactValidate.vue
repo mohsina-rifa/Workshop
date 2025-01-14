@@ -54,7 +54,7 @@ if (props.touched) emit("update:touched", true);
 
 <template>
   <div>
-    <p class="text-warning" v-if="isContactNotValid && touched && countryCode">
+    <p class="text-danger" v-if="isContactNotValid && touched && countryCode">
       Contact number must have digits only and must be of length {{ SAARCCountryContactLength.get(countryCode) }}.
     </p>
   </div>

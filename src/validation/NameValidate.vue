@@ -46,7 +46,7 @@ if (props.touched) emit("update:touched", true);
 
 <template>
   <div>
-    <p class="text-warning" v-if="isNameNotValid && props.touched">
+    <p class="text-danger" v-if="isNameNotValid && props.touched">
       Name must have all alphabetic characters and a length between {{ minLength }} and {{ maxLength }}.
     </p>
   </div>

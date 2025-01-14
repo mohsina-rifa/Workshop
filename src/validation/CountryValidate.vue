@@ -22,7 +22,7 @@ if (props.touched) emit("update:touched", true);
 
 <template>
   <div>
-    <p class="text-warning" v-if="isCountryNotValid">Country must be selected.</p>
+    <p class="text-danger" v-if="isCountryNotValid">Country must be selected.</p>
   </div>
 </template>
 

@@ -44,7 +44,7 @@ if (props.touched) emit("update:touched", true);
 
 <template>
   <div>
-    <p class="text-warning" v-if="isPasswordNotValid && props.touched">
+    <p class="text-danger" v-if="isPasswordNotValid && props.touched">
       Password must be at least 8 characters long and include an uppercase letter, a
       lowercase letter, a digit, and a special character.
     </p>

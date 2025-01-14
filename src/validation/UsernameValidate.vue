@@ -46,7 +46,7 @@ if (props.touched) emit("update:touched", true);
 
 <template>
   <div>
-    <p class="text-warning" v-if="isUsernameNotValid && props.touched">
+    <p class="text-danger" v-if="isUsernameNotValid && props.touched">
       Username must have all alphanumeric characters and a length between {{ minLength }} and {{ maxLength }}.
     </p>
   </div>
