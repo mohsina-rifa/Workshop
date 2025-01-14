@@ -47,7 +47,9 @@ const SAARCCountryCodes = new Map<string, string>([
                 `${SAARCCountryCodes.get(employee.country)} ${employee.contact}`
               }}
             </td>
-            <td>{{ employee.password }}</td>
+            <td>
+              <p class="cursor-pointer text-info">See Password</p>
+            </td>
           </tr>
         </tbody>
       </table>

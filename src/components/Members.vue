@@ -51,7 +51,7 @@ const submitForm = () => {
   };
 
   employeeStore.addEmployee(newEmployee);
-  router.push("/employee");
+  router.push("/see-all-members");
 };
 
 const isEligible = computed(() => {
@@ -107,17 +107,17 @@ const isEligible = computed(() => {
               :options="countryList"
               :isRequired="true"
             />
-            <Password
-              id="password"
-              v-model="employee.password"
-              label="Password:"
-              :isRequired="true"
-            />
             <Contact
               id="contact"
               v-model="employee.contact"
               label="Contact:"
               :selectCountry="employee.country"
+              :isRequired="true"
+            />
+            <Password
+              id="password"
+              v-model="employee.password"
+              label="Password:"
               :isRequired="true"
             />
             <button
