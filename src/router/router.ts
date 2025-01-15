@@ -16,6 +16,14 @@ const routes = [
     name: "Employee",
     component: () => import('../components/Employee.vue')
   },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../components/Profile.vue'),
+    props: (route: { params: { employee: string } }) => ({
+      employee: JSON.parse(route.params.employee),
+    }),
+  }  
 ];
 
 const router = createRouter({

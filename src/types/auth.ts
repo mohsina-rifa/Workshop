@@ -20,3 +20,8 @@ export type EmployeeValidate = {
   username: string;
   password: string;
 }
+
+export type Admin = {
+  username: string;
+  password: string;
+}

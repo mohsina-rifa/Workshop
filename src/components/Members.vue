@@ -51,7 +51,7 @@ const submitForm = () => {
   };
 
   employeeStore.addEmployee(newEmployee);
-  router.push("/see-all-members");
+  router.push({ name: 'profile', params: { employee: JSON.stringify(newEmployee) } });
 };
 
 const isEligible = computed(() => {
