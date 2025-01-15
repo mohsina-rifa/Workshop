@@ -15,3 +15,8 @@ export type EmployeeRecord = {
   contact: string;
   password: string;
 };
+
+export type EmployeeValidate = {
+  username: string;
+  password: string;
+}

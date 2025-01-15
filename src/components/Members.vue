@@ -2,7 +2,7 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 
-import type { Employee } from "../types/auth";
+import type { Employee } from "../types/auth.ts";
 
 import { useEmployeeStore } from "../stores/employeeStore";
 
