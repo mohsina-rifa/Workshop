@@ -12,15 +12,6 @@ import SelectCountry from "../reusable/SelectCountry.vue";
 import Password from "../reusable/Password.vue";
 import Contact from "../reusable/Contact.vue";
 
-const employee = ref<Employee>({
-  firstname: "",
-  lastname: "",
-  username: "",
-  country: "",
-  contact: "",
-  password: "",
-});
-
 const countryList = ref([
   "Afghanistan",
   "Bangladesh",
@@ -38,8 +29,21 @@ const placeHolders = ref({
   username: "e.g. khi0ne",
 });
 
+const employee = ref<Employee>({
+  firstname: "",
+  lastname: "",
+  username: "",
+  country: "",
+  contact: "",
+  password: "",
+});
+
 const employeeStore = useEmployeeStore();
 const router = useRouter();
+
+const isEligible = computed(() => {
+  return !Object.values(employee.value).some((value) => value === "");
+});
 
 const submitForm = () => {
   const newEmployee = {
@@ -51,12 +55,8 @@ const submitForm = () => {
   };
 
   employeeStore.addEmployee(newEmployee);
-  router.push({ name: 'profile', params: { employee: JSON.stringify(newEmployee) } });
+  router.push(`/profile/${newEmployee.username}`);
 };
-
-const isEligible = computed(() => {
-  return !Object.values(employee.value).some((value) => value === "");
-});
 </script>
 
 <template>

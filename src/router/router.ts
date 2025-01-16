@@ -19,10 +19,12 @@ const routes = [
   {
     path: '/profile',
     name: 'profile',
-    component: () => import('../components/Profile.vue'),
-    props: (route: { params: { employee: string } }) => ({
-      employee: JSON.parse(route.params.employee),
-    }),
+    component: () => import('../components/Profile.vue')
+  },
+  {
+    path: '/profile/:id',
+    name: 'profile',
+    component: () => import('../components/Profile.vue')
   }  
 ];
 
