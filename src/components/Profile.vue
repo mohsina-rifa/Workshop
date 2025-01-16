@@ -14,17 +14,6 @@ const selectedEmployee = computed(() =>
   )
 );
 
-const SAARCCountryCodes = new Map<string, string>([
-  ["Afghanistan", "+93"],
-  ["Bangladesh", "+880"],
-  ["Bhutan", "+975"],
-  ["India", "+91"],
-  ["Maldives", "+960"],
-  ["Nepal", "+977"],
-  ["Pakistan", "+92"],
-  ["Sri Lanka", "+94"],
-]);
-
 const router = useRouter();
 
 const returnHome = () => {
@@ -67,8 +56,8 @@ const returnHome = () => {
           <h5>
             <strong>Contact</strong
             >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
-              SAARCCountryCodes.get(selectedEmployee.country)
-            }}&nbsp;{{ selectedEmployee.contact }}
+              selectedEmployee.contact
+            }}
           </h5>
         </div>
         <div class="col-lg-7 d-flex justify-content-start align-items-center">

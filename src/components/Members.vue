@@ -2,7 +2,9 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 
-import type { Employee } from "../types/auth.ts";
+import axios from "axios";
+
+import type { Employee, EmployeeRecord } from "../types/auth.ts";
 
 import { useEmployeeStore } from "../stores/employeeStore";
 
@@ -41,22 +43,54 @@ const employee = ref<Employee>({
 const employeeStore = useEmployeeStore();
 const router = useRouter();
 
+const saveToDatabase = async (employeeData: EmployeeRecord) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/employees",
+      employeeData
+    );
+    console.log("Saved successfully:", response.data);
+  } catch (error) {
+    console.error("Error saving to database:", error);
+  }
+};
+
 const isEligible = computed(() => {
   return !Object.values(employee.value).some((value) => value === "");
 });
 
-const submitForm = () => {
-  const newEmployee = {
+const SAARCCountryCodes = new Map<string, string>([
+  ["Afghanistan", "+93"],
+  ["Bangladesh", "+880"],
+  ["Bhutan", "+975"],
+  ["India", "+91"],
+  ["Maldives", "+960"],
+  ["Nepal", "+977"],
+  ["Pakistan", "+92"],
+  ["Sri Lanka", "+94"],
+]);
+
+const submitForm = async () => {
+  const newEmployee: EmployeeRecord = {
     name: `${employee.value.firstname} ${employee.value.lastname}`,
     username: employee.value.username,
     country: employee.value.country,
-    contact: employee.value.contact,
+    contact: `${SAARCCountryCodes.get(employee.value.country)} ${employee.value.contact}`,
     password: employee.value.password,
   };
 
-  employeeStore.addEmployee(newEmployee);
-  router.push(`/profile/${newEmployee.username}`);
+  try {
+    await saveToDatabase(newEmployee);
+    employeeStore.addEmployee(newEmployee);
+
+    router.push(`/profile/${newEmployee.username}`);
+  } catch (error) {
+    console.error("Failed to submit the form:", error);
+  }
 };
+
+console.log("Contact:", employee.value.contact);
+
 </script>
 
 <template>
