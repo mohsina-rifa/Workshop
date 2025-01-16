@@ -4,15 +4,19 @@ import { useRouter } from "vue-router";
 
 import type { Admin } from "../types/auth.ts";
 
+import Username from "../reusable/Username.vue";
+
+const userNamePlaceHolder = "e.g. khi0ne";
+
 const admin = ref<Admin>({
   username: "admin",
-  password: "w0rksh0p@dmin"
+  password: "w0rksh0p@dmin",
 });
 
 const input = ref<Admin>({
   username: "",
-  password: ""
-})
+  password: "",
+});
 
 const isModalVisible = ref(false);
 
@@ -25,7 +29,7 @@ const validateModalInput = () => {
     admin.value.username === input.value?.username &&
     admin.value.password === input.value?.password
   );
-}
+};
 
 const router = useRouter();
 
@@ -82,13 +86,12 @@ const onSubmitModal = () => {
           <div class="modal-body">
             <form>
               <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input
-                  type="text"
+                <Username
                   id="username"
-                  class="form-control"
                   v-model="input.username"
-                  placeholder="e.g. khi0ne"
+                  label="Userame:"
+                  :isRequired="true"
+                  :placeHolder="userNamePlaceHolder"
                 />
               </div>
               <div class="mb-3">
