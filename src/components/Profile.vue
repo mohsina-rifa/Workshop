@@ -14,11 +14,22 @@ const selectedEmployee = computed(() =>
   )
 );
 
+const SAARCCountryCodes = new Map<string, string>([
+  ["Afghanistan", "+93"],
+  ["Bangladesh", "+880"],
+  ["Bhutan", "+975"],
+  ["India", "+91"],
+  ["Maldives", "+960"],
+  ["Nepal", "+977"],
+  ["Pakistan", "+92"],
+  ["Sri Lanka", "+94"],
+]);
+
 const router = useRouter();
 
 const returnHome = () => {
-  router.push('/');
-}
+  router.push("/");
+};
 </script>
 
 <template>
@@ -33,25 +44,31 @@ const returnHome = () => {
           />
           <div class="d-flex flex-column">
             <h2>{{ selectedEmployee.username }}</h2>
-            <p class="text-info">update your profile</p>
+            <p class="text-info">Change Password</p>
           </div>
         </div>
         <div class="col-lg-7 d-flex justify-content-start align-items-center">
           <h5>
             <strong>Name</strong
-            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ selectedEmployee.name }}
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
+              selectedEmployee.name
+            }}
           </h5>
         </div>
         <div class="col-lg-7 d-flex justify-content-start align-items-center">
           <h5>
             <strong>Country</strong
-            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ selectedEmployee.country }}
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
+              selectedEmployee.country
+            }}
           </h5>
         </div>
         <div class="col-lg-7 d-flex justify-content-start align-items-center">
           <h5>
             <strong>Contact</strong
-            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ selectedEmployee.contact }}
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
+              SAARCCountryCodes.get(selectedEmployee.country)
+            }}&nbsp;{{ selectedEmployee.contact }}
           </h5>
         </div>
         <div class="col-lg-7 d-flex justify-content-start align-items-center">
@@ -61,7 +78,13 @@ const returnHome = () => {
           </h5>
         </div>
         <div class="col-lg-6 d-flex justify-content-end">
-          <button type="button" class="btn btn-outline-danger" @click="returnHome">Log out</button>
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            @click="returnHome"
+          >
+            Log out
+          </button>
         </div>
       </div>
     </div>
