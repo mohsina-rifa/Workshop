@@ -9,7 +9,7 @@ const routes = [
   {
     path: "/join-the-community",
     name: "Join",
-    component: () => import('../components/Members.vue')
+    component: () => import('../components/SignUp.vue')
   },
   {
     path: "/see-all-members",

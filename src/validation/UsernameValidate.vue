@@ -45,9 +45,18 @@ if (props.touched) emit("update:touched", true);
 </script>
 
 <template>
-  <div>
-    <p class="text-danger" v-if="isUsernameNotValid && props.touched">
+  <div v-if="props.touched && isUsernameNotValid">
+    <p class="text-danger" v-if="props.minLength && props.maxLength">
       Username must have all alphanumeric characters and a length between {{ minLength }} and {{ maxLength }}.
+    </p>
+    <p class="text-danger" v-else-if="props.minLength">
+      Username must have all alphanumeric characters and a length of {{ minLength }} at least.
+    </p>
+    <p class="text-danger" v-else-if="props.maxLength">
+      Username must have all alphanumeric characters and a length of {{ maxLength }} at most.
+    </p>
+    <p class="text-danger" v-else>
+      Username must have all alphanumeric characters.
     </p>
   </div>
 </template>
