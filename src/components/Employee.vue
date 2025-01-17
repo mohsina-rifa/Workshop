@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useEmployeeStore } from "../stores/employeeStore";
-
-const employeeStore = useEmployeeStore();
+import { ref, onMounted } from "vue";
+import type { EmployeeRecord } from "../types/auth.ts";
+import axios from "axios";
 
 const SAARCCountryCodes = new Map<string, string>([
   ["Afghanistan", "+93"],
@@ -13,6 +13,17 @@ const SAARCCountryCodes = new Map<string, string>([
   ["Pakistan", "+92"],
   ["Sri Lanka", "+94"],
 ]);
+
+const employees = ref<EmployeeRecord[]>([]);
+
+onMounted(async () => {
+  try {
+    const response = await axios.get("http://localhost:3000/employees");
+    employees.value = response.data;
+  } catch (error) {
+    console.error("Failed to fetch employee data:", error);
+  }
+});
 </script>
 
 <template>
@@ -36,10 +47,7 @@ const SAARCCountryCodes = new Map<string, string>([
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="employee in employeeStore.getEmployeeList"
-            :key="employee.id"
-          >
+          <tr v-for="employee in employees" :key="employee.id">
             <td>{{ employee.id }}</td>
             <td>{{ employee.username }}</td>
             <td>{{ employee.name }}</td>

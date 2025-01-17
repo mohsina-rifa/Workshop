@@ -9,7 +9,7 @@ import Username from "../reusable/Username.vue";
 const userNamePlaceHolder = "e.g. khi0ne";
 
 const admin = ref<Admin>({
-  username: "admin",
+  username: "workshopadmin",
   password: "w0rksh0p@dmin",
 });
 
