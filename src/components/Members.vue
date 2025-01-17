@@ -72,6 +72,7 @@ const SAARCCountryCodes = new Map<string, string>([
 
 const submitForm = async () => {
   const newEmployee: EmployeeRecord = {
+    id: Date.now(),
     name: `${employee.value.firstname} ${employee.value.lastname}`,
     username: employee.value.username,
     country: employee.value.country,
