@@ -1,18 +1,27 @@
 <script setup lang="ts">
+import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useEmployeeStore } from "../stores/employeeStore.ts";
-import { computed } from "vue";
+
+const employeeData = ref<{
+  username: string;
+  name: string;
+  country: string;
+  contact: string;
+} | null>(null);
+
+onMounted(async () => {
+  try {
+    const response = await fetch(`http://localhost:3000/employees?username=${username}`);
+    const data = await response.json();
+    employeeData.value = data.length > 0 ? data[0] : null;
+  } catch (error) {
+    console.error("Failed to fetch employee data:", error);
+  }
+});
 
 const route = useRoute();
-const employeeStore = useEmployeeStore();
 
 const username = route.params.id;
-
-const selectedEmployee = computed(() =>
-  employeeStore.getEmployeeList.find(
-    (employee) => employee.username === username
-  )
-);
 
 const router = useRouter();
 
@@ -23,7 +32,7 @@ const returnHome = () => {
 
 <template>
   <section id="profile">
-    <div class="container-lg" v-if="selectedEmployee">
+    <div class="container-lg" v-if="employeeData">
       <div class="row justify-content-center my-5">
         <div class="col-lg-8 d-flex justify-content-start align-items-center">
           <img
@@ -32,7 +41,7 @@ const returnHome = () => {
             style="width: 250px; height: 250px; margin-right: 15px"
           />
           <div class="d-flex flex-column">
-            <h2>{{ selectedEmployee.username }}</h2>
+            <h2>{{ employeeData.username }}</h2>
             <p class="text-info">Change Password</p>
           </div>
         </div>
@@ -40,7 +49,7 @@ const returnHome = () => {
           <h5>
             <strong>Name</strong
             >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
-              selectedEmployee.name
+              employeeData.name
             }}
           </h5>
         </div>
@@ -48,7 +57,7 @@ const returnHome = () => {
           <h5>
             <strong>Country</strong
             >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
-              selectedEmployee.country
+              employeeData.country
             }}
           </h5>
         </div>
@@ -56,7 +65,7 @@ const returnHome = () => {
           <h5>
             <strong>Contact</strong
             >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
-              selectedEmployee.contact
+              employeeData.contact
             }}
           </h5>
         </div>
