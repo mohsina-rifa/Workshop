@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, inject, onMounted } from "vue";
+import type { Ref } from 'vue'
 
 const props = defineProps({
   password: {
@@ -16,33 +17,23 @@ const props = defineProps({
   },
 });
 
-const isPasswordNotValid = computed(() => {
-  // let passwordScore = [false, false, false, false, false];
-  // if (props.password.length >= 8) {
-  //   passwordScore[0] = true;
-  //   //props.isRequired already met here
-  // }
-
-  // for (let idx = 0; idx < props.password.length; idx++) {
-  //   const char = props.password[idx];
-
-  //   if (char >= "A" && char <= "Z") passwordScore[1] = true;
-  //   else if (char >= "a" && char <= "z") passwordScore[2] = true;
-  //   else if (char >= "0" && char <= "9") passwordScore[3] = true;
-  //   else passwordScore[4] = true;
-  // }
-
-  // for (let idx = 0; idx < passwordScore.length; idx++)
-  //   if (!passwordScore[idx]) return true;
-
-  // return false;
-
+const validationArray = inject<Ref<Array<Function>>>("checkAllFieldValidate");
+  
+const passwordValidate = () => {
   if (!props.password) {
-    return true;
+    return false;
   } else {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
-    return !passwordRegex.test(props.password);
+    return passwordRegex.test(props.password);
   }
+}
+
+onMounted(() => {
+  validationArray?.value.push(passwordValidate);
+});
+
+const isPasswordNotValid = computed(() => {
+  return !passwordValidate();
 });
 
 const emit = defineEmits(["update:touched"]);

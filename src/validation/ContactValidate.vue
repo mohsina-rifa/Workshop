@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, inject, onMounted } from "vue";
+import type { Ref } from "vue";
 
 const props = defineProps({
   contact: {
@@ -31,21 +32,33 @@ const SAARCCountryContactLength = new Map<string, Number>([
   ["+94", 7],
 ]);
 
-const isContactNotValid = computed(() => {
-  let isNotDigit;
+const validationArray = inject<Ref<Array<Function>>>("checkAllFieldValidate");
 
-  if (props.countryCode && props.contact) {
+const contactValidate = () => {
+  if (!props.touched) {
+    return false;
+  } else {
+    let isNotDigit;
+
     const validContactRegex = /[^0-9+]/;
     isNotDigit = validContactRegex.test(props.contact)
-  }
 
-  const requiredDigits =
-    props.countryCode && SAARCCountryContactLength.get(props.countryCode);
-  //already requirement satisfied
-  return (
-    props.contact.length != requiredDigits ||
-    isNotDigit
-  );
+    const requiredDigits =
+      props.countryCode && SAARCCountryContactLength.get(props.countryCode);
+    //already requirement satisfied
+    return !(
+      props.contact.length != requiredDigits ||
+      isNotDigit
+    );
+  }
+};
+
+onMounted(() => {
+  validationArray?.value.push(contactValidate);
+});
+
+const isContactNotValid = computed(() => {
+  return !contactValidate();
 });
 
 const emit = defineEmits(["update:touched"]);

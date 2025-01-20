@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {computed, inject, onMounted, type Ref} from "vue";
+import { computed, inject, onMounted } from "vue";
+import type { Ref } from "vue";
 
 const props = defineProps({
   name: {
@@ -27,23 +28,24 @@ const props = defineProps({
 const validationArray = inject<Ref<Array<Function>>>("checkAllFieldValidate");
 
 const nameValidate = () => {
-  let isNotAlphabet;
+  if (!props.name) {
+    return false;
+  } else {
+    let isNotAlphabet;
 
-  if (props.name) {
     const nonAlphabetRegex = /[^a-zA-Z]/;
     isNotAlphabet = nonAlphabetRegex.test(props.name);
-  }
 
-  return !(
-    (props.minLength && props.name.length < props.minLength) ||
-    (props.maxLength && props.name.length > props.maxLength) ||
-    (props.isRequired && !props.name.length) ||
-    (isNotAlphabet)
-  );
-}
+    return !(
+      (props.minLength && props.name.length < props.minLength) ||
+      (props.maxLength && props.name.length > props.maxLength) ||
+      (props.isRequired && !props.name.length) ||
+      isNotAlphabet
+    );
+  }
+};
 
 onMounted(() => {
-  // console.log(validationArray, 'validationArray');
   validationArray?.value.push(nameValidate);
 });
 
@@ -58,17 +60,18 @@ if (props.touched) emit("update:touched", true);
 <template>
   <div v-if="isNameNotValid && props.touched">
     <p class="text-danger" v-if="props.minLength && props.maxLength">
-      Name must have all alphabetic characters and a length between {{ minLength }} and {{ maxLength }}.
+      Name must have all alphabetic characters and a length between
+      {{ minLength }} and {{ maxLength }}.
     </p>
     <p class="text-danger" v-else-if="props.minLength">
-      Name must have all alphabetic characters and a length of {{ minLength }} at least.
+      Name must have all alphabetic characters and a length of
+      {{ minLength }} at least.
     </p>
     <p class="text-danger" v-else-if="props.maxLength">
-      Name must have all alphabetic characters and a length of {{ maxLength }} at most.
+      Name must have all alphabetic characters and a length of
+      {{ maxLength }} at most.
     </p>
-    <p class="text-danger" v-else>
-      Name must have all alphabetic characters.
-    </p>
+    <p class="text-danger" v-else>Name must have all alphabetic characters.</p>
   </div>
 </template>
 

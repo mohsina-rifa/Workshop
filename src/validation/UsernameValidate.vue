@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, inject, onMounted } from "vue";
+import type { Ref } from 'vue'
 
 const props = defineProps({
   username: {
@@ -24,20 +25,32 @@ const props = defineProps({
   },
 });
 
-const isUsernameNotValid = computed(() => {
-  let isNotAlphaNumeric;
+const validationArray = inject<Ref<Array<Function>>>("checkAllFieldValidate");
+  
+const usernameValidate = () => {
+  if (!props.username) {
+    return false;
+  } else {
+    let isNotAlphaNumeric;
 
-  if (props.username) {
     const nonAlphaNumericRegex = /[^0-9A-Za-z]/;
     isNotAlphaNumeric = nonAlphaNumericRegex.test(props.username);
-  }
 
-  return (
-    (props.minLength && props.username.length < props.minLength) ||
-    (props.maxLength && props.username.length > props.maxLength) ||
-    (props.isRequired && !props.username.length) ||
-    (isNotAlphaNumeric)
-  );
+    return !(
+      (props.minLength && props.username.length < props.minLength) ||
+      (props.maxLength && props.username.length > props.maxLength) ||
+      (props.isRequired && !props.username.length) ||
+      (isNotAlphaNumeric)
+    );
+  }
+}
+
+onMounted(() => {
+  validationArray?.value.push(usernameValidate);
+});
+
+const isUsernameNotValid = computed(() => {
+  return !usernameValidate();
 });
 
 const emit = defineEmits(["update:touched"]);

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, inject, onMounted } from "vue";
+import type { Ref } from "vue";
 
 const props = defineProps({
   touched: {
@@ -12,8 +13,22 @@ const props = defineProps({
   },
 });
 
+const validationArray = inject<Ref<Array<Function>>>("checkAllFieldValidate");
+
+const countryValidate = () => {
+  if (!props.touched) {
+    return false;
+  } else {
+    return !(props.isRequired && !props.touched);
+  }
+};
+
+onMounted(() => {
+  validationArray?.value.push(countryValidate);
+});
+
 const isCountryNotValid = computed(() => {
-  return props.isRequired && !props.touched;
+  return !countryValidate();
 });
 
 const emit = defineEmits(["update:touched"]);

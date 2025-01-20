@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, provide } from "vue";
+import { ref, provide } from "vue";
 import { useRouter } from "vue-router";
 
 import axios from "axios";
@@ -54,10 +54,6 @@ const saveToDatabase = async (employeeData: EmployeeRecord) => {
     console.error("Error saving to database:", error);
   }
 };
-
-const isEligible = computed(() => {
-  return !Object.values(employee.value).some((value) => value === "");
-});
 
 const SAARCCountryCodes = new Map<string, string>([
   ["Afghanistan", "+93"],
@@ -171,7 +167,7 @@ const submitForm = async () => {
               data-mdb-button-init
               data-mdb-ripple-init
               class="btn btn-lg btn-block"
-              :class="isEligible ? 'btn-success' : 'btn-warning'"
+              :class="isAllFieldValid() ? 'btn-success' : 'btn-warning'"
               type="button"
               @click="submitForm"
             >
