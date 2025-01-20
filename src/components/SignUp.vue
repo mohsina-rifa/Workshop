@@ -74,14 +74,14 @@ const checkAllFieldValidate = ref([]);
 
 provide('checkAllFieldValidate', checkAllFieldValidate);
 
-const isAllFieldValid = computed(() => {
+const isAllFieldValid = () => {
   return checkAllFieldValidate.value.every((field: Function) => {
     return field();
   });
-});
+};
 
 const submitForm = async () => {
-  if(!isAllFieldValid.value) {
+  if(!isAllFieldValid()) {
     alert("Please fill all the fields correctly.");
     return;
   }
