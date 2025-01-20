@@ -74,7 +74,18 @@ const checkAllFieldValidate = ref([]);
 
 provide('checkAllFieldValidate', checkAllFieldValidate);
 
+const isAllFieldValid = computed(() => {
+  return checkAllFieldValidate.value.every((field: Function) => {
+    return field();
+  });
+});
+
 const submitForm = async () => {
+  if(!isAllFieldValid.value) {
+    alert("Please fill all the fields correctly.");
+    return;
+  }
+
   const newEmployee: EmployeeRecord = {
     id: crypto.randomUUID(),
     name: `${employee.value.firstname} ${employee.value.lastname}`,
@@ -162,7 +173,6 @@ const submitForm = async () => {
               class="btn btn-lg btn-block"
               :class="isEligible ? 'btn-success' : 'btn-warning'"
               type="button"
-              :disabled="!isEligible"
               @click="submitForm"
             >
               Submit!

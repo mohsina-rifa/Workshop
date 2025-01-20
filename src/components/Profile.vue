@@ -17,7 +17,6 @@ const id = route.params.id;
 onMounted(async () => {
   try {
     const response = await Axios.get(`employees/${id}`);
-    console.log(response);
     employeeData.value = response.data;
   } catch (error) {
     console.error("Failed to fetch employee data:", error);

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, onMounted } from "vue";
+import {computed, inject, onMounted, type Ref} from "vue";
 
 const props = defineProps({
   name: {
@@ -24,7 +24,7 @@ const props = defineProps({
   },
 });
 
-const validationArray = inject('checkAllFieldValidate');
+const validationArray = inject<Ref<Array<Function>>>("checkAllFieldValidate");
 
 const nameValidate = () => {
   let isNotAlphabet;
@@ -43,7 +43,8 @@ const nameValidate = () => {
 }
 
 onMounted(() => {
-  validationArray?.push(nameValidate);
+  // console.log(validationArray, 'validationArray');
+  validationArray?.value.push(nameValidate);
 });
 
 const isNameNotValid = computed(() => {
