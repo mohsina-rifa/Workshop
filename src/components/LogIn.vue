@@ -1,17 +1,11 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useToast, POSITION } from "vue-toastification";
 
 import type { EmployeeValidate, EmployeeRecord } from "../types/auth.ts";
 
 import axios from "axios";
-
-import Username from "../reusable/Username.vue";
-import Password from "../reusable/Password.vue";
-
-const placeHolders = ref({
-  username: "e.g. khi0ne",
-});
 
 const employee = ref<EmployeeValidate>({
   username: "",
@@ -42,15 +36,25 @@ const matchWithDatabase = () => {
 };
 
 const router = useRouter();
+const toast = useToast();
 
 const submitForm = async () => {
-  console.log(matchWithDatabase(), 'matching'); 
+  console.log(matchWithDatabase(), "matching");
   if (matchWithDatabase()) {
     const userID = matchWithDatabase()?.id;
 
+    toast.success("Successfully logged in!", {
+      position: POSITION.TOP_RIGHT,
+      timeout: 3000,
+    });
+
     router.push(`/profile/${userID}`);
   } else {
-    alert('username or password does not match!')
+    toast.error("username/password doesn't match!", {
+      position: POSITION.TOP_RIGHT,
+      timeout: 3000,
+    });
+
     router.push("/resume-your-progress");
 
     employee.value.username = "";
@@ -70,30 +74,43 @@ const submitForm = async () => {
       <div class="row justify-content-center my-5">
         <div class="col-lg-6">
           <form>
-            <Username
-              id="username"
-              v-model="employee.username"
-              label="Userame:"
-              :isRequired="true"
-              :placeHolder="placeHolders.username"
-            />
-            <Password
-              id="password"
-              v-model="employee.password"
-              label="Password:"
-              :isRequired="true"
-            />
-            <button
-              data-mdb-button-init
-              data-mdb-ripple-init
-              class="btn btn-lg btn-block"
-              :class="isEligible ? 'btn-success' : 'btn-warning'"
-              type="button"
-              :disabled="!isEligible"
-              @click="submitForm"
-            >
-              Log In!
-            </button>
+            <div>
+              <label for="username" class="form-label"> Username: </label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="e.g. khi0ne"
+                  v-model="employee.username"
+                />
+              </div>
+            </div>
+            <br/>
+            <div>
+              <label for="password" class="form-label">Password:</label>
+              <div class="input-group">
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="********"
+                  v-model="employee.password"
+                />
+              </div>
+            </div>
+            <br/>
+            <div>
+              <button
+                data-mdb-button-init
+                data-mdb-ripple-init
+                class="btn btn-lg btn-block"
+                :class="isEligible ? 'btn-success' : 'btn-warning'"
+                type="button"
+                :disabled="!isEligible"
+                @click="submitForm"
+              >
+                Log In!
+              </button>
+            </div>
           </form>
         </div>
       </div>

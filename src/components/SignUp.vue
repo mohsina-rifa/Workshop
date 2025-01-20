@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, provide } from "vue";
 import { useRouter } from "vue-router";
+import { useToast, POSITION } from "vue-toastification";
 
 import axios from "axios";
 
@@ -41,19 +42,9 @@ const employee = ref<Employee>({
 });
 
 const employeeStore = useEmployeeStore();
-const router = useRouter();
 
-const saveToDatabase = async (employeeData: EmployeeRecord) => {
-  try {
-    const response = await axios.post(
-      "http://localhost:3000/employees",
-      employeeData
-    );
-    console.log("Saved successfully:", response.data);
-  } catch (error) {
-    console.error("Error saving to database:", error);
-  }
-};
+const router = useRouter();
+const toast = useToast();
 
 const SAARCCountryCodes = new Map<string, string>([
   ["Afghanistan", "+93"],
@@ -76,9 +67,25 @@ const isAllFieldValid = () => {
   });
 };
 
+const saveToDatabase = async (employeeData: EmployeeRecord) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/employees",
+      employeeData
+    );
+    console.log("Saved successfully:", response.data);
+  } catch (error) {
+    console.error("Error saving to database:", error);
+  }
+};
+
 const submitForm = async () => {
   if(!isAllFieldValid()) {
-    alert("Please fill all the fields correctly.");
+    toast.error("invalid fields!", {
+      position: POSITION.TOP_RIGHT,
+      timeout: 3000,
+    });
+
     return;
   }
 
@@ -94,6 +101,11 @@ const submitForm = async () => {
   try {
     await saveToDatabase(newEmployee);
     employeeStore.addEmployee(newEmployee);
+
+    toast.success("Successfully logged in!", {
+      position: POSITION.TOP_RIGHT,
+      timeout: 3000,
+    });
 
     router.push(`/profile/${newEmployee.id}`);
   } catch (error) {
