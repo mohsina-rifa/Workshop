@@ -8,7 +8,7 @@ export type Employee = {
 };
 
 export type EmployeeRecord = {
-  id: number;
+  id: string;
   username: string;
   name: string;
   country: string;

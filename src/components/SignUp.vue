@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, provide } from "vue";
 import { useRouter } from "vue-router";
 
 import axios from "axios";
@@ -70,9 +70,13 @@ const SAARCCountryCodes = new Map<string, string>([
   ["Sri Lanka", "+94"],
 ]);
 
+const checkAllFieldValidate = ref([]);
+
+provide('checkAllFieldValidate', checkAllFieldValidate);
+
 const submitForm = async () => {
   const newEmployee: EmployeeRecord = {
-    id: Date.now(),
+    id: crypto.randomUUID(),
     name: `${employee.value.firstname} ${employee.value.lastname}`,
     username: employee.value.username,
     country: employee.value.country,
@@ -84,14 +88,11 @@ const submitForm = async () => {
     await saveToDatabase(newEmployee);
     employeeStore.addEmployee(newEmployee);
 
-    router.push(`/profile/${newEmployee.username}`);
+    router.push(`/profile/${newEmployee.id}`);
   } catch (error) {
     console.error("Failed to submit the form:", error);
   }
 };
-
-console.log("Contact:", employee.value.contact);
-
 </script>
 
 <template>

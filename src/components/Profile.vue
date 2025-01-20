@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { Axios } from "../service/axios";
 
 const employeeData = ref<{
   username: string;
@@ -9,19 +10,19 @@ const employeeData = ref<{
   contact: string;
 } | null>(null);
 
+const route = useRoute();
+
+const id = route.params.id;
+
 onMounted(async () => {
   try {
-    const response = await fetch(`http://localhost:3000/employees?username=${username}`);
-    const data = await response.json();
-    employeeData.value = data.length > 0 ? data[0] : null;
+    const response = await Axios.get(`employees/${id}`);
+    console.log(response);
+    employeeData.value = response.data;
   } catch (error) {
     console.error("Failed to fetch employee data:", error);
   }
 });
-
-const route = useRoute();
-
-const username = route.params.id;
 
 const router = useRouter();
 

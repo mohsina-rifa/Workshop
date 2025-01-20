@@ -7,7 +7,7 @@ export const useEmployeeStore = defineStore("employeeStore", {
   }),
 
   actions: {
-    addEmployee(employee: { id: number, username: string, name: string, country: string, contact: string, password: string }) {
+    addEmployee(employee: EmployeeRecord) {
       const newEmployee: EmployeeRecord = {
         ...employee,
       };

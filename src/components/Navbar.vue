@@ -58,6 +58,11 @@ const onSubmitModal = () => {
           >
         </li>
         <li class="nav-item">
+          <router-link to="/resume-your-progress" class="nav-link"
+            >Resume Your Progress</router-link
+          >
+        </li>
+        <li class="nav-item">
           <router-link to="/" class="nav-link" @click="openModal()"
             >See All Members</router-link
           >

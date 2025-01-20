@@ -14,6 +14,10 @@
         <router-link to="/join-the-community" class="btn btn-info btn-lg"
           >Sign up</router-link
         >
+        <p class="mt-3">
+          Already a member?
+          <router-link to="/resume-your-progress">Log in!</router-link>
+        </p>
       </div>
       <div class="col-md-5 text-center d-none d-md-block">
         <img class="img-fluid" src="../assets/workshop.svg" alt="workshop" />

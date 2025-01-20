@@ -12,14 +12,14 @@ const routes = [
     component: () => import('../components/SignUp.vue')
   },
   {
+    path: "/resume-your-progress",
+    name: "Resume",
+    component: () => import('../components/LogIn.vue')
+  },
+  {
     path: "/see-all-members",
     name: "Employee",
     component: () => import('../components/Employee.vue')
-  },
-  {
-    path: '/profile',
-    name: 'profile',
-    component: () => import('../components/Profile.vue')
   },
   {
     path: '/profile/:id',
