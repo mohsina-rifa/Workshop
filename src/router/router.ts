@@ -25,7 +25,12 @@ const routes = [
     path: '/profile/:id',
     name: 'profile',
     component: () => import('../components/Profile.vue')
-  }  
+  },
+  {
+    path: "/board",
+    name: "Board",
+    component: () => import('../components/KanbanBoard.vue')
+  }
 ];
 
 const router = createRouter({
