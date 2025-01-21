@@ -1,4 +1,27 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
+
+import { Axios } from "../service/axios";
+
+import type { Task } from "../interfaces/taskInterface";
+import type { TaskDetail } from "../types/auth";
+
+const tasks = ref<Task[]>([]);
+
+const newTask = ref<TaskDetail>({
+  taskTitle: "",
+  taskPriority: "low",
+});
+
+onMounted(async () => {
+  try {
+    const response = await Axios.get("/tasks");
+    tasks.value = response.data;
+  } catch (error) {
+    console.error("Error fetching tasks:", error);
+  }
+});
+</script>
 
 <template>
   <div class="container-fluid py-4">
@@ -12,13 +35,16 @@
             type="text"
             class="form-control mb-2"
             placeholder="New task title"
+            v-model="newTask.taskTitle"
           />
           <select class="form-select mb-2">
             <option value="low">Low Priority</option>
             <option value="medium">Medium Priority</option>
             <option value="high">High Priority</option>
           </select>
-          <button class="btn btn-primary btn-sm w-100">Add Task</button>
+          <button class="btn btn-primary btn-sm w-100">
+            Add Task
+          </button>
         </div>
       </div>
       <div class="kanban-column" id="in-progress">

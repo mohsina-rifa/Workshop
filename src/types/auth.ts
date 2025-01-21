@@ -25,3 +25,8 @@ export type Admin = {
   username: string;
   password: string;
 }
+
+export type TaskDetail = {
+  taskTitle: string;
+  taskPriority: string;
+}

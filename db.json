@@ -17,5 +17,24 @@
       "password": "Pass130#"
     }
   ],
-  "tasks": []
+  "tasks": [
+    {
+      "id": "b3d6e32d-d0f9-4f06-a426-30102dc3d1a0",
+      "title": "Navbar Design",
+      "description": "this is description",
+      "category_id": 1
+    }
+  ],
+  "task_category": [
+    {
+      "id": 1,
+      "title": "To-Do",
+      "key": "todo"
+    },
+    {
+      "id": 2,
+      "title": "In Progress",
+      "key": "in_progress"
+    }
+  ]
 }
