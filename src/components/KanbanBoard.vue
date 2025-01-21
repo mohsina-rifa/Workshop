@@ -1,14 +1,12 @@
-<script setup lang="ts">
-//logic here
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="container-fluid py-4">
     <h1 class="text-center mb-4">My To-Do List</h1>
     <div class="kanban-board justify-content-center">
-      <div class="kanban-column" id="todo">
+      <div class="kanban-column" id="assigned">
         <h4>Assigned</h4>
-        <div class="tasks" data-status="todo"></div>
+        <div class="tasks" data-status="assigned"></div>
         <div class="add-task-form">
           <input
             type="text"
@@ -27,13 +25,13 @@
         <h4>In Progress</h4>
         <div class="tasks" data-status="in-progress"></div>
       </div>
-      <div class="kanban-column" id="done">
+      <div class="kanban-column" id="completed">
         <h4>Completed</h4>
-        <div class="tasks" data-status="done"></div>
+        <div class="tasks" data-status="completed"></div>
       </div>
-      <div class="kanban-column" id="done">
+      <div class="kanban-column" id="unsuccessful">
         <h4>Unsuccessful</h4>
-        <div class="tasks" data-status="done"></div>
+        <div class="tasks" data-status="unsuccessful"></div>
       </div>
     </div>
   </div>
