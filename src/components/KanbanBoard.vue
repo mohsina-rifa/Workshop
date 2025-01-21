@@ -39,4 +39,32 @@
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container-fluid {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.kanban-board {
+  display: flex;
+  overflow-x: auto;
+  padding: 20px 0;
+}
+
+.kanban-column {
+  min-width: 300px;
+  max-width: 300px;
+  margin: 0 15px;
+  background-color: #ebecf0;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.kanban-column h4 {
+  margin-bottom: 20px;
+  padding: 10px;
+  text-align: center;
+  background-color: #d3e4ff;
+  border-radius: 5px;
+}
+</style>
