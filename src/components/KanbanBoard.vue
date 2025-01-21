@@ -9,7 +9,9 @@ import type { TaskDetail } from "../types/auth";
 const tasks = ref<Task[]>([]);
 
 const newTask = ref<TaskDetail>({
+  taskID: "",
   taskTitle: "",
+  taskStatus: "",
   taskPriority: "low",
 });
 
@@ -21,6 +23,39 @@ onMounted(async () => {
     console.error("Error fetching tasks:", error);
   }
 });
+
+const priorityValue = ref("");
+
+const addTask = async () => {
+  const newTaskData: Task = {
+    id: crypto.randomUUID(),
+    title: newTask.value.taskTitle,
+    status: "assigned",
+    priority: newTask.value.taskPriority as "low" | "medium" | "high"
+  };
+
+  if (priorityValue.value === "low") {
+    newTaskData.priority = newTask.value.taskPriority as "low";
+  } else if (priorityValue.value === "medium") {
+    newTaskData.priority = newTask.value.taskPriority as "medium";
+  } else if (priorityValue.value === "high") {
+    newTaskData.priority = newTask.value.taskPriority as "high";
+  } else {
+    throw new Error("Invalid priority value.");
+  }
+
+  try {
+    await Axios.post("/tasks", newTaskData);
+    tasks.value.push(newTaskData);
+
+    newTask.value.taskID = "";
+    newTask.value.taskTitle = "";
+    newTask.value.taskStatus = "";
+    newTask.value.taskPriority = "low";
+  } catch (error) {
+    console.error("Error adding task:", error);
+  }
+};
 </script>
 
 <template>
@@ -37,12 +72,12 @@ onMounted(async () => {
             placeholder="New task title"
             v-model="newTask.taskTitle"
           />
-          <select class="form-select mb-2">
+          <select class="form-select mb-2" v-model="priorityValue">
             <option value="low">Low Priority</option>
             <option value="medium">Medium Priority</option>
             <option value="high">High Priority</option>
           </select>
-          <button class="btn btn-primary btn-sm w-100">
+          <button class="btn btn-primary btn-sm w-100" @click="addTask">
             Add Task
           </button>
         </div>
