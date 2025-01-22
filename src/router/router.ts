@@ -28,9 +28,9 @@ const routes = [
   },
   {
     path: '/see-your-board',
-    name: 'board',
-    component: () => import('../components/KanbanBoard.vue')
-  }  
+    name: 'Board',
+    component: () => import('../components/ToDoBoard.vue')
+  }
 ];
 
 const router = createRouter({
