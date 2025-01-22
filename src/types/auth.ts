@@ -29,6 +29,6 @@ export type Admin = {
 export type TaskDetail = {
   taskID: string;
   taskTitle: string;
+  taskDescription: string;
   taskStatus: string;
-  taskPriority: string;
 }

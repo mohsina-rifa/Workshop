@@ -25,6 +25,11 @@ const routes = [
     path: '/profile/:id',
     name: 'profile',
     component: () => import('../components/Profile.vue')
+  },
+  {
+    path: '/see-your-board',
+    name: 'board',
+    component: () => import('../components/KanbanBoard.vue')
   }  
 ];
 

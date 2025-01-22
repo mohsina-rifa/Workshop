@@ -19,30 +19,31 @@
   ],
   "tasks": [
     {
-      "id": "b3d6e32d-d0f9-4f06-a426-30102dc3d1a0",
-      "title": "Navbar Design",
-      "description": "this is description",
-      "status_id": 1
+      "id": "1374",
+      "taskID": "e6938370-805e-4cb3-be33-960c645d8a98",
+      "taskTitle": "Add Modal",
+      "taskDescription": "We add modal",
+      "taskStatus": "assigned"
     }
   ],
   "task_status": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Assigned",
       "key": "assigned"
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "In Progress",
       "key": "in_progress"
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Completed",
       "key": "completed"
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "Unsuccessful",
       "key": "unsuccessful"
     }

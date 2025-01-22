@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import KanbanBoard from './components/KanbanBoard.vue';
 import Navbar from './components/Navbar.vue';
 
 
@@ -8,7 +7,6 @@ import Navbar from './components/Navbar.vue';
 <template>
   <Navbar />
   <router-view /> 
-  <KanbanBoard />
 </template>
 
 <style scoped></style>
