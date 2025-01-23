@@ -17,7 +17,7 @@ export const useTaskStore = defineStore("taskStore", {
           `${import.meta.env.VITE_APP_API_BASE_URL}tasks`,
           task
         );
-        this.taskList.push(response.data); 
+        this.taskList.push(response.data);
         console.log("Task added:", response.data);
       } catch (error) {
         console.error("Error adding task:", error);
@@ -34,6 +34,27 @@ export const useTaskStore = defineStore("taskStore", {
         `${import.meta.env.VITE_APP_API_BASE_URL}tasks`
       );
       this.taskList = response.data;
+    },
+    async updateTaskStatus(taskID: string, newStatus: string) {
+      try {
+        const response = await axios.put(
+          `${import.meta.env.VITE_APP_API_BASE_URL}tasks/${taskID}`,
+          {
+            taskStatus: newStatus,
+          }
+        );
+
+        const taskIndex = this.taskList.findIndex(
+          (task) => task.taskID === taskID
+        );
+        if (taskIndex !== -1) {
+          this.taskList[taskIndex].taskStatus = newStatus;
+        }
+
+        console.log("Task status updated:", response.data);
+      } catch (error) {
+        console.error("Error updating task status:", error);
+      }
     },
   },
 
