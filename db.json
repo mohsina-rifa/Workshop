@@ -21,9 +21,30 @@
     {
       "id": "1374",
       "taskID": "e6938370-805e-4cb3-be33-960c645d8a98",
-      "taskTitle": "Add Modal",
-      "taskDescription": "We add modal",
+      "taskTitle": "Input via Modal",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
       "taskStatus": "assigned"
+    },
+    {
+      "id": "1374",
+      "taskID": "e6938370-805e-4cb3-be33-960c645d8a98",
+      "taskTitle": "Add Modal",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "inprogress"
+    },
+    {
+      "id": "1374",
+      "taskID": "e6938370-805e-4cb3-be33-960c645d8a98",
+      "taskTitle": "Fetch Data",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "completed"
+    },
+    {
+      "id": "1374",
+      "taskID": "e6938370-805e-4cb3-be33-960c645d8a98",
+      "taskTitle": "Admin Verification",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "unsuccessful"
     }
   ],
   "task_status": [
@@ -35,7 +56,7 @@
     {
       "id": "2",
       "title": "In Progress",
-      "key": "in_progress"
+      "key": "inprogress"
     },
     {
       "id": "3",

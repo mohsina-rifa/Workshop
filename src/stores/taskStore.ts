@@ -4,7 +4,7 @@ import axios from "axios";
 
 import type { TaskDetail } from "../types/auth";
 
-export const usetaskStore = defineStore("taskStore", {
+export const useTaskStore = defineStore("taskStore", {
   state: () => ({
     taskList: [] as TaskDetail[],
     statuses: [] as Array<{ id: number; title: string; key: string }>,
