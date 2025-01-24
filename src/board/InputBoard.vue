@@ -1,10 +1,35 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
+import type { TaskDetail } from "../types/auth";
+
+import { useTaskStore } from "../stores/taskStore";
+
 const props = defineProps({
   isVisible: {
     type: Boolean,
     required: true,
   },
 });
+
+const newTask = ref<TaskDetail>({
+  taskID: crypto.randomUUID(),
+  taskTitle: "",
+  taskDescription: "",
+  taskStatus: "assigned",
+});
+
+const taskStore = useTaskStore();
+
+const createTask = async () => {
+  if (newTask.value.taskTitle && newTask.value.taskDescription) {
+    await taskStore.addTask(newTask.value);
+    await taskStore.fetchTasks();
+    emit('close');
+  } else {
+    alert("Please enter both task title and description.");
+  }
+};
 
 const emit = defineEmits(["close"]);
 </script>
@@ -26,11 +51,15 @@ const emit = defineEmits(["close"]);
             type="text"
             class="form-control"
             placeholder="Enter task title"
+            v-model="newTask.taskTitle"
+            required
           />
           <textarea
             class="form-control mb-2"
             placeholder="Enter task description"
+            v-model="newTask.taskDescription"
             rows="3"
+            required
           />
         </div>
         <div class="modal-footer">
@@ -41,11 +70,18 @@ const emit = defineEmits(["close"]);
           >
             Close
           </button>
-          <button type="button" class="btn btn-primary">Save Task</button>
+          <button type="button" class="btn btn-primary" @click="createTask">
+            Save Task
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.modal {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+</style>

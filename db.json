@@ -22,49 +22,63 @@
       "taskID": "e6938370-805e-4cb3-be33-960c645d8a92",
       "taskTitle": "Input via Modal",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "assigned"
+      "taskStatus": "assigned",
+      "id": "1296"
     },
     {
       "taskID": "e6938370-805e-4cb3-be33-960c645d8a93",
       "taskTitle": "Include Modal Component",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "assigned"
+      "taskStatus": "assigned",
+      "id": "7bf0"
     },
     {
       "taskID": "e6938370-805e-4cb3-be33-960c645d8a94",
       "taskTitle": "Add Modal",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "inprogress"
+      "taskStatus": "inprogress",
+      "id": "0f6d"
     },
     {
       "taskID": "e6938370-805e-4cb3-be33-960c645d8a95",
       "taskTitle": "Bind Modal-Data",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "inprogress"
+      "taskStatus": "inprogress",
+      "id": "16bc"
     },
     {
       "taskID": "e6938370-805e-4cb3-be33-960c645d8a96",
       "taskTitle": "Fetch Data",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "completed"
+      "taskStatus": "completed",
+      "id": "d655"
     },
     {
       "taskID": "e6938370-805e-4cb3-be33-960c645d8a97",
       "taskTitle": "Save to Database",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "completed"
+      "taskStatus": "completed",
+      "id": "faa8"
     },
     {
       "taskID": "e6938370-805e-4cb3-be33-960c645d8a98",
       "taskTitle": "Admin Verification",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "unsuccessful"
+      "taskStatus": "unsuccessful",
+      "id": "de50"
     },
     {
       "taskID": "e6938370-805e-4cb3-be33-960c645d8a99",
       "taskTitle": "Restricted Routing",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "unsuccessful"
+      "taskStatus": "unsuccessful",
+      "id": "b991"
+    },
+    {
+      "taskID": "3d519217-287f-4b17-9150-8f07e885e2bb",
+      "taskTitle": "Seperate input-output logic",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "assigned"
     }
   ],
   "task_status": [

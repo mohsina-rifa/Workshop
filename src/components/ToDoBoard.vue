@@ -10,7 +10,7 @@ const openModal = () => {
   isModalVisible.value = true;
 };
 
-const closeModal = () => {
+const closeModal = async () => {
   isModalVisible.value = false;
 };
 </script>
@@ -44,10 +44,5 @@ const closeModal = () => {
 
 .d-flex button {
   margin-right: 300px;
-}
-
-.modal {
-  display: block;
-  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>
