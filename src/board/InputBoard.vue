@@ -26,6 +26,7 @@ const createTask = async () => {
     await taskStore.addTask(newTask.value);
     await taskStore.fetchTasks();
     emit('close');
+    window.location.reload();
   } else {
     alert("Please enter both task title and description.");
   }
