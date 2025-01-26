@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useToast, POSITION } from "vue-toastification";
 
 import type { TaskDetail } from "../types/auth";
 
@@ -20,15 +21,19 @@ const newTask = ref<TaskDetail>({
 });
 
 const taskStore = useTaskStore();
+const toast = useToast();
 
 const createTask = async () => {
   if (newTask.value.taskTitle && newTask.value.taskDescription) {
     await taskStore.addTask(newTask.value);
     await taskStore.fetchTasks();
-    emit('close');
+    emit("close");
     window.location.reload();
   } else {
-    alert("Please enter both task title and description.");
+    toast.error("Fields cannot be empty!", {
+      position: POSITION.TOP_RIGHT,
+      timeout: 3000,
+    });
   }
 };
 
@@ -41,11 +46,7 @@ const emit = defineEmits(["close"]);
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Add New Task</h5>
-          <button
-            type="button"
-            class="btn-close"
-            @click="emit('close')"
-          ></button>
+          <button type="button" class="btn-close" @click="emit('close')"></button>
         </div>
         <div class="modal-body">
           <input
@@ -64,11 +65,7 @@ const emit = defineEmits(["close"]);
           />
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            @click="emit('close')"
-          >
+          <button type="button" class="btn btn-secondary" @click="emit('close')">
             Close
           </button>
           <button type="button" class="btn btn-primary" @click="createTask">
