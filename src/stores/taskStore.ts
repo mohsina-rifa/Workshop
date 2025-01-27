@@ -29,9 +29,9 @@ export const useTaskStore = defineStore("taskStore", {
       );
       this.statuses = response.data;
     },
-    async fetchTasks() {
+    async fetchTasks(id: string) {
       const response = await axios.get(
-        `${import.meta.env.VITE_APP_API_BASE_URL}tasks`
+        `${import.meta.env.VITE_APP_API_BASE_URL}tasks/${id}`
       );
       this.taskList = response.data;
     },

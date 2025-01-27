@@ -42,8 +42,7 @@ const returnHome = () => {
           />
           <div class="d-flex flex-column">
             <h2>{{ employeeData.username }}</h2>
-            <router-link to="/see-your-board" class="p text-info">See your progress...</router-link>
-            <!-- <p class="text-info">Change Password</p> -->
+            <router-link to="/see-your-board/${id}" class="p text-info">See your progress...</router-link>
           </div>
         </div>
         <div class="col-lg-7 d-flex justify-content-start align-items-center">

@@ -5,11 +5,18 @@ import type { TaskDetail } from "../types/auth";
 
 import { useTaskStore } from "../stores/taskStore";
 
+const props = defineProps({
+  profileID: {
+    type: String,
+    required: true,
+  },
+});
+
 const allTasks = reactive<TaskDetail[]>([]);
 const taskStoreInstance = useTaskStore();
 
 onMounted(async () => {
-  await taskStoreInstance.fetchTasks();
+  await taskStoreInstance.fetchTasks(props.profileID);
   allTasks.push(...taskStoreInstance.getTaskList);
 });
 

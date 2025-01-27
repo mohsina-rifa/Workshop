@@ -29,7 +29,7 @@ const routes = [
   {
     path: '/see-your-board',
     name: 'Board',
-    component: () => import('../components/ToDoBoard.vue')
+    component: () => import('../components/TaskBoard.vue')
   }
 ];
 

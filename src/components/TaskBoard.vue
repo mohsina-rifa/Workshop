@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRoute } from "vue-router";
 
 import InputBoard from "../board/InputBoard.vue";
 import OutputBoard from "../board/OutputBoard.vue";
 
 const isModalVisible = ref(false);
+
+const route = useRoute();
+const id = route.params.id;
 
 const openModal = () => {
   isModalVisible.value = true;
@@ -24,10 +28,10 @@ const closeModal = async () => {
       </button>
     </div>
     <div>
-      <OutputBoard />
+      <OutputBoard :profileID="id as string"/>
     </div>
     <div>
-      <InputBoard :isVisible="isModalVisible" @close="closeModal" />
+      <InputBoard :profileID="id as string" :isVisible="isModalVisible" @close="closeModal" />
     </div>
   </div>
 </template>

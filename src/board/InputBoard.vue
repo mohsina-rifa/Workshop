@@ -11,9 +11,14 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  profileID: {
+    type: String,
+    required: true,
+  }
 });
 
 const newTask = ref<TaskDetail>({
+  profileID: props.profileID,
   taskID: crypto.randomUUID(),
   taskTitle: "",
   taskDescription: "",
@@ -26,7 +31,7 @@ const toast = useToast();
 const createTask = async () => {
   if (newTask.value.taskTitle && newTask.value.taskDescription) {
     await taskStore.addTask(newTask.value);
-    await taskStore.fetchTasks();
+    await taskStore.fetchTasks(props.profileID);
     emit("close");
     window.location.reload();
   } else {

@@ -27,6 +27,7 @@ export type Admin = {
 }
 
 export type TaskDetail = {
+  profileID: string;
   taskID: string;
   taskTitle: string;
   taskDescription: string;
