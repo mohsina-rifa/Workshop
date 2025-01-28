@@ -30,12 +30,12 @@ const routes = [
     path: '/see-your-board',
     name: 'Board',
     component: () => import('../components/TaskBoard.vue')
+  },
+  {
+    path: '/see-your-board/:userID',
+    name: 'Board',
+    component: () => import('../components/TaskBoard.vue')
   }
-  // {
-  //   path: '/see-your-board:userID',
-  //   name: 'Board',
-  //   component: () => import('../components/TaskBoard.vue')
-  // }
 ];
 
 const router = createRouter({

@@ -11,7 +11,7 @@ const employeeData = ref<{
 } | null>(null);
 
 const route = useRoute();
-// const userID = route.params.id;
+const userID = route.params.id;
 const id = route.params.id;
 
 onMounted(async () => {
@@ -25,9 +25,9 @@ onMounted(async () => {
 
 const router = useRouter();
 
-// const routeToBoard = () => {
-//   router.push(`/see-your-board/${userID}`);
-// }
+const routeToBoard = () => {
+  router.push(`/see-your-board/${userID}`);
+}
 
 const returnHome = () => {
   router.push("/");
@@ -46,8 +46,7 @@ const returnHome = () => {
           />
           <div class="d-flex flex-column">
             <h2>{{ employeeData.username }}</h2>
-            <!-- <p class="text-info" @click="routeToBoard">See your progress...</p> -->
-            <router-link to="/see-your-board" class="p text-info">See your progress...</router-link>
+            <p class="text-info" @click="routeToBoard">See your progress...</p>
           </div>
         </div>
         <div class="col-lg-7 d-flex justify-content-start align-items-center">

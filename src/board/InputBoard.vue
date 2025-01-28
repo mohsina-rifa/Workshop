@@ -11,10 +11,10 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
-  // userID: {
-  //   type: String,
-  //   required: true,
-  // }
+  userID: {
+    type: String,
+    required: true,
+  },
 });
 
 const newTask = ref<TaskDetail>({
@@ -22,7 +22,7 @@ const newTask = ref<TaskDetail>({
   taskTitle: "",
   taskDescription: "",
   taskStatus: "assigned",
-  // userID: props.userID
+  userID: props.userID
 });
 
 const taskStore = useTaskStore();
@@ -31,7 +31,7 @@ const toast = useToast();
 const createTask = async () => {
   if (newTask.value.taskTitle && newTask.value.taskDescription) {
     await taskStore.addTask(newTask.value);
-    await taskStore.fetchTasks();
+    await taskStore.fetchTasks(props.userID);
     emit("close");
   } else {
     toast.error("Fields cannot be empty!", {

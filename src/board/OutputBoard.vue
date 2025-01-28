@@ -3,18 +3,17 @@ import { ref, onMounted, computed } from "vue";
 
 import { useTaskStore } from "../stores/taskStore";
 
-// const props = defineProps({
-//   userID: {
-//     type: String,
-//     required: true,
-//   },
-// });
+const props = defineProps({
+  userID: {
+    type: String,
+    required: true,
+  },
+});
 
 const taskStoreInstance = useTaskStore();
 
 onMounted(async () => {
-  await taskStoreInstance.fetchTasks();
-  // await taskStoreInstance.fetchTasks(props.userID);
+  await taskStoreInstance.fetchTasks(props.userID);
 });
 
 const allTasks = computed( () => taskStoreInstance.getTaskList )
@@ -23,7 +22,7 @@ const tasksByStatus = (status: string) => {
   return allTasks.value.filter((task) => task.taskStatus === status);
 };
 
-const draggedTaskID = ref(""); //ref
+const draggedTaskID = ref("");
 const isDragging = ref("");
 const dragOverColumn = ref("");
 

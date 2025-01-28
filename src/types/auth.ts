@@ -31,5 +31,5 @@ export type TaskDetail = {
   taskTitle: string;
   taskDescription: string;
   taskStatus: string;
-  // userID: string;
+  userID: string;
 }
