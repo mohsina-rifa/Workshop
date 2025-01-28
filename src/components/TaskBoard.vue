@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+// import { useRoute } from "vue-router";
 
 import InputBoard from "../board/InputBoard.vue";
 import OutputBoard from "../board/OutputBoard.vue";
@@ -13,6 +14,9 @@ const openModal = () => {
 const closeModal = async () => {
   isModalVisible.value = false;
 };
+
+// const route = useRoute();
+// const userID = route.params.id;
 </script>
 
 <template>
@@ -25,9 +29,11 @@ const closeModal = async () => {
     </div>
     <div>
       <OutputBoard />
+      <!-- <OutputBoard :userID="userID"/> -->
     </div>
     <div>
       <InputBoard :isVisible="isModalVisible" @close="closeModal" />
+      <!-- <InputBoard :isVisible="isModalVisible" :userID="userID" @close="closeModal" /> -->
     </div>
   </div>
 </template>

@@ -3,10 +3,18 @@ import { ref, onMounted, computed } from "vue";
 
 import { useTaskStore } from "../stores/taskStore";
 
+// const props = defineProps({
+//   userID: {
+//     type: String,
+//     required: true,
+//   },
+// });
+
 const taskStoreInstance = useTaskStore();
 
 onMounted(async () => {
   await taskStoreInstance.fetchTasks();
+  // await taskStoreInstance.fetchTasks(props.userID);
 });
 
 const allTasks = computed( () => taskStoreInstance.getTaskList )

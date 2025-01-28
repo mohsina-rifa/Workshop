@@ -35,6 +35,12 @@ export const useTaskStore = defineStore("taskStore", {
       );
       this.taskList = response.data;
     },
+    // async fetchTasks(userID: string) {
+    //   const response = await axios.get(
+    //     `${import.meta.env.VITE_APP_API_BASE_URL}tasks/${userID}`
+    //   );
+    //   this.taskList = response.data;
+    // },
     async updateTaskStatus(id: string, newStatus: string) {
       try {
         const response = await axios.patch(
