@@ -8,7 +8,8 @@ import OutputBoard from "../board/OutputBoard.vue";
 const isModalVisible = ref(false);
 
 const route = useRoute();
-const id = route.params.id;
+const id = ref(route.params.id);
+console.log(id);
 
 const openModal = () => {
   isModalVisible.value = true;

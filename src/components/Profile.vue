@@ -25,6 +25,10 @@ onMounted(async () => {
 
 const router = useRouter();
 
+const routeToPersonalBoard = () => {
+  router.push(`/see-your-board/${id}`);
+}
+
 const returnHome = () => {
   router.push("/");
 };
@@ -42,7 +46,7 @@ const returnHome = () => {
           />
           <div class="d-flex flex-column">
             <h2>{{ employeeData.username }}</h2>
-            <router-link to="/see-your-board/${id}" class="p text-info">See your progress...</router-link>
+            <p class="text-info" @click="routeToPersonalBoard">See your progress...</p>
           </div>
         </div>
         <div class="col-lg-7 d-flex justify-content-start align-items-center">
