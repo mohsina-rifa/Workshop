@@ -58,14 +58,19 @@ const onSubmitModal = () => {
           >
         </li>
         <li class="nav-item">
-          <router-link to="/resume-your-progress" class="nav-link"
-            >Resume Your Progress</router-link
+          <router-link to="/see-your-board" class="nav-link"
+            >See Your Task-Board</router-link
           >
         </li>
         <li class="nav-item">
           <router-link to="/" class="nav-link" @click="openModal()"
             >See All Members</router-link
           >
+        </li>
+        <li class="nav-item">
+          <router-link to="/resume-your-progress" class="nav-link">
+            <i class="bi bi-person-circle"></i>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -129,4 +134,8 @@ const onSubmitModal = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* .navbar-nav {
+  //
+} */
+</style>
