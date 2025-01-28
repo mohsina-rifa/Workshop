@@ -19,67 +19,76 @@
   ],
   "tasks": [
     {
-      "taskID": "e6938370-805e-4cb3-be33-960c645d8a92",
+      "id": "e6938370-805e-4cb3-be33-960c645d8a92",
       "taskTitle": "Input via Modal",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "assigned",
-      "id": "d504"
+      "taskStatus": "assigned"
     },
     {
-      "taskID": "e6938370-805e-4cb3-be33-960c645d8a93",
+      "id": "e6938370-805e-4cb3-be33-960c645d8a93",
       "taskTitle": "Include Modal Component",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "assigned",
-      "id": "e273"
+      "taskStatus": "assigned"
     },
     {
-      "taskID": "e6938370-805e-4cb3-be33-960c645d8a94",
+      "id": "e6938370-805e-4cb3-be33-960c645d8a94",
       "taskTitle": "Add Modal",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "inprogress",
-      "id": "b39d"
+      "taskStatus": "inprogress"
     },
     {
-      "taskID": "e6938370-805e-4cb3-be33-960c645d8a95",
+      "id": "e6938370-805e-4cb3-be33-960c645d8a95",
       "taskTitle": "Bind Modal-Data",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "inprogress",
-      "id": "8778"
+      "taskStatus": "inprogress"
     },
     {
-      "taskID": "e6938370-805e-4cb3-be33-960c645d8a96",
+      "id": "e6938370-805e-4cb3-be33-960c645d8a96",
       "taskTitle": "Fetch Data",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "completed",
-      "id": "98d4"
+      "taskStatus": "completed"
     },
     {
-      "taskID": "e6938370-805e-4cb3-be33-960c645d8a97",
+      "id": "e6938370-805e-4cb3-be33-960c645d8a97",
       "taskTitle": "Save to Database",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "completed",
-      "id": "a84b"
+      "taskStatus": "completed"
     },
     {
-      "taskID": "e6938370-805e-4cb3-be33-960c645d8a98",
+      "id": "e6938370-805e-4cb3-be33-960c645d8a98",
       "taskTitle": "Admin Verification",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "unsuccessful",
-      "id": "d4c5"
+      "taskStatus": "unsuccessful"
     },
     {
-      "taskID": "e6938370-805e-4cb3-be33-960c645d8a99",
+      "id": "e6938370-805e-4cb3-be33-960c645d8a99",
       "taskTitle": "Restricted Routing",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "unsuccessful",
-      "id": "2745"
+      "taskStatus": "unsuccessful"
     },
     {
-      "id": "0c12",
-      "taskID": "94e5511b-c356-404c-8093-bf92818594a0",
+      "id": "94e5511b-c356-404c-8093-bf92818594a0",
       "taskTitle": "Seperate input-output logic",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
       "taskStatus": "assigned"
+    },
+    {
+      "id": "1b90ade5-3a11-4c7c-9445-b366f40ae7ee",
+      "taskTitle": "Add style",
+      "taskDescription": "orem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "inprogress"
+    },
+    {
+      "id": "c8e8b8ab-b134-4333-84fd-3b123a4f204e",
+      "taskTitle": "Create new branch",
+      "taskDescription": "orem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "completed"
+    },
+    {
+      "id": "c8e8b8ab-b134-0000-84fd-3b123a4f204e",
+      "taskTitle": "Update status",
+      "taskDescription": "orem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "unsuccessful"
     }
   ],
   "task_status": [

@@ -1,58 +1,56 @@
 <script setup lang="ts">
-import { reactive, onMounted } from "vue";
-
-import type { TaskDetail } from "../types/auth";
+import { ref, onMounted, computed } from "vue";
 
 import { useTaskStore } from "../stores/taskStore";
 
-const allTasks = reactive<TaskDetail[]>([]);
 const taskStoreInstance = useTaskStore();
 
 onMounted(async () => {
   await taskStoreInstance.fetchTasks();
-  allTasks.push(...taskStoreInstance.getTaskList);
 });
 
+const allTasks = computed( () => taskStoreInstance.getTaskList )
+
 const tasksByStatus = (status: string) => {
-  return allTasks.filter((task) => task.taskStatus === status);
+  return allTasks.value.filter((task) => task.taskStatus === status);
 };
 
-let draggedTaskID = "";
-let isDragging = '';
-let dragOverColumn = '';
+const draggedTaskID = ref(""); //ref
+const isDragging = ref("");
+const dragOverColumn = ref("");
 
 const onDragStart = (taskID: string, event: DragEvent) => {
-  draggedTaskID = taskID;
-  isDragging = taskID;
+  draggedTaskID.value = taskID;
+  isDragging.value = taskID;
 
   const taskElement = event.target as HTMLElement;
   taskElement.classList.add('dragging');
 };
 
 const onDragOver = (column: string) => {
-  dragOverColumn = column;
+  dragOverColumn.value = column;
 };
 
 const onDragEnd = () => {
-  isDragging = '';
+  isDragging.value = '';
 }
 
 const onDrop = async (newStatus: string, event: DragEvent) => {
   if (!draggedTaskID) return;
 
-  const task = allTasks.find((t) => t.taskID === draggedTaskID);
+  const task = allTasks.value.find((t) => t.id === draggedTaskID.value);
 
   if (task && task.taskStatus !== newStatus) {
     task.taskStatus = newStatus;
 
     try {
-      await taskStoreInstance.updateTaskStatus(draggedTaskID, newStatus);
+      await taskStoreInstance.updateTaskStatus(draggedTaskID.value, newStatus);
     } catch (error) {
       console.error("Error updating task status:", error);
     }
   }
 
-  draggedTaskID = "";
+  draggedTaskID.value = "";
 
   const draggedElement = event.target as HTMLElement;
   draggedElement.classList.remove('dragging');
@@ -72,10 +70,10 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
       <div class="tasks" data-status="assigned">
         <div
           v-for="task in tasksByStatus('assigned')"
-          :key="task.taskID"
+          :key="task.id"
           class="task-card"
           draggable="true"
-          @dragstart="onDragStart(task.taskID, $event)"
+          @dragstart="onDragStart(task.id, $event)"
           @dragend="onDragEnd"
         >
           <h5>{{ task.taskTitle }}</h5>
@@ -94,10 +92,10 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
       <div class="tasks" data-status="inprogress">
         <div
           v-for="task in tasksByStatus('inprogress')"
-          :key="task.taskID"
+          :key="task.id"
           class="task-card"
           draggable="true"
-          @dragstart="onDragStart(task.taskID, $event)"
+          @dragstart="onDragStart(task.id, $event)"
         >
           <h5>{{ task.taskTitle }}</h5>
           <p>{{ task.taskDescription }}</p>
@@ -115,10 +113,10 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
       <div class="tasks" data-status="completed">
         <div
           v-for="task in tasksByStatus('completed')"
-          :key="task.taskID"
+          :key="task.id"
           class="task-card"
           draggable="true"
-          @dragstart="onDragStart(task.taskID, $event)"
+          @dragstart="onDragStart(task.id, $event)"
         >
           <h5>{{ task.taskTitle }}</h5>
           <p>{{ task.taskDescription }}</p>
@@ -136,10 +134,10 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
       <div class="tasks" data-status="unsuccessful">
         <div
           v-for="task in tasksByStatus('unsuccessful')"
-          :key="task.taskID"
+          :key="task.id"
           class="task-card"
           draggable="true"
-          @dragstart="onDragStart(task.taskID, $event)"
+          @dragstart="onDragStart(task.id, $event)"
         >
           <h5>{{ task.taskTitle }}</h5>
           <p>{{ task.taskDescription }}</p>

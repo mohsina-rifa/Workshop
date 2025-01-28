@@ -27,7 +27,7 @@ export type Admin = {
 }
 
 export type TaskDetail = {
-  taskID: string;
+  id: string;
   taskTitle: string;
   taskDescription: string;
   taskStatus: string;

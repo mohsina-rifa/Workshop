@@ -14,7 +14,7 @@ const props = defineProps({
 });
 
 const newTask = ref<TaskDetail>({
-  taskID: crypto.randomUUID(),
+  id: crypto.randomUUID(),
   taskTitle: "",
   taskDescription: "",
   taskStatus: "assigned",
@@ -28,7 +28,7 @@ const createTask = async () => {
     await taskStore.addTask(newTask.value);
     await taskStore.fetchTasks();
     emit("close");
-    window.location.reload();
+    //window.location.reload();
   } else {
     toast.error("Fields cannot be empty!", {
       position: POSITION.TOP_RIGHT,

@@ -35,17 +35,17 @@ export const useTaskStore = defineStore("taskStore", {
       );
       this.taskList = response.data;
     },
-    async updateTaskStatus(taskID: string, newStatus: string) {
+    async updateTaskStatus(id: string, newStatus: string) {
       try {
-        const response = await axios.put(
-          `${import.meta.env.VITE_APP_API_BASE_URL}tasks/${taskID}`,
+        const response = await axios.patch(
+          `${import.meta.env.VITE_APP_API_BASE_URL}tasks/${id}`,
           {
             taskStatus: newStatus,
           }
         );
 
         const taskIndex = this.taskList.findIndex(
-          (task) => task.taskID === taskID
+          (task) => task.id === id
         );
         if (taskIndex !== -1) {
           this.taskList[taskIndex].taskStatus = newStatus;
