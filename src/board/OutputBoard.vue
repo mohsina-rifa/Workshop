@@ -10,13 +10,36 @@ const props = defineProps({
   },
 });
 
+const statusList = ref([
+  {
+    id: "1",
+    title: "Assigned",
+    key: "assigned",
+  },
+  {
+    id: "2",
+    title: "In Progress",
+    key: "inprogress",
+  },
+  {
+    id: "3",
+    title: "Completed",
+    key: "completed",
+  },
+  {
+    id: "4",
+    title: "Unsuccessful",
+    key: "unsuccessful",
+  },
+]);
+
 const taskStoreInstance = useTaskStore();
 
 onMounted(async () => {
   await taskStoreInstance.fetchTasks(props.userID);
 });
 
-const allTasks = computed( () => taskStoreInstance.getTaskList )
+const allTasks = computed(() => taskStoreInstance.getTaskList);
 
 const tasksByStatus = (status: string) => {
   return allTasks.value.filter((task) => task.taskStatus === status);
@@ -31,7 +54,7 @@ const onDragStart = (taskID: string, event: DragEvent) => {
   isDragging.value = taskID;
 
   const taskElement = event.target as HTMLElement;
-  taskElement.classList.add('dragging');
+  taskElement.classList.add("dragging");
 };
 
 const onDragOver = (column: string) => {
@@ -39,8 +62,8 @@ const onDragOver = (column: string) => {
 };
 
 const onDragEnd = () => {
-  isDragging.value = '';
-}
+  isDragging.value = "";
+};
 
 const onDrop = async (newStatus: string, event: DragEvent) => {
   if (!draggedTaskID) return;
@@ -60,23 +83,27 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
   draggedTaskID.value = "";
 
   const draggedElement = event.target as HTMLElement;
-  draggedElement.classList.remove('dragging');
+  draggedElement.classList.remove("dragging");
 };
 </script>
 
 <template>
   <div class="kanban-board justify-content-center">
     <div
+      v-for="status in statusList"
       class="kanban-column"
-      :class="{ 'kanban-column': true, 'dragover': dragOverColumn === 'assigned' }"
-      id="assigned"
-      @dragover.prevent="onDragOver('assigned')"
-      @drop="onDrop('assigned', $event)"
+      :class="{
+        'kanban-column': true,
+        dragover: dragOverColumn === status.key,
+      }"
+      :id="status.key"
+      @dragover.prevent="onDragOver(status.key)"
+      @drop="onDrop(status.key, $event)"
     >
-      <h4><strong>Assigned</strong></h4>
-      <div class="tasks" data-status="assigned">
+      <h4><strong>{{ status.title }}</strong></h4>
+      <div class="tasks" :data-status="status.key">
         <div
-          v-for="task in tasksByStatus('assigned')"
+          v-for="task in tasksByStatus(status.key)"
           :key="task.id"
           class="task-card"
           draggable="true"
@@ -88,9 +115,12 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
         </div>
       </div>
     </div>
-    <div
+    <!-- <div
       class="kanban-column"
-      :class="{ 'kanban-column': true, 'dragover': dragOverColumn === 'inprogress' }"
+      :class="{
+        'kanban-column': true,
+        dragover: dragOverColumn === 'inprogress',
+      }"
       id="inprogress"
       @dragover.prevent="onDragOver('inprogress')"
       @drop="onDrop('inprogress', $event)"
@@ -111,7 +141,10 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
     </div>
     <div
       class="kanban-column"
-      :class="{ 'kanban-column': true, 'dragover': dragOverColumn === 'completed' }"
+      :class="{
+        'kanban-column': true,
+        dragover: dragOverColumn === 'completed',
+      }"
       id="completed"
       @dragover.prevent="onDragOver('completed')"
       @drop="onDrop('completed', $event)"
@@ -132,7 +165,10 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
     </div>
     <div
       class="kanban-column"
-      :class="{ 'kanban-column': true, 'dragover': dragOverColumn === 'unsuccessful' }"
+      :class="{
+        'kanban-column': true,
+        dragover: dragOverColumn === 'unsuccessful',
+      }"
       id="unsuccessful"
       @dragover.prevent="onDragOver('unsuccessful')"
       @drop="onDrop('unsuccessful', $event)"
@@ -150,7 +186,7 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
           <p>{{ task.taskDescription }}</p>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -197,7 +233,7 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.task-card h5{
+.task-card h5 {
   padding-bottom: 5px;
 }
 </style>
