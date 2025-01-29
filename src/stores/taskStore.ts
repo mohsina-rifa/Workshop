@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import axios from "axios";
+import { Axios } from "../service/axios";
 
 import type { TaskDetail } from "../types/auth";
 
@@ -13,8 +13,8 @@ export const useTaskStore = defineStore("taskStore", {
   actions: {
     async addTask(task: TaskDetail) {
       try {
-        const response = await axios.post(
-          `${import.meta.env.VITE_APP_API_BASE_URL}tasks`,
+        const response = await Axios.post(
+          `tasks`,
           task
         );
         this.taskList.push(response.data);
@@ -24,21 +24,21 @@ export const useTaskStore = defineStore("taskStore", {
       }
     },
     async fetchStatuses() {
-      const response = await axios.get(
-        `${import.meta.env.VITE_APP_API_BASE_URL}task_status`
+      const response = await Axios.get(
+        `task_status`
       );
       this.statuses = response.data;
     },
     async fetchTasks(userID: string) {
-      const response = await axios.get(
-        `${import.meta.env.VITE_APP_API_BASE_URL}tasks?userID=${userID}`
+      const response = await Axios.get(
+        `tasks?userID=${userID}`
       );
       this.taskList = response.data;
     },
     async updateTaskStatus(id: string, newStatus: string) {
       try {
-        const response = await axios.patch(
-          `${import.meta.env.VITE_APP_API_BASE_URL}tasks${id}`,
+        const response = await Axios.patch(
+          `tasks/${id}`,
           {
             taskStatus: newStatus,
           }

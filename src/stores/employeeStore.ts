@@ -4,6 +4,7 @@ import type { EmployeeRecord } from "../types/auth";
 export const useEmployeeStore = defineStore("employeeStore", {
   state: () => ({
     employeeList: [] as EmployeeRecord[],
+    loggedInUserID: "",
   }),
 
   actions: {

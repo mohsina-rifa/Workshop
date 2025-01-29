@@ -5,6 +5,8 @@ import { useToast, POSITION } from "vue-toastification";
 
 import type { EmployeeValidate, EmployeeRecord } from "../types/auth.ts";
 
+import { useEmployeeStore } from "../stores/employeeStore.ts";
+
 import axios from "axios";
 
 const employee = ref<EmployeeValidate>({
@@ -37,18 +39,22 @@ const matchWithDatabase = () => {
 
 const router = useRouter();
 const toast = useToast();
+const employeeStoreInstance = useEmployeeStore();
 
 const submitForm = async () => {
   console.log(matchWithDatabase(), "matching");
   if (matchWithDatabase()) {
     const userID = matchWithDatabase()?.id;
 
+    localStorage.setItem("loggedInUser", userID as string);
+    employeeStoreInstance.loggedInUserID = userID as string;
+
     toast.success("Successfully logged in!", {
       position: POSITION.TOP_RIGHT,
       timeout: 3000,
     });
 
-    router.push(`/profile/${userID}`);
+    router.push(`/profile`);
   } else {
     toast.error("username/password doesn't match!", {
       position: POSITION.TOP_RIGHT,

@@ -1,50 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { computed } from 'vue';
 
-import type { Admin } from "../types/auth.ts";
-
-import Username from "../reusable/Username.vue";
-
-const userNamePlaceHolder = "e.g. khi0ne";
-
-const admin = ref<Admin>({
-  username: "workshopadmin",
-  password: "w0rksh0p@dmin",
-});
-
-const input = ref<Admin>({
-  username: "",
-  password: "",
-});
-
-const isModalVisible = ref(false);
-
-const openModal = () => {
-  isModalVisible.value = true;
-};
-
-const validateModalInput = () => {
-  return (
-    admin.value.username === input.value?.username &&
-    admin.value.password === input.value?.password
-  );
-};
-
-const router = useRouter();
-
-const onSubmitModal = () => {
-  if (validateModalInput()) {
-    router.push(`/see-all-members`);
-  } else {
-    alert("Incorrect username or password.");
-    router.push(`/`);
-  }
-  isModalVisible.value = false;
-
-  input.value.username = "";
-  input.value.password = "";
-};
+const userID = computed( () => localStorage.getItem("loggedInUser") );
 </script>
 
 <template>
@@ -58,17 +15,17 @@ const onSubmitModal = () => {
           >
         </li>
         <li class="nav-item">
-          <router-link to="/see-your-board" class="nav-link"
+          <router-link :to="`/see-your-board/${userID}`" class="nav-link"
             >See Your Task-Board</router-link
           >
         </li>
         <li class="nav-item">
-          <router-link to="/" class="nav-link" @click="openModal()"
+          <router-link to="/see-all-members" class="nav-link"
             >See All Members</router-link
           >
         </li>
         <li class="nav-item">
-          <router-link to="/resume-your-progress" class="nav-link">
+          <router-link to="/profile" class="nav-link">
             <i class="bi bi-person-circle"></i>
           </router-link>
         </li>
@@ -76,7 +33,7 @@ const onSubmitModal = () => {
     </div>
   </nav>
   <!-- Modal -->
-  <div
+  <!-- <div
     class="modal fade show d-block"
     tabindex="-1"
     v-if="isModalVisible"
@@ -131,7 +88,7 @@ const onSubmitModal = () => {
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <style scoped>

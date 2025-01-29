@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import { Axios } from "../service/axios";
 
 const employeeData = ref<{
@@ -10,12 +10,9 @@ const employeeData = ref<{
   contact: string;
 } | null>(null);
 
-const route = useRoute();
-const userID = route.params.id;
-const id = route.params.id;
-
 onMounted(async () => {
   try {
+    const id = localStorage.getItem("loggedInUser");
     const response = await Axios.get(`employees/${id}`);
     employeeData.value = response.data;
   } catch (error) {
@@ -26,10 +23,11 @@ onMounted(async () => {
 const router = useRouter();
 
 const routeToBoard = () => {
-  router.push(`/see-your-board/${userID}`);
+  router.push(`/see-your-board/${localStorage.getItem("loggedInUser")}`);
 }
 
-const returnHome = () => {
+const handleLogOut = () => {
+  localStorage.removeItem("loggedInUser");
   router.push("/");
 };
 </script>
@@ -83,7 +81,7 @@ const returnHome = () => {
           <button
             type="button"
             class="btn btn-outline-danger"
-            @click="returnHome"
+            @click="handleLogOut"
           >
             Log out
           </button>
