@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import type { EmployeeRecord } from "../types/auth.ts";
-import axios from "axios";
+import { Axios } from "../service/axios";
 
 const SAARCCountryCodes = new Map<string, string>([
   ["Afghanistan", "+93"],
@@ -18,7 +18,9 @@ const employees = ref<EmployeeRecord[]>([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get("http://localhost:3000/employees");
+    const response = await Axios.get(
+      `employees`
+    );
     employees.value = response.data;
   } catch (error) {
     console.error("Failed to fetch employee data:", error);

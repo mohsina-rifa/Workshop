@@ -3,7 +3,7 @@ import { ref, provide } from "vue";
 import { useRouter } from "vue-router";
 import { useToast, POSITION } from "vue-toastification";
 
-import axios from "axios";
+import { Axios } from "../service/axios";
 
 import type { Employee, EmployeeRecord } from "../types/auth.ts";
 
@@ -69,8 +69,8 @@ const isAllFieldValid = () => {
 
 const saveToDatabase = async (employeeData: EmployeeRecord) => {
   try {
-    const response = await axios.post(
-      "http://localhost:3000/employees",
+    const response = await Axios.post(
+      `employees`,
       employeeData
     );
     console.log("Saved successfully:", response.data);

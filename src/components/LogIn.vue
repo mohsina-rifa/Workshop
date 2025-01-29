@@ -7,7 +7,7 @@ import type { EmployeeValidate, EmployeeRecord } from "../types/auth.ts";
 
 import { useEmployeeStore } from "../stores/employeeStore.ts";
 
-import axios from "axios";
+import { Axios } from "../service/axios";
 
 const employee = ref<EmployeeValidate>({
   username: "",
@@ -22,7 +22,9 @@ const employees = ref<EmployeeRecord[]>([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get("http://localhost:3000/employees");
+    const response = await Axios.get(
+      `employees`
+    );
     employees.value = response.data;
   } catch (error) {
     console.error("Failed to fetch employee data:", error);
