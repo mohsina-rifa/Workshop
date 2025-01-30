@@ -2,12 +2,12 @@ import { defineStore } from "pinia";
 
 import { Axios } from "../service/axios";
 
-import type { TaskDetail } from "../types/auth";
+import type { TaskDetail, TaskStatus } from "../types/auth";
 
 export const useTaskStore = defineStore("taskStore", {
   state: () => ({
     taskList: [] as TaskDetail[],
-    statuses: [] as Array<{ id: number; title: string; key: string }>,
+    statusList: [] as TaskStatus[],
   }),
 
   actions: {
@@ -23,18 +23,21 @@ export const useTaskStore = defineStore("taskStore", {
         console.error("Error adding task:", error);
       }
     },
-    async fetchStatuses() {
+
+    async fetchStatusList() {
       const response = await Axios.get(
         `task_status`
       );
-      this.statuses = response.data;
+      this.statusList = response.data;
     },
+
     async fetchTasks(userID: string) {
       const response = await Axios.get(
         `tasks?userID=${userID}`
       );
       this.taskList = response.data;
     },
+
     async updateTaskStatus(id: string, newStatus: string) {
       try {
         const response = await Axios.patch(
@@ -60,5 +63,6 @@ export const useTaskStore = defineStore("taskStore", {
 
   getters: {
     getTaskList: (state) => state.taskList,
+    getTaskStatus: (state) => state.statusList
   },
 });
