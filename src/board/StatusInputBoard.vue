@@ -30,8 +30,8 @@ const emit = defineEmits(["close"]);
 
 const createStatus = async () => {
   if (newStatus.value.title) {
-    // await taskStore.addTask(newTask.value);
-    // await taskStore.fetchTasks(props.userID);
+    await taskStoreInstance.addStatus(newStatus.value);
+    await taskStoreInstance.fetchStatuses();
     emit("close");
   } else {
     // toast.error("Fields cannot be empty!", {

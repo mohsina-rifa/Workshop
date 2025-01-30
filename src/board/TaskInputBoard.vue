@@ -25,15 +25,15 @@ const newTask = ref<TaskDetail>({
   userID: props.userID
 });
 
-const taskStore = useTaskStore();
+const taskStoreInstance = useTaskStore();
 const toast = useToast();
 
 const emit = defineEmits(["close"]);
 
 const createTask = async () => {
   if (newTask.value.taskTitle && newTask.value.taskDescription) {
-    await taskStore.addTask(newTask.value);
-    await taskStore.fetchTasks(props.userID);
+    await taskStoreInstance.addTask(newTask.value);
+    await taskStoreInstance.fetchTasks(props.userID);
     emit("close");
   } else {
     toast.error("Fields cannot be empty!", {
