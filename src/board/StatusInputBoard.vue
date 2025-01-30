@@ -26,8 +26,19 @@ const newStatus = ref<TaskStatus>({
   key: "",
 });
 
+const emit = defineEmits(["close"]);
+
 const createStatus = async () => {
-  //
+  if (newStatus.value.title) {
+    // await taskStore.addTask(newTask.value);
+    // await taskStore.fetchTasks(props.userID);
+    emit("close");
+  } else {
+    // toast.error("Fields cannot be empty!", {
+    //   position: POSITION.TOP_RIGHT,
+    //   timeout: 3000,
+    // });
+  }
 };
 </script>
 

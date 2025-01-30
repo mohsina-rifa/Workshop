@@ -28,6 +28,8 @@ const newTask = ref<TaskDetail>({
 const taskStore = useTaskStore();
 const toast = useToast();
 
+const emit = defineEmits(["close"]);
+
 const createTask = async () => {
   if (newTask.value.taskTitle && newTask.value.taskDescription) {
     await taskStore.addTask(newTask.value);
@@ -40,8 +42,6 @@ const createTask = async () => {
     });
   }
 };
-
-const emit = defineEmits(["close"]);
 </script>
 
 <template>
