@@ -3,16 +3,26 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 
 import TaskInputBoard from "../board/TaskInputBoard.vue";
+import StatusInputBoard from "../board/StatusInputBoard.vue";
 import OutputBoard from "../board/OutputBoard.vue";
 
 const isModalForTaskVisible = ref(false);
+const isModalForStatusVisible = ref(false);
 
 const openModalForTask = () => {
   isModalForTaskVisible.value = true;
 };
 
+const openModalForStatus = () => {
+  isModalForStatusVisible.value = true;
+};
+
 const closeModalForTask = async () => {
   isModalForTaskVisible.value = false;
+};
+
+const closeModalForStatus = async () => {
+  isModalForStatusVisible.value = false;
 };
 
 const route = useRoute();
@@ -28,7 +38,7 @@ const userID = route.params.userID as string;
         <button class="btn btn-outline-secondary me-2" @click="openModalForTask">
           Add Task
         </button>
-        <button class="btn btn-outline-secondary">
+        <button class="btn btn-outline-secondary" @click="openModalForStatus">
           Add Category
         </button>
       </div>
@@ -38,6 +48,9 @@ const userID = route.params.userID as string;
     </div>
     <div>
       <TaskInputBoard :isVisible="isModalForTaskVisible" :userID="userID" @close="closeModalForTask" />
+    </div>
+    <div>
+      <StatusInputBoard :isVisible="isModalForStatusVisible" @close="closeModalForStatus" />
     </div>
   </div>
 </template>
