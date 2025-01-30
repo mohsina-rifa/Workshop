@@ -24,6 +24,19 @@ export const useTaskStore = defineStore("taskStore", {
       }
     },
 
+    async addStatus(status: TaskStatus) {
+      try {
+        const response = await Axios.post(
+          `tasks_status`,
+          status
+        );
+        this.statusList.push(response.data);
+        console.log("Status added:", response.data);
+      } catch (error) {
+        console.error("Error adding status:", error);
+      }
+    },
+
     async fetchStatuses() {
       const response = await Axios.get(
         `task_status`
