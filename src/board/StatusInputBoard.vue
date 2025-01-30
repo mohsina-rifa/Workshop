@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { useToast, POSITION } from "vue-toastification";
 
 import type { TaskStatus } from "../types/auth";
 
@@ -27,6 +28,7 @@ const newStatus = ref<TaskStatus>({
 });
 
 const emit = defineEmits(["close"]);
+const toast = useToast();
 
 const createStatus = async () => {
   if (newStatus.value.title) {
@@ -34,10 +36,10 @@ const createStatus = async () => {
     await taskStoreInstance.fetchStatuses();
     emit("close");
   } else {
-    // toast.error("Fields cannot be empty!", {
-    //   position: POSITION.TOP_RIGHT,
-    //   timeout: 3000,
-    // });
+    toast.error("Title cannot be empty!", {
+      position: POSITION.TOP_RIGHT,
+      timeout: 3000,
+    });
   }
 };
 </script>
