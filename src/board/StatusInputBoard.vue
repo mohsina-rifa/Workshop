@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 import type { TaskStatus } from "../types/auth";
+
+import { useTaskStore } from "../stores/taskStore";
 
 const props = defineProps({
   isVisible: {
@@ -10,11 +12,23 @@ const props = defineProps({
   }
 });
 
+const taskStoreInstance = useTaskStore();
+
+onMounted(async () => {
+  await taskStoreInstance.fetchStatuses();
+});
+
+const statusIndex = taskStoreInstance.statusList.length + 1;
+
 const newStatus = ref<TaskStatus>({
-  id: 0,
+  id: statusIndex,
   title: "",
   key: "",
 });
+
+const createStatus = async () => {
+  //
+};
 </script>
 
 <template>
