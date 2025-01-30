@@ -13,16 +13,16 @@ const props = defineProps({
   }
 });
 
+console.log(props);
+
 const taskStoreInstance = useTaskStore();
 
 onMounted(async () => {
   await taskStoreInstance.fetchStatuses();
 });
 
-const statusIndex = taskStoreInstance.statusList.length + 1;
-
 const newStatus = ref<TaskStatus>({
-  id: statusIndex,
+  id: -1,
   title: "",
   key: "",
 });
@@ -32,6 +32,11 @@ const toast = useToast();
 
 const createStatus = async () => {
   if (newStatus.value.title) {
+    newStatus.value.key = newStatus.value.title.toLowerCase().split(" ").join("");
+    newStatus.value.id = taskStoreInstance.getStatusIndex;
+
+    console.log(newStatus.value.id);
+
     await taskStoreInstance.addStatus(newStatus.value);
     await taskStoreInstance.fetchStatuses();
     emit("close");
@@ -45,7 +50,7 @@ const createStatus = async () => {
 </script>
 
 <template>
-  <div v-if="props.isVisible" class="modal fade show" tabindex="-1">
+  <div v-if="isVisible" class="modal fade show" id="statusModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -56,7 +61,7 @@ const createStatus = async () => {
           <input
             type="text"
             class="form-control"
-            placeholder="Enter task title"
+            placeholder="Enter category title"
             v-model="newStatus.title"
             required
           />
@@ -74,4 +79,9 @@ const createStatus = async () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.modal {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+</style>

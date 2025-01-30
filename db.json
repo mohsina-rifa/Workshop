@@ -84,45 +84,57 @@
     {
       "id": "1b90ade5-3a11-4c7c-9445-b366f40ae7ee",
       "taskTitle": "Add style",
-      "taskDescription": "orem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
       "taskStatus": "inprogress",
       "userID": "b3d6e32d-d0f9-4f06-a426-30102dc3d1a8"
     },
     {
       "id": "c8e8b8ab-b134-4333-84fd-3b123a4f204e",
       "taskTitle": "Create new branch",
-      "taskDescription": "orem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
       "taskStatus": "completed",
       "userID": "c47ef04f-929e-4afe-9d37-d58f6a391f69"
     },
     {
       "id": "c8e8b8ab-b134-0000-84fd-3b123a4f204e",
       "taskTitle": "Update status",
-      "taskDescription": "orem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
       "taskStatus": "unsuccessful",
+      "userID": "b3d6e32d-d0f9-4f06-a426-30102dc3d1a8"
+    },
+    {
+      "id": "556485f7-eefa-45fd-9a1c-eba892c70508",
+      "taskTitle": "Add New Category",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "bugfound",
       "userID": "b3d6e32d-d0f9-4f06-a426-30102dc3d1a8"
     }
   ],
   "task_status": [
     {
-      "id": "1",
+      "id": 0,
       "title": "Assigned",
       "key": "assigned"
     },
     {
-      "id": "2",
+      "id": 1,
       "title": "In Progress",
       "key": "inprogress"
     },
     {
-      "id": "3",
+      "id": 2,
       "title": "Completed",
       "key": "completed"
     },
     {
-      "id": "4",
+      "id": 3,
       "title": "Unsuccessful",
       "key": "unsuccessful"
+    },
+    {
+      "id": 4,
+      "title": "Bug Found",
+      "key": "bugfound"
     }
   ]
 }

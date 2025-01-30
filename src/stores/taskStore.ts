@@ -27,7 +27,7 @@ export const useTaskStore = defineStore("taskStore", {
     async addStatus(status: TaskStatus) {
       try {
         const response = await Axios.post(
-          `tasks_status`,
+          `task_status`,
           status
         );
         this.statusList.push(response.data);
@@ -76,6 +76,7 @@ export const useTaskStore = defineStore("taskStore", {
 
   getters: {
     getTaskList: (state) => state.taskList,
-    getStatusList: (state) => state.statusList
+    getStatusList: (state) => state.statusList,
+    getStatusIndex: (state) => state.statusList.length
   },
 });

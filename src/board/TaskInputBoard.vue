@@ -45,7 +45,7 @@ const createTask = async () => {
 </script>
 
 <template>
-  <div v-if="props.isVisible" class="modal fade show" tabindex="-1">
+  <div v-if="isVisible" class="modal fade show" id="taskModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
