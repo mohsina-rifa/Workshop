@@ -2,17 +2,17 @@
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 
-import InputBoard from "../board/InputBoard.vue";
+import TaskInputBoard from "../board/TaskInputBoard.vue";
 import OutputBoard from "../board/OutputBoard.vue";
 
-const isModalVisible = ref(false);
+const isModalForTaskVisible = ref(false);
 
-const openModal = () => {
-  isModalVisible.value = true;
+const openModalForTask = () => {
+  isModalForTaskVisible.value = true;
 };
 
-const closeModal = async () => {
-  isModalVisible.value = false;
+const closeModalForTask = async () => {
+  isModalForTaskVisible.value = false;
 };
 
 const route = useRoute();
@@ -25,7 +25,7 @@ const userID = route.params.userID as string;
     <div class="d-flex justify-content-between align-items-center">
       <h1 class="mb-4"><strong>My To-Do List</strong></h1>
       <div class="d-flex justify-content-end"> 
-        <button class="btn btn-outline-secondary me-2" @click="openModal">
+        <button class="btn btn-outline-secondary me-2" @click="openModalForTask">
           Add Task
         </button>
         <button class="btn btn-outline-secondary">
@@ -34,12 +34,10 @@ const userID = route.params.userID as string;
       </div>
     </div>
     <div>
-      <!-- <OutputBoard /> -->
       <OutputBoard :userID="userID"/>
     </div>
     <div>
-      <!-- <InputBoard :isVisible="isModalVisible" @close="closeModal" /> -->
-      <InputBoard :isVisible="isModalVisible" :userID="userID" @close="closeModal" />
+      <TaskInputBoard :isVisible="isModalForTaskVisible" :userID="userID" @close="closeModalForTask" />
     </div>
   </div>
 </template>
