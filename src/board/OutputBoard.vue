@@ -10,29 +10,6 @@ const props = defineProps({
   },
 });
 
-// const statusList = ref([
-//   {
-//     id: "1",
-//     title: "Assigned",
-//     key: "assigned",
-//   },
-//   {
-//     id: "2",
-//     title: "In Progress",
-//     key: "inprogress",
-//   },
-//   {
-//     id: "3",
-//     title: "Completed",
-//     key: "completed",
-//   },
-//   {
-//     id: "4",
-//     title: "Unsuccessful",
-//     key: "unsuccessful",
-//   },
-// ]);
-
 const taskStoreInstance = useTaskStore();
 
 onMounted(async () => {

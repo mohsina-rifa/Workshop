@@ -24,9 +24,14 @@ const userID = route.params.userID as string;
   <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center">
       <h1 class="mb-4"><strong>My To-Do List</strong></h1>
-      <button class="btn btn-outline-secondary" @click="openModal">
-        Add Task
-      </button>
+      <div class="d-flex justify-content-end"> 
+        <button class="btn btn-outline-secondary me-2" @click="openModal">
+          Add Task
+        </button>
+        <button class="btn btn-outline-secondary">
+          Add Category
+        </button>
+      </div>
     </div>
     <div>
       <!-- <OutputBoard /> -->
@@ -49,7 +54,7 @@ const userID = route.params.userID as string;
   margin-left: 300px;
 }
 
-.d-flex button {
+.d-flex .justify-content-end {
   margin-right: 300px;
 }
 </style>
