@@ -37,5 +37,5 @@ export type TaskDetail = {
 export type TaskStatus = {
   id: number;
   title: string;
-  status: string;
+  key: string;
 }

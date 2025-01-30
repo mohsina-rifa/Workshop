@@ -24,7 +24,7 @@ export const useTaskStore = defineStore("taskStore", {
       }
     },
 
-    async fetchStatusList() {
+    async fetchStatuses() {
       const response = await Axios.get(
         `task_status`
       );
@@ -63,6 +63,6 @@ export const useTaskStore = defineStore("taskStore", {
 
   getters: {
     getTaskList: (state) => state.taskList,
-    getTaskStatus: (state) => state.statusList
+    getStatusList: (state) => state.statusList
   },
 });
