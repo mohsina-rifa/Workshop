@@ -1,4 +1,21 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+
+import type { TaskStatus } from "../types/auth";
+
+const props = defineProps({
+  isVisible: {
+    type: Boolean,
+    required: true,
+  }
+});
+
+const newStatus = ref<TaskStatus>({
+  id: 0,
+  title: "",
+  key: "",
+});
+</script>
 
 <template>
   <div v-if="props.isVisible" class="modal fade show" tabindex="-1">
@@ -13,7 +30,7 @@
             type="text"
             class="form-control"
             placeholder="Enter task title"
-            v-model="newTask.taskTitle"
+            v-model="newStatus.title"
             required
           />
         </div>
@@ -21,7 +38,7 @@
           <button type="button" class="btn btn-secondary" @click="emit('close')">
             Close
           </button>
-          <button type="button" class="btn btn-primary" @click="createTask">
+          <button type="button" class="btn btn-primary" @click="createStatus">
             Save Task
           </button>
         </div>
