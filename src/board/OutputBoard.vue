@@ -37,13 +37,14 @@ const taskStoreInstance = useTaskStore();
 
 onMounted(async () => {
   await taskStoreInstance.fetchTasks(props.userID);
-  await taskStoreInstance.fetchStatuses;
+  await taskStoreInstance.fetchStatuses();
 });
 
 const allTasks = computed(() => taskStoreInstance.getTaskList);
 const allStatus = computed( () => taskStoreInstance.getStatusList );
 
-console.log(allStatus);
+console.log(allStatus.value);
+console.log(allTasks.value);
 
 const tasksByStatus = (status: string) => {
   return allTasks.value.filter((task) => task.taskStatus === status);
@@ -92,6 +93,9 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
 </script>
 
 <template>
+  <!-- <div>
+    {{ allStatus }}
+  </div> -->
   <div class="kanban-board justify-content-center">
     <div
       v-for="status in allStatus"
