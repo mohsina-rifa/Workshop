@@ -3,114 +3,69 @@ import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useToast, POSITION } from "vue-toastification";
 
-import type {
-  UserValidate,
-  EmployeeRecord,
-  AdminRecord,
-} from "../types/auth.ts";
+import { setUserToLocalStorage } from "../helper/localStore.ts";
 
-import { useEmployeeStore } from "../stores/employeeStore.ts";
-import { useAdminStore } from "../stores/adminStore.ts";
+import type { UserValidate, EmployeeRecord } from "../types/auth.ts";
 
 import { Axios } from "../service/axios";
 
-const employees = ref<EmployeeRecord[]>([]);
-const admins = ref<AdminRecord[]>([]);
-
-onMounted(async () => {
-  try {
-    const employeeResponse = await Axios.get(`employees`);
-    employees.value = employeeResponse.data;
-
-    const adminResponse = await Axios.get(`admins`);
-    admins.value = adminResponse.data;
-  } catch (error) {
-    console.error("Failed to fetch data:", error);
-  }
-});
-
-const user = ref<UserValidate>({
+const employee = ref<UserValidate>({
   username: "",
   password: "",
 });
 
 const isEligible = computed(() => {
-  return !Object.values(user.value).some((value) => value === "");
+  return !Object.values(employee.value).some((value) => value === "");
 });
 
-const checkedAsAdmin = ref(false);
+const employees = ref<EmployeeRecord[]>([]);
 
-const matchWithEmployeeDatabase = () => {
+onMounted(async () => {
+  try {
+    const response = await Axios.get(
+      `employees`
+    );
+    employees.value = response.data;
+  } catch (error) {
+    console.error("Failed to fetch employee data:", error);
+  }
+});
+
+const matchWithDatabase = () => {
   return employees.value.find(
     (emp) =>
-      emp.username === user.value.username &&
-      emp.password === user.value.password
-  );
-};
-
-const matchWithAdminDatabase = () => {
-  return admins.value.find(
-    (adm) =>
-      adm.username === user.value.username &&
-      adm.password === user.value.password
+      emp.username === employee.value.username &&
+      emp.password === employee.value.password
   );
 };
 
 const router = useRouter();
 const toast = useToast();
 
-const employeeStoreInstance = useEmployeeStore();
-const adminStoreInstance = useAdminStore();
-
 const submitForm = async () => {
-  if (checkedAsAdmin) {
-    if (matchWithAdminDatabase()) {
-      const adminID = matchWithAdminDatabase()?.id;
+  console.log(matchWithDatabase(), "matching");
+  const user = matchWithDatabase();
 
-      localStorage.setItem("loggedInAdmin", adminID as string);
-      adminStoreInstance.loggedInAdminID = adminID as string;
+  if (user) {
+    // localStorage.setItem("loggedInUser", JSON.stringify(user));
+    setUserToLocalStorage(user);
 
-      toast.success("Successfully logged in!", {
-        position: POSITION.TOP_RIGHT,
-        timeout: 3000,
-      });
+    toast.success("Successfully logged in!", {
+      position: POSITION.TOP_RIGHT,
+      timeout: 3000,
+    });
 
-      router.push(`/see-all-members`);
-    } else {
-      toast.error("username/password doesn't match!", {
-        position: POSITION.TOP_RIGHT,
-        timeout: 3000,
-      });
-
-      router.push("/resume-your-progress");
-
-      user.value.username = "";
-      user.value.password = "";
-    }
+    router.push(`/profile`);
   } else {
-    if (matchWithEmployeeDatabase()) {
-      const userID = matchWithEmployeeDatabase()?.id;
+    toast.error("username/password doesn't match!", {
+      position: POSITION.TOP_RIGHT,
+      timeout: 3000,
+    });
 
-      localStorage.setItem("loggedInUser", userID as string);
-      employeeStoreInstance.loggedInUserID = userID as string;
+    router.push("/resume-your-progress");
 
-      toast.success("Successfully logged in!", {
-        position: POSITION.TOP_RIGHT,
-        timeout: 3000,
-      });
-
-      router.push(`/profile`);
-    } else {
-      toast.error("username/password doesn't match!", {
-        position: POSITION.TOP_RIGHT,
-        timeout: 3000,
-      });
-
-      router.push("/resume-your-progress");
-
-      user.value.username = "";
-      user.value.password = "";
-    }
+    employee.value.username = "";
+    employee.value.password = "";
   }
 };
 </script>
@@ -133,11 +88,11 @@ const submitForm = async () => {
                   type="text"
                   class="form-control"
                   placeholder="e.g. khi0ne"
-                  v-model="user.username"
+                  v-model="employee.username"
                 />
               </div>
             </div>
-            <br />
+            <br/>
             <div>
               <label for="password" class="form-label">Password:</label>
               <div class="input-group">
@@ -145,25 +100,12 @@ const submitForm = async () => {
                   type="password"
                   class="form-control"
                   placeholder="********"
-                  v-model="user.password"
+                  v-model="employee.password"
                 />
               </div>
             </div>
-            <br />
-            <div class="form-check">
-              <label class="form-check-label" for="adminlogin"
-                >Log in as admin</label
-              >
-              <input
-                type="checkbox"
-                class="form-check-input"
-                value=""
-                id="adminlogin"
-                v-model="checkedAsAdmin"
-              />
-            </div>
-            <br />
-            <div class="d-flex justify-content-end">
+            <br/>
+            <div>
               <button
                 data-mdb-button-init
                 data-mdb-ripple-init

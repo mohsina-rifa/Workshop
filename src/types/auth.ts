@@ -5,6 +5,7 @@ export type Employee = {
   country: string;
   contact: string;
   password: string;
+  role: string;
 };
 
 export type EmployeeRecord = {
@@ -14,6 +15,7 @@ export type EmployeeRecord = {
   country: string;
   contact: string;
   password: string;
+  role: string;
 };
 
 export type UserValidate = {
