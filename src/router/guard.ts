@@ -17,3 +17,13 @@ export const isAlreadyLoggedIn = (to, from, next) => {
     next();
   }
 }
+
+export const isAdminLoggedIn = (to, from, next) => {
+  const adminID = localStorage.getItem("loggedInAdmin");
+
+  if (adminID) {
+    next('');
+  } else {
+    next('/resume-your-progress');
+  }
+}

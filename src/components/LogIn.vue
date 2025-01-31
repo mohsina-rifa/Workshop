@@ -67,7 +67,7 @@ const submitForm = async () => {
     if (matchWithAdminDatabase()) {
       const adminID = matchWithAdminDatabase()?.id;
 
-      localStorage.setItem("loggedInUser", adminID as string);
+      localStorage.setItem("loggedInAdmin", adminID as string);
       adminStoreInstance.loggedInAdminID = adminID as string;
 
       toast.success("Successfully logged in!", {
