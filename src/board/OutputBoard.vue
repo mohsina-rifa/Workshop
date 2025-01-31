@@ -18,7 +18,7 @@ onMounted(async () => {
 });
 
 const allTasks = computed(() => taskStoreInstance.getTaskList);
-const allStatus = computed( () => taskStoreInstance.getStatusList );
+const allStatus = computed(() => taskStoreInstance.getStatusList);
 
 console.log(allStatus.value);
 console.log(allTasks.value);
@@ -74,32 +74,35 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
     {{ allStatus }}
   </div> -->
   <div class="kanban-board justify-content-center">
-    <div
-      v-for="status in allStatus"
-      class="kanban-column"
-      :class="{
-        'kanban-column': true,
-        dragover: dragOverColumn === status.key,
-      }"
-      :id="status.key"
-      @dragover.prevent="onDragOver(status.key)"
-      @drop="onDrop(status.key, $event)"
-    >
-      <h4><strong>{{ status.title }}</strong></h4>
-      <div class="tasks" :data-status="status.key">
-        <div
-          v-for="task in tasksByStatus(status.key)"
-          :key="task.id"
-          class="task-card"
-          draggable="true"
-          @dragstart="onDragStart(task.id, $event)"
-          @dragend="onDragEnd"
-        >
-          <h5>{{ task.taskTitle }}</h5>
-          <p>{{ task.taskDescription }}</p>
+    <template v-for="status in allStatus">
+      <div
+        class="kanban-column"
+        :class="{
+          'kanban-column': true,
+          dragover: dragOverColumn === status.key,
+        }"
+        :id="status.key"
+        @dragover.prevent="onDragOver(status.key)"
+        @drop="onDrop(status.key, $event)"
+      >
+        <h4>
+          <strong>{{ status.title }}</strong>
+        </h4>
+        <div class="tasks" :data-status="status.key">
+          <div
+            v-for="task in tasksByStatus(status.key)"
+            :key="task.id"
+            class="task-card"
+            draggable="true"
+            @dragstart="onDragStart(task.id, $event)"
+            @dragend="onDragEnd"
+          >
+            <h5>{{ task.taskTitle }}</h5>
+            <p>{{ task.taskDescription }}</p>
+          </div>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 

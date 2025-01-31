@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { Axios } from "../service/axios";
+import { getUserFromLocalStorage, removeUserFromLocalStorage } from '../helper/localStore'
+import type { EmployeeRecord } from "../types/auth";
 
 const employeeData = ref<{
   username: string;
@@ -10,9 +12,11 @@ const employeeData = ref<{
   contact: string;
 } | null>(null);
 
+const user = computed<EmployeeRecord>( () => getUserFromLocalStorage() )
+
 onMounted(async () => {
   try {
-    const id = localStorage.getItem("loggedInUser");
+    const id = user.value.id;
     const response = await Axios.get(`employees/${id}`);
     employeeData.value = response.data;
   } catch (error) {
@@ -23,11 +27,11 @@ onMounted(async () => {
 const router = useRouter();
 
 const routeToBoard = () => {
-  router.push(`/see-your-board/${localStorage.getItem("loggedInUser")}`);
+  router.push(`/see-your-board/${user.value.id}`);
 }
 
 const handleLogOut = () => {
-  localStorage.removeItem("loggedInUser");
+  removeUserFromLocalStorage();
   router.push("/");
 };
 </script>

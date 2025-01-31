@@ -6,7 +6,7 @@
       <div class="col-md-7 text-center text-md-start">
         <h1>
           <div class="display-2">Workshop</div>
-          <div class="display-5 text-muted">Have Your Work Recognized.</div>
+          <div class="display-5 text-muted">Keep Your Work Organized.</div>
         </h1>
         <p class="lead my-4 text-muted">
           Join millions of others in the community!

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { isAuthenticated, isAlreadyLoggedIn  } from './guard';
+import { isAuthenticated, isAlreadyLoggedIn, isAdminLoggedIn  } from './guard';
 
 const routes = [
   {
@@ -23,7 +23,7 @@ const routes = [
     path: "/see-all-members",
     name: "Employee",
     component: () => import('../components/Employee.vue'),
-    beforeEnter: [isAuthenticated ]
+    beforeEnter: [isAdminLoggedIn ]
   },
   {
     path: '/profile',

@@ -1,15 +1,15 @@
- <script setup lang="ts">
+<script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useToast, POSITION } from "vue-toastification";
 
-import type { EmployeeValidate, EmployeeRecord } from "../types/auth.ts";
+import { setUserToLocalStorage } from "../helper/localStore.ts";
 
-import { useEmployeeStore } from "../stores/employeeStore.ts";
+import type { UserValidate, EmployeeRecord } from "../types/auth.ts";
 
 import { Axios } from "../service/axios";
 
-const employee = ref<EmployeeValidate>({
+const employee = ref<UserValidate>({
   username: "",
   password: "",
 });
@@ -41,15 +41,14 @@ const matchWithDatabase = () => {
 
 const router = useRouter();
 const toast = useToast();
-const employeeStoreInstance = useEmployeeStore();
 
 const submitForm = async () => {
   console.log(matchWithDatabase(), "matching");
-  if (matchWithDatabase()) {
-    const userID = matchWithDatabase()?.id;
+  const user = matchWithDatabase();
 
-    localStorage.setItem("loggedInUser", userID as string);
-    employeeStoreInstance.loggedInUserID = userID as string;
+  if (user) {
+    // localStorage.setItem("loggedInUser", JSON.stringify(user));
+    setUserToLocalStorage(user);
 
     toast.success("Successfully logged in!", {
       position: POSITION.TOP_RIGHT,

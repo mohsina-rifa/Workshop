@@ -5,6 +5,7 @@ export type Employee = {
   country: string;
   contact: string;
   password: string;
+  role: string;
 };
 
 export type EmployeeRecord = {
@@ -14,14 +15,16 @@ export type EmployeeRecord = {
   country: string;
   contact: string;
   password: string;
+  role: string;
 };
 
-export type EmployeeValidate = {
+export type UserValidate = {
   username: string;
   password: string;
 }
 
-export type Admin = {
+export type AdminRecord = {
+  id: string;
   username: string;
   password: string;
 }

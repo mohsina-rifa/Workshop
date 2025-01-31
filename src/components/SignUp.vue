@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import { useToast, POSITION } from "vue-toastification";
 
 import { Axios } from "../service/axios";
+import { USER_ROLE } from "../service/enum.ts";
 
 import type { Employee, EmployeeRecord } from "../types/auth.ts";
 
@@ -39,6 +40,7 @@ const employee = ref<Employee>({
   country: "",
   contact: "",
   password: "",
+  role: "",
 });
 
 const employeeStore = useEmployeeStore();
@@ -96,6 +98,7 @@ const submitForm = async () => {
     country: employee.value.country,
     contact: `${SAARCCountryCodes.get(employee.value.country)} ${employee.value.contact}`,
     password: employee.value.password,
+    role: USER_ROLE.STANDARD
   };
 
   try {
@@ -107,7 +110,7 @@ const submitForm = async () => {
       timeout: 3000,
     });
 
-    router.push(`/profile/${newEmployee.id}`);
+    router.push("/resume-your-progress");
   } catch (error) {
     console.error("Failed to submit the form:", error);
   }

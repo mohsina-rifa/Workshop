@@ -6,15 +6,17 @@
       "username": "anish0m",
       "country": "Bangladesh",
       "contact": "+880 1318241452",
-      "password": "Pass209#"
+      "password": "Pass209#",
+      "role": "super_admin"
     },
     {
-      "id": "b3d6e32d-d0f9-4f06-a426-30102dc3d1a8",
-      "name": "Tafsir Rahman",
-      "username": "T130",
+      "id": "5433be6d-09bf-4a6a-944b-8d5461d092c1",
+      "name": "Afsara Mehjabin",
+      "username": "0ishi",
       "country": "Bangladesh",
-      "contact": "+880 1818530115",
-      "password": "Pass130#"
+      "contact": "+880 2345678901",
+      "password": "Pass111#",
+      "role": "standard"
     }
   ],
   "tasks": [

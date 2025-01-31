@@ -33,7 +33,7 @@ const usernameValidate = () => {
   } else {
     let isNotAlphaNumeric;
 
-    const nonAlphaNumericRegex = /[^0-9A-Za-z]/;
+    const nonAlphaNumericRegex = /[^0-9A-Za-z-]/;
     isNotAlphaNumeric = nonAlphaNumericRegex.test(props.username);
 
     return !(
