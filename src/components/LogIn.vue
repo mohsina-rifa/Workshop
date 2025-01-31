@@ -3,20 +3,29 @@ import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useToast, POSITION } from "vue-toastification";
 
-import type { UserValidate, EmployeeRecord } from "../types/auth.ts";
+import type {
+  UserValidate,
+  EmployeeRecord,
+  AdminRecord,
+} from "../types/auth.ts";
 
 import { useEmployeeStore } from "../stores/employeeStore.ts";
+import { useAdminStore } from "../stores/adminStore.ts";
 
 import { Axios } from "../service/axios";
 
 const employees = ref<EmployeeRecord[]>([]);
+const admins = ref<AdminRecord[]>([]);
 
 onMounted(async () => {
   try {
-    const response = await Axios.get(`employees`);
-    employees.value = response.data;
+    const employeeResponse = await Axios.get(`employees`);
+    employees.value = employeeResponse.data;
+
+    const adminResponse = await Axios.get(`admins`);
+    admins.value = adminResponse.data;
   } catch (error) {
-    console.error("Failed to fetch employee data:", error);
+    console.error("Failed to fetch data:", error);
   }
 });
 
@@ -40,20 +49,44 @@ const matchWithEmployeeDatabase = () => {
 };
 
 const matchWithAdminDatabase = () => {
-  // return employees.value.find(
-  //   (emp) =>
-  //     emp.username === user.value.username &&
-  //     emp.password === user.value.password
-  // );
+  return admins.value.find(
+    (adm) =>
+      adm.username === user.value.username &&
+      adm.password === user.value.password
+  );
 };
 
 const router = useRouter();
 const toast = useToast();
+
 const employeeStoreInstance = useEmployeeStore();
+const adminStoreInstance = useAdminStore();
 
 const submitForm = async () => {
   if (checkedAsAdmin) {
-    //check in admin database
+    if (matchWithAdminDatabase()) {
+      const adminID = matchWithAdminDatabase()?.id;
+
+      localStorage.setItem("loggedInUser", adminID as string);
+      adminStoreInstance.loggedInAdminID = adminID as string;
+
+      toast.success("Successfully logged in!", {
+        position: POSITION.TOP_RIGHT,
+        timeout: 3000,
+      });
+
+      router.push(`/see-all-members`);
+    } else {
+      toast.error("username/password doesn't match!", {
+        position: POSITION.TOP_RIGHT,
+        timeout: 3000,
+      });
+
+      router.push("/resume-your-progress");
+
+      user.value.username = "";
+      user.value.password = "";
+    }
   } else {
     if (matchWithEmployeeDatabase()) {
       const userID = matchWithEmployeeDatabase()?.id;
@@ -118,11 +151,13 @@ const submitForm = async () => {
             </div>
             <br />
             <div class="form-check">
-              <label class="form-check-label" for="adminlogin">Log in as admin</label>
-              <input 
-                type="checkbox" 
-                class="form-check-input" 
-                value="" 
+              <label class="form-check-label" for="adminlogin"
+                >Log in as admin</label
+              >
+              <input
+                type="checkbox"
+                class="form-check-input"
+                value=""
                 id="adminlogin"
                 v-model="checkedAsAdmin"
               />
@@ -148,5 +183,4 @@ const submitForm = async () => {
   </section>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
