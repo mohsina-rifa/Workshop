@@ -10,36 +10,18 @@ const props = defineProps({
   },
 });
 
-const statusList = ref([
-  {
-    id: "1",
-    title: "Assigned",
-    key: "assigned",
-  },
-  {
-    id: "2",
-    title: "In Progress",
-    key: "inprogress",
-  },
-  {
-    id: "3",
-    title: "Completed",
-    key: "completed",
-  },
-  {
-    id: "4",
-    title: "Unsuccessful",
-    key: "unsuccessful",
-  },
-]);
-
 const taskStoreInstance = useTaskStore();
 
 onMounted(async () => {
   await taskStoreInstance.fetchTasks(props.userID);
+  await taskStoreInstance.fetchStatuses();
 });
 
 const allTasks = computed(() => taskStoreInstance.getTaskList);
+const allStatus = computed( () => taskStoreInstance.getStatusList );
+
+console.log(allStatus.value);
+console.log(allTasks.value);
 
 const tasksByStatus = (status: string) => {
   return allTasks.value.filter((task) => task.taskStatus === status);
@@ -88,9 +70,12 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
 </script>
 
 <template>
+  <!-- <div>
+    {{ allStatus }}
+  </div> -->
   <div class="kanban-board justify-content-center">
     <div
-      v-for="status in statusList"
+      v-for="status in allStatus"
       class="kanban-column"
       :class="{
         'kanban-column': true,
@@ -115,78 +100,6 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
         </div>
       </div>
     </div>
-    <!-- <div
-      class="kanban-column"
-      :class="{
-        'kanban-column': true,
-        dragover: dragOverColumn === 'inprogress',
-      }"
-      id="inprogress"
-      @dragover.prevent="onDragOver('inprogress')"
-      @drop="onDrop('inprogress', $event)"
-    >
-      <h4><strong>In Progress</strong></h4>
-      <div class="tasks" data-status="inprogress">
-        <div
-          v-for="task in tasksByStatus('inprogress')"
-          :key="task.id"
-          class="task-card"
-          draggable="true"
-          @dragstart="onDragStart(task.id, $event)"
-        >
-          <h5>{{ task.taskTitle }}</h5>
-          <p>{{ task.taskDescription }}</p>
-        </div>
-      </div>
-    </div>
-    <div
-      class="kanban-column"
-      :class="{
-        'kanban-column': true,
-        dragover: dragOverColumn === 'completed',
-      }"
-      id="completed"
-      @dragover.prevent="onDragOver('completed')"
-      @drop="onDrop('completed', $event)"
-    >
-      <h4><strong>Completed</strong></h4>
-      <div class="tasks" data-status="completed">
-        <div
-          v-for="task in tasksByStatus('completed')"
-          :key="task.id"
-          class="task-card"
-          draggable="true"
-          @dragstart="onDragStart(task.id, $event)"
-        >
-          <h5>{{ task.taskTitle }}</h5>
-          <p>{{ task.taskDescription }}</p>
-        </div>
-      </div>
-    </div>
-    <div
-      class="kanban-column"
-      :class="{
-        'kanban-column': true,
-        dragover: dragOverColumn === 'unsuccessful',
-      }"
-      id="unsuccessful"
-      @dragover.prevent="onDragOver('unsuccessful')"
-      @drop="onDrop('unsuccessful', $event)"
-    >
-      <h4><strong>Unsuccessful</strong></h4>
-      <div class="tasks" data-status="unsuccessful">
-        <div
-          v-for="task in tasksByStatus('unsuccessful')"
-          :key="task.id"
-          class="task-card"
-          draggable="true"
-          @dragstart="onDragStart(task.id, $event)"
-        >
-          <h5>{{ task.taskTitle }}</h5>
-          <p>{{ task.taskDescription }}</p>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 

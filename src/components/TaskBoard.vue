@@ -2,17 +2,27 @@
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 
-import InputBoard from "../board/InputBoard.vue";
+import TaskInputBoard from "../board/TaskInputBoard.vue";
+import StatusInputBoard from "../board/StatusInputBoard.vue";
 import OutputBoard from "../board/OutputBoard.vue";
 
-const isModalVisible = ref(false);
+const isModalForTaskVisible = ref(false);
+const isModalForStatusVisible = ref(false);
 
-const openModal = () => {
-  isModalVisible.value = true;
+const openModalForTask = () => {
+  isModalForTaskVisible.value = true;
 };
 
-const closeModal = async () => {
-  isModalVisible.value = false;
+const openModalForStatus = () => {
+  isModalForStatusVisible.value = true;
+};
+
+const closeModalForTask = async () => {
+  isModalForTaskVisible.value = false;
+};
+
+const closeModalForStatus = async () => {
+  isModalForStatusVisible.value = false;
 };
 
 const route = useRoute();
@@ -24,17 +34,23 @@ const userID = route.params.userID as string;
   <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center">
       <h1 class="mb-4"><strong>My To-Do List</strong></h1>
-      <button class="btn btn-outline-secondary" @click="openModal">
-        Add Task
-      </button>
+      <div class="d-flex justify-content-end"> 
+        <button class="btn btn-outline-secondary me-2" @click="openModalForTask">
+          Add Task
+        </button>
+        <button class="btn btn-outline-secondary" @click="openModalForStatus">
+          Add Category
+        </button>
+      </div>
     </div>
     <div>
-      <!-- <OutputBoard /> -->
       <OutputBoard :userID="userID"/>
     </div>
     <div>
-      <!-- <InputBoard :isVisible="isModalVisible" @close="closeModal" /> -->
-      <InputBoard :isVisible="isModalVisible" :userID="userID" @close="closeModal" />
+      <TaskInputBoard :isVisible="isModalForTaskVisible" :userID="userID" @close="closeModalForTask" />
+    </div>
+    <div>
+      <StatusInputBoard :isVisible="isModalForStatusVisible" @close="closeModalForStatus" />
     </div>
   </div>
 </template>
@@ -49,7 +65,7 @@ const userID = route.params.userID as string;
   margin-left: 300px;
 }
 
-.d-flex button {
+.d-flex .justify-content-end {
   margin-right: 300px;
 }
 </style>

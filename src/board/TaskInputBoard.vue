@@ -25,13 +25,15 @@ const newTask = ref<TaskDetail>({
   userID: props.userID
 });
 
-const taskStore = useTaskStore();
+const taskStoreInstance = useTaskStore();
 const toast = useToast();
+
+const emit = defineEmits(["close"]);
 
 const createTask = async () => {
   if (newTask.value.taskTitle && newTask.value.taskDescription) {
-    await taskStore.addTask(newTask.value);
-    await taskStore.fetchTasks(props.userID);
+    await taskStoreInstance.addTask(newTask.value);
+    await taskStoreInstance.fetchTasks(props.userID);
     emit("close");
   } else {
     toast.error("Fields cannot be empty!", {
@@ -40,12 +42,10 @@ const createTask = async () => {
     });
   }
 };
-
-const emit = defineEmits(["close"]);
 </script>
 
 <template>
-  <div v-if="props.isVisible" class="modal fade show" tabindex="-1">
+  <div v-if="isVisible" class="modal fade show" id="taskModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

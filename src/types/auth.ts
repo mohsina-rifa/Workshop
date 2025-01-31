@@ -33,3 +33,9 @@ export type TaskDetail = {
   taskStatus: string;
   userID: string;
 }
+
+export type TaskStatus = {
+  id: number;
+  title: string;
+  key: string;
+}
