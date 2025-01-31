@@ -21,7 +21,7 @@ export type UserValidate = {
   password: string;
 }
 
-export type Admin = {
+export type AdminRecord = {
   id: string;
   username: string;
   password: string;
