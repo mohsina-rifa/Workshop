@@ -16,7 +16,7 @@ export type EmployeeRecord = {
   password: string;
 };
 
-export type EmployeeValidate = {
+export type UserValidate = {
   username: string;
   password: string;
 }

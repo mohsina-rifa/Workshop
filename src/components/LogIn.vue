@@ -1,30 +1,28 @@
- <script setup lang="ts">
+<script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useToast, POSITION } from "vue-toastification";
 
-import type { EmployeeValidate, EmployeeRecord } from "../types/auth.ts";
+import type { UserValidate, EmployeeRecord } from "../types/auth.ts";
 
 import { useEmployeeStore } from "../stores/employeeStore.ts";
 
 import { Axios } from "../service/axios";
 
-const employee = ref<EmployeeValidate>({
+const user = ref<UserValidate>({
   username: "",
   password: "",
 });
 
 const isEligible = computed(() => {
-  return !Object.values(employee.value).some((value) => value === "");
+  return !Object.values(user.value).some((value) => value === "");
 });
 
 const employees = ref<EmployeeRecord[]>([]);
 
 onMounted(async () => {
   try {
-    const response = await Axios.get(
-      `employees`
-    );
+    const response = await Axios.get(`employees`);
     employees.value = response.data;
   } catch (error) {
     console.error("Failed to fetch employee data:", error);
@@ -34,8 +32,8 @@ onMounted(async () => {
 const matchWithDatabase = () => {
   return employees.value.find(
     (emp) =>
-      emp.username === employee.value.username &&
-      emp.password === employee.value.password
+      emp.username === user.value.username &&
+      emp.password === user.value.password
   );
 };
 
@@ -93,7 +91,7 @@ const submitForm = async () => {
                 />
               </div>
             </div>
-            <br/>
+            <br />
             <div>
               <label for="password" class="form-label">Password:</label>
               <div class="input-group">
@@ -105,8 +103,17 @@ const submitForm = async () => {
                 />
               </div>
             </div>
-            <br/>
-            <div>
+            <br />
+            <div class="form-check">
+              <label class="form-check-label" for="adminlogin">Log in as admin</label>
+              <input 
+                type="checkbox" 
+                class="form-check-input" 
+                value="" 
+                id="adminlogin">
+            </div>
+            <br />
+            <div class="d-flex justify-content-end">
               <button
                 data-mdb-button-init
                 data-mdb-ripple-init
@@ -126,4 +133,5 @@ const submitForm = async () => {
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
