@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { getUserFromLocalStorage } from '../helper/localStore'
+import { useEmployeeStore } from '../stores/employeeStore';
 
-const user = computed( () => getUserFromLocalStorage() );
+const employeeStoreInstance = useEmployeeStore();
+
+const userID = computed( () =>  employeeStoreInstance.loggedInUserID);
 </script>
 
 <template>
@@ -17,7 +19,7 @@ const user = computed( () => getUserFromLocalStorage() );
           >
         </li>
         <li class="nav-item">
-          <router-link :to="`/see-your-board/${user.id}`" class="nav-link"
+          <router-link :to="`/see-your-board/${userID}`" class="nav-link"
             >See Your Task-Board</router-link
           >
         </li>

@@ -8,6 +8,15 @@
       "contact": "+880 1318241452",
       "password": "Pass209#",
       "role": "super_admin"
+    },
+    {
+      "id": "5433be6d-09bf-4a6a-944b-8d5461d092c1",
+      "name": "Afsara Mehjabin",
+      "username": "0ishi",
+      "country": "Bangladesh",
+      "contact": "+880 2345678901",
+      "password": "Pass111#",
+      "role": "standard"
     }
   ],
   "tasks": [

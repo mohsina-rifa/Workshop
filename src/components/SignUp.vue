@@ -110,7 +110,7 @@ const submitForm = async () => {
       timeout: 3000,
     });
 
-    router.push(`/profile/${newEmployee.id}`);
+    router.push("/resume-your-progress");
   } catch (error) {
     console.error("Failed to submit the form:", error);
   }
