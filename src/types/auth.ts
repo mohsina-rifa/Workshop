@@ -23,12 +23,6 @@ export type UserValidate = {
   password: string;
 }
 
-export type AdminRecord = {
-  id: string;
-  username: string;
-  password: string;
-}
-
 export type TaskDetail = {
   id: string;
   taskTitle: string;

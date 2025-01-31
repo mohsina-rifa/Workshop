@@ -22,7 +22,7 @@ export const isAlreadyLoggedIn = (to, from, next) => {
 }
 
 export const isAdminLoggedIn = (to, from, next) => {
-  const isAdmin = getUserFromLocalStorage()?.role === USER_ROLE.ADMIN || getUserFromLocalStorage()?.role === USER_ROLE.SUPER_ADMIN;
+  const isAdmin = getUserFromLocalStorage()?.role === USER_ROLE.ADMIN || getUserFromLocalStorage()?.role === USER_ROLE.OWNER;
 
   if (isAdmin) {
     next();

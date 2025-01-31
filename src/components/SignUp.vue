@@ -98,14 +98,14 @@ const submitForm = async () => {
     country: employee.value.country,
     contact: `${SAARCCountryCodes.get(employee.value.country)} ${employee.value.contact}`,
     password: employee.value.password,
-    role: USER_ROLE.STANDARD
+    role: USER_ROLE.USER
   };
 
   try {
     await saveToDatabase(newEmployee);
     employeeStore.addEmployee(newEmployee);
 
-    toast.success("Successfully logged in!", {
+    toast.info("Please log-in to continue!", {
       position: POSITION.TOP_RIGHT,
       timeout: 3000,
     });

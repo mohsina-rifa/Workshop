@@ -10,6 +10,15 @@
       "role": "super_admin"
     },
     {
+      "id": "b3d6e32d-d0f9-4f06-a426-30102dc3d1a8",
+      "name": "Tafsir Rahman",
+      "username": "T-130",
+      "country": "Bangladesh",
+      "contact": "+880 1817530115",
+      "password": "Pass130#",
+      "role": "standard"
+    },
+    {
       "id": "5433be6d-09bf-4a6a-944b-8d5461d092c1",
       "name": "Afsara Mehjabin",
       "username": "0ishi",
@@ -17,6 +26,24 @@
       "contact": "+880 2345678901",
       "password": "Pass111#",
       "role": "standard"
+    },
+    {
+      "id": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241",
+      "name": "Minhaz Raufoon",
+      "username": "Rabbi",
+      "country": "Bangladesh",
+      "contact": "+880 1682962010",
+      "password": "Pass1567#",
+      "role": "standard"
+    },
+    {
+      "id": "9c3b851d-cc6f-4870-9a41-b7fe8ec9ca05",
+      "name": "Farhana Jinat",
+      "username": "jUmi",
+      "country": "Bangladesh",
+      "contact": "+880 1637142437",
+      "password": "Pass000#",
+      "role": "user"
     }
   ],
   "tasks": [
