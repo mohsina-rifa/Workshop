@@ -31,7 +31,7 @@ const isEligible = computed(() => {
 
 const checkedAsAdmin = ref(false);
 
-const matchWithDatabase = () => {
+const matchWithEmployeeDatabase = () => {
   return employees.value.find(
     (emp) =>
       emp.username === user.value.username &&
@@ -39,34 +39,45 @@ const matchWithDatabase = () => {
   );
 };
 
+const matchWithAdminDatabase = () => {
+  // return employees.value.find(
+  //   (emp) =>
+  //     emp.username === user.value.username &&
+  //     emp.password === user.value.password
+  // );
+};
+
 const router = useRouter();
 const toast = useToast();
 const employeeStoreInstance = useEmployeeStore();
 
 const submitForm = async () => {
-  console.log(matchWithDatabase(), "matching");
-  if (matchWithDatabase()) {
-    const userID = matchWithDatabase()?.id;
-
-    localStorage.setItem("loggedInUser", userID as string);
-    employeeStoreInstance.loggedInUserID = userID as string;
-
-    toast.success("Successfully logged in!", {
-      position: POSITION.TOP_RIGHT,
-      timeout: 3000,
-    });
-
-    router.push(`/profile`);
+  if (checkedAsAdmin) {
+    //check in admin database
   } else {
-    toast.error("username/password doesn't match!", {
-      position: POSITION.TOP_RIGHT,
-      timeout: 3000,
-    });
+    if (matchWithEmployeeDatabase()) {
+      const userID = matchWithEmployeeDatabase()?.id;
 
-    router.push("/resume-your-progress");
+      localStorage.setItem("loggedInUser", userID as string);
+      employeeStoreInstance.loggedInUserID = userID as string;
 
-    user.value.username = "";
-    user.value.password = "";
+      toast.success("Successfully logged in!", {
+        position: POSITION.TOP_RIGHT,
+        timeout: 3000,
+      });
+
+      router.push(`/profile`);
+    } else {
+      toast.error("username/password doesn't match!", {
+        position: POSITION.TOP_RIGHT,
+        timeout: 3000,
+      });
+
+      router.push("/resume-your-progress");
+
+      user.value.username = "";
+      user.value.password = "";
+    }
   }
 };
 </script>
