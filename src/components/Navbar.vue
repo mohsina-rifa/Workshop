@@ -32,67 +32,7 @@ const userID = computed( () => localStorage.getItem("loggedInUser") );
       </ul>
     </div>
   </nav>
-  <!-- Modal -->
-  <!-- <div
-    class="modal fade show d-block"
-    tabindex="-1"
-    v-if="isModalVisible"
-    style="background-color: rgba(0, 0, 0, 0.5)"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Authentication required!</h5>
-          <button
-            type="button"
-            class="btn-close"
-            @click="isModalVisible = false"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <Username
-                  id="username"
-                  v-model="input.username"
-                  label="Userame:"
-                  :isRequired="true"
-                  :placeHolder="userNamePlaceHolder"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  class="form-control"
-                  v-model="input.password"
-                  placeholder="********"
-                />
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            @click="isModalVisible = false"
-          >
-            Close
-          </button>
-          <button type="button" class="btn btn-primary" @click="onSubmitModal">
-            Submit
-          </button>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <style scoped>
-/* .navbar-nav {
-  //
-} */
 </style>
