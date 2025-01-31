@@ -9,15 +9,6 @@ import { useEmployeeStore } from "../stores/employeeStore.ts";
 
 import { Axios } from "../service/axios";
 
-const user = ref<UserValidate>({
-  username: "",
-  password: "",
-});
-
-const isEligible = computed(() => {
-  return !Object.values(user.value).some((value) => value === "");
-});
-
 const employees = ref<EmployeeRecord[]>([]);
 
 onMounted(async () => {
@@ -28,6 +19,17 @@ onMounted(async () => {
     console.error("Failed to fetch employee data:", error);
   }
 });
+
+const user = ref<UserValidate>({
+  username: "",
+  password: "",
+});
+
+const isEligible = computed(() => {
+  return !Object.values(user.value).some((value) => value === "");
+});
+
+const checkedAsAdmin = ref(false);
 
 const matchWithDatabase = () => {
   return employees.value.find(
@@ -63,8 +65,8 @@ const submitForm = async () => {
 
     router.push("/resume-your-progress");
 
-    employee.value.username = "";
-    employee.value.password = "";
+    user.value.username = "";
+    user.value.password = "";
   }
 };
 </script>
@@ -87,7 +89,7 @@ const submitForm = async () => {
                   type="text"
                   class="form-control"
                   placeholder="e.g. khi0ne"
-                  v-model="employee.username"
+                  v-model="user.username"
                 />
               </div>
             </div>
@@ -99,7 +101,7 @@ const submitForm = async () => {
                   type="password"
                   class="form-control"
                   placeholder="********"
-                  v-model="employee.password"
+                  v-model="user.password"
                 />
               </div>
             </div>
@@ -110,7 +112,9 @@ const submitForm = async () => {
                 type="checkbox" 
                 class="form-check-input" 
                 value="" 
-                id="adminlogin">
+                id="adminlogin"
+                v-model="checkedAsAdmin"
+              />
             </div>
             <br />
             <div class="d-flex justify-content-end">
