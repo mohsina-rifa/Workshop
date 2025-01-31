@@ -17,6 +17,18 @@
       "password": "Pass130#"
     }
   ],
+  "admin": [
+    {
+      "id": "z9x6c30v-a0s0-4f08-d420-50107qw7e7r7",
+      "username": "admin-1",
+      "password": "Pass@dmin1"
+    },
+    {
+      "id": "m8n4b20v-l0k0-5g10-h963-50702po3i3u2",
+      "username": "admin-2",
+      "password": "Pass@dmin2"
+    }
+  ],
   "tasks": [
     {
       "id": "e6938370-805e-4cb3-be33-960c645d8a92",
