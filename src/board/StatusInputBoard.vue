@@ -35,8 +35,6 @@ const createStatus = async () => {
     newStatus.value.key = newStatus.value.title.toLowerCase().split(" ").join("");
     newStatus.value.id = taskStoreInstance.getStatusIndex;
 
-    console.log(newStatus.value.id);
-
     await taskStoreInstance.addStatus(newStatus.value);
     await taskStoreInstance.fetchStatuses();
     emit("close");

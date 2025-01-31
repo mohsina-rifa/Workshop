@@ -20,9 +20,6 @@ onMounted(async () => {
 const allTasks = computed(() => taskStoreInstance.getTaskList);
 const allStatus = computed(() => taskStoreInstance.getStatusList);
 
-console.log(allStatus.value);
-console.log(allTasks.value);
-
 const tasksByStatus = (status: string) => {
   return allTasks.value.filter((task) => task.taskStatus === status);
 };
