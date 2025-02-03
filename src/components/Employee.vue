@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue";
 import type { EmployeeRecord } from "../types/auth.ts";
 import { Axios } from "../service/axios";
 import { getUserFromLocalStorage } from "../helper/localStore";
-import { USER_ROLE } from '../service/enum';
+import { USER_ROLE } from "../service/enum";
 
 const SAARCCountryCodes = new Map<string, string>([
   ["Afghanistan", "+93"],
@@ -38,6 +38,17 @@ const getRolesFromEnum = () => {
 };
 
 getRolesFromEnum();
+
+const isAuthorized = (role: string) => {
+  return (
+    role !== USER_ROLE.OWNER &&
+    getUserFromLocalStorage()?.role === USER_ROLE.OWNER
+  );
+};
+
+const showRole = (role: string) => {
+  return role.charAt(0).toUpperCase() + role.slice(1);
+};
 </script>
 
 <template>
@@ -74,13 +85,17 @@ getRolesFromEnum();
             </td>
             <td>{{ employee.password }}</td>
             <td class="input-group">
-              <select
-                class="form-select"
-                id="roles"
-              >
-                <option value="" disabled selected>{{ employee.role }}</option>
-                <option v-for="role in allRoles" :value="role">{{ role }}</option>
-              </select>
+              <div v-if="isAuthorized(employee.role)">
+                <select class="form-select" id="roles">
+                  <option value="" disabled selected>
+                    {{ showRole(employee.role) }}
+                  </option>
+                  <option v-for="role in allRoles" :value="role">
+                    {{ role }}
+                  </option>
+                </select>
+              </div>
+              <div v-else>{{ showRole(employee.role) }}</div>
             </td>
           </tr>
         </tbody>
