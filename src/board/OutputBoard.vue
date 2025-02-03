@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-
+import TaskEditorBoard from "./TaskEditorBoard.vue";
 import { useTaskStore } from "../stores/taskStore";
 
 const props = defineProps({
@@ -67,6 +67,12 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
   const draggedElement = event.target as HTMLElement;
   draggedElement.classList.remove("dragging");
 };
+
+const isTaskEditorVisible = ref(false);
+
+const openTaskEditor = () => {
+  isTaskEditorVisible.value = true;
+};
 </script>
 
 <template>
@@ -96,9 +102,10 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
           >
             <div class="task-header">
               <h5>{{ task.taskTitle }}</h5>
-              <i class="bi bi-pencil-square"></i>
+              <i class="bi bi-pencil-square" @click="openTaskEditor"></i>
             </div>
             <p>{{ task.taskDescription }}</p>
+            <TaskEditorBoard :isVisible="isTaskEditorVisible" :taskID="task.id" />
           </div>
         </div>
       </div>
