@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import type { EmployeeRecord } from "../types/auth.ts";
 import { useEmployeeStore } from "../stores/employeeStore";
 import { Axios } from "../service/axios";
@@ -28,17 +28,9 @@ onMounted(async () => {
   }
 });
 
-const allRoles = ref<string[]>([]);
-
-const getRolesFromEnum = () => {
-  allRoles.value = Object.values(USER_ROLE).map(
-    (role) => role.charAt(0).toUpperCase() + role.slice(1)
-  );
-
-  return allRoles;
-};
-
-getRolesFromEnum();
+const allRoles = computed<string[]>( () => {
+  return Object.values(USER_ROLE);
+});
 
 const isAuthorized = (role: string) => {
   return (
@@ -47,14 +39,9 @@ const isAuthorized = (role: string) => {
   );
 };
 
-const showRole = (role: string) => {
-  return role.charAt(0).toUpperCase() + role.slice(1);
-};
-
 const employeeStoreInstance = useEmployeeStore();
 
 const changeRole = (id: string, newRole: string) => {
-  newRole = newRole.charAt(0).toLowerCase() + newRole.slice(1);
   employeeStoreInstance.changeEmployeeRole(id, newRole);
 }
 </script>
@@ -94,16 +81,13 @@ const changeRole = (id: string, newRole: string) => {
             <td>{{ employee.password }}</td>
             <td class="input-group">
               <div v-if="isAuthorized(employee.role)">
-                <select class="form-select" id="roles" @change="changeRole(employee.id, $event.target.value)">
-                  <option value="" disabled selected>
-                    {{ showRole(employee.role) }}
-                  </option>
-                  <option v-for="role in allRoles" :value="role">
+                <select class="form-select text-capitalize" id="roles" v-model="employee.role" @change="changeRole(employee.id, $event.target.value)">
+                  <option class="text-capitalize" v-for="role in allRoles" :value="role" :disabled="employee.role.toLowerCase() === role.toLowerCase()">
                     {{ role }}
                   </option>
                 </select>
               </div>
-              <div v-else>{{ showRole(employee.role) }}</div>
+              <div v-else class="text-capitalize" >{{ employee.role }}</div>
             </td>
           </tr>
         </tbody>
