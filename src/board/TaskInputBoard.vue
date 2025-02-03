@@ -18,7 +18,7 @@ const props = defineProps({
 });
 
 const newTask = ref<TaskDetail>({
-  id: crypto.randomUUID(),
+  id: "",
   taskTitle: "",
   taskDescription: "",
   taskStatus: "assigned",
@@ -32,7 +32,13 @@ const emit = defineEmits(["close"]);
 
 const createTask = async () => {
   if (newTask.value.taskTitle && newTask.value.taskDescription) {
+    newTask.value.id = crypto.randomUUID();
     await taskStoreInstance.addTask(newTask.value);
+
+    newTask.value.id = "";
+    newTask.value.taskTitle = "";
+    newTask.value.taskDescription = "";
+
     await taskStoreInstance.fetchTasks(props.userID);
     emit("close");
   } else {
