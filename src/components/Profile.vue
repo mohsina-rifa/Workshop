@@ -27,7 +27,7 @@ onMounted(async () => {
 const router = useRouter();
 
 const routeToBoard = () => {
-  router.push(`/see-your-board/${user.value.id}`);
+  router.push(`/see-your-board?userID=${user.value.id}`);
 }
 
 const handleLogOut = () => {

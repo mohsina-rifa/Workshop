@@ -19,6 +19,18 @@ export const getUserFromLocalStorage = () => {
   return JSON.parse(user as string);
 }
 
+export const isUserAdmin = () => {
+  const user = localStorage.getItem(STORE_ATTRIBUTE.LOGGED_IN_USER);
+  const person = JSON.parse(user as string);
+
+  console.log(person, "Person:");
+
+  return(
+    person.role === 'owner' ||
+    person.role === 'admin'
+  );
+}
+
 export const removeUserFromLocalStorage = () => {
   localStorage.removeItem(STORE_ATTRIBUTE.LOGGED_IN_USER);
 }

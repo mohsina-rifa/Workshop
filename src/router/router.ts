@@ -32,7 +32,7 @@ const routes = [
     beforeEnter: [isAuthenticated ]
   },
   {
-    path: '/see-your-board/:userID',
+    path: '/see-your-board',
     name: 'Board',
     component: () => import('../components/TaskBoard.vue'),
     beforeEnter: [isAuthenticated ]

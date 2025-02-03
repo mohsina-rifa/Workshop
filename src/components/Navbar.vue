@@ -19,7 +19,7 @@ const userID = computed( () =>  employeeStoreInstance.loggedInUserID);
           >
         </li>
         <li class="nav-item">
-          <router-link :to="`/see-your-board/${userID}`" class="nav-link"
+          <router-link :to="`/see-your-board?userID=${userID}`" class="nav-link"
             >See Your Task-Board</router-link
           >
         </li>
