@@ -29,6 +29,19 @@ export const useEmployeeStore = defineStore("employeeStore", {
       } catch (error) {
         console.error("Error changing role:", error);
       }
+    },
+
+    async checkForAdmins(id: string) {
+      try {
+        const response = await Axios.get(`employees/${id}`);
+
+        return(
+          response.data.role === 'owner' &&
+          response.data.role === 'admin'
+        );
+      } catch (error) {
+        console.error("Error changing role:", error);
+      }
     }
   },
 
