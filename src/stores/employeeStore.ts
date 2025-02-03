@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import type { EmployeeRecord } from "../types/auth";
+import { Axios } from "../service/axios";
 
 export const useEmployeeStore = defineStore("employeeStore", {
   state: () => ({
@@ -14,6 +15,21 @@ export const useEmployeeStore = defineStore("employeeStore", {
       };
       this.employeeList.push(newEmployee);
     },
+
+    async changeEmployeeRole(id: string, newRole: string) {
+      try {
+        const response = await Axios.patch(
+          `employees/${id}`,
+          {
+            role: newRole,
+          }
+        )
+
+        console.log("Role updated:", response.data);
+      } catch (error) {
+        console.error("Error changing role:", error);
+      }
+    }
   },
 
   getters: {
