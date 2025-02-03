@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import type { EmployeeRecord } from "../types/auth.ts";
+import { useEmployeeStore } from "../stores/employeeStore";
 import { Axios } from "../service/axios";
 import { getUserFromLocalStorage } from "../helper/localStore";
 import { USER_ROLE } from "../service/enum";
@@ -49,6 +50,13 @@ const isAuthorized = (role: string) => {
 const showRole = (role: string) => {
   return role.charAt(0).toUpperCase() + role.slice(1);
 };
+
+const employeeStoreInstance = useEmployeeStore();
+
+const changeRole = (id: string, newRole: string) => {
+  newRole = newRole.charAt(0).toLowerCase() + newRole.slice(1);
+  employeeStoreInstance.changeEmployeeRole(id, newRole);
+}
 </script>
 
 <template>
@@ -86,7 +94,7 @@ const showRole = (role: string) => {
             <td>{{ employee.password }}</td>
             <td class="input-group">
               <div v-if="isAuthorized(employee.role)">
-                <select class="form-select" id="roles">
+                <select class="form-select" id="roles" @change="changeRole(employee.id, $event.target.value)">
                   <option value="" disabled selected>
                     {{ showRole(employee.role) }}
                   </option>
