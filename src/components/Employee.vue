@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import type { EmployeeRecord } from "../types/auth.ts";
 import { Axios } from "../service/axios";
+import { getUserFromLocalStorage } from "../helper/localStore";
 
 const SAARCCountryCodes = new Map<string, string>([
   ["Afghanistan", "+93"],
@@ -59,7 +60,12 @@ onMounted(async () => {
               }}
             </td>
             <td>{{ employee.password }}</td>
-            <td>{{ employee.role }}</td>
+            <td class="input-group">
+              <select
+                class="form-select"
+                id="role"
+              ></select>
+            </td>
           </tr>
         </tbody>
       </table>
