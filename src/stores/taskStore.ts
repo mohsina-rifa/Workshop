@@ -23,6 +23,20 @@ export const useTaskStore = defineStore("taskStore", {
         console.error("Error adding task:", error);
       }
     },
+    async editTask(id: string, newTitle: string, newDescription: string) {
+      try {
+        const response = await Axios.patch(
+          `tasks/${id}`,
+          {
+            taskTitle: newTitle,
+            taskDescription: newDescription,
+          }
+        );
+        console.log("Task edited:", response.data);
+      } catch (error) {
+        console.error("Error editing task:", error);
+      }
+    },
 
     async addStatus(status: TaskStatus) {
       try {

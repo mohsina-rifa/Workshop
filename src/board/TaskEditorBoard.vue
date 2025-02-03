@@ -1,10 +1,6 @@
 <script setup lang="ts">
-// import { ref } from "vue";
-// import { useToast, POSITION } from "vue-toastification";
-
-// import type { TaskDetail } from "../types/auth";
-
-// import { useTaskStore } from "../stores/taskStore";
+import { useToast, POSITION } from "vue-toastification";
+import { useTaskStore } from "../stores/taskStore";
 
 const props = defineProps({
   isVisible: {
@@ -17,27 +13,19 @@ const props = defineProps({
   }
 });
 
-// const newTask = ref<TaskDetail>({
-//   id: "",
-//   taskTitle: "",
-//   taskDescription: "",
-//   taskStatus: "assigned",
-//   userID: props.userID
-// });
-
-// const taskStoreInstance = useTaskStore();
-// const toast = useToast();
+const taskStoreInstance = useTaskStore();
+const currentTask = taskStoreInstance.getCurrentTask(props.taskID);
 
 const emit = defineEmits(["close"]);
+const toast = useToast();
 
 const editTask = async () => {
-  // if (newTask.value.taskTitle && newTask.value.taskDescription) {
-  //   newTask.value.id = crypto.randomUUID();
-  //   await taskStoreInstance.addTask(newTask.value);
+  // if (currentTask.taskTitle && currentTask.taskDescription) {
+  //   await taskStoreInstance.addTask(currentTask);
 
-  //   newTask.value.id = "";
-  //   newTask.value.taskTitle = "";
-  //   newTask.value.taskDescription = "";
+  //   currentTask.id = "";
+  //   currentTask.taskTitle = "";
+  //   currentTask.taskDescription = "";
 
   //   await taskStoreInstance.fetchTasks(props.userID);
   //   emit("close");
@@ -62,12 +50,12 @@ const editTask = async () => {
           <input
             type="text"
             class="form-control"
-            v-model="newTask.taskTitle"
+            v-model="currentTask.taskTitle"
             required
           />
           <textarea
             class="form-control mb-2"
-            v-model="newTask.taskDescription"
+            v-model="currentTask.taskDescription"
             rows="3"
             required
           />
