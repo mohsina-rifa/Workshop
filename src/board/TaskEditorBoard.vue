@@ -10,6 +10,10 @@ const props = defineProps({
   isVisible: {
     type: Boolean,
     required: true,
+  },
+  taskID: {
+    type: string,
+    required: true,
   }
 });
 
