@@ -20,21 +20,16 @@ const emit = defineEmits(["close"]);
 const toast = useToast();
 
 const editTask = async () => {
-  // if (currentTask.taskTitle && currentTask.taskDescription) {
-  //   await taskStoreInstance.addTask(currentTask);
-
-  //   currentTask.id = "";
-  //   currentTask.taskTitle = "";
-  //   currentTask.taskDescription = "";
-
-  //   await taskStoreInstance.fetchTasks(props.userID);
-  //   emit("close");
-  // } else {
-  //   toast.error("Fields cannot be empty!", {
-  //     position: POSITION.TOP_RIGHT,
-  //     timeout: 3000,
-  //   });
-  // }
+  if (currentTask.taskTitle && currentTask.taskDescription) {
+    await taskStoreInstance.editTask(currentTask);
+    await taskStoreInstance.fetchTasks(props.userID);
+    emit("close");
+  } else {
+    toast.error("Fields cannot be empty!", {
+      position: POSITION.TOP_RIGHT,
+      timeout: 3000,
+    });
+  }
 };
 </script>
 
