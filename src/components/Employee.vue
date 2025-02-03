@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import type { EmployeeRecord } from "../types/auth.ts";
 import { Axios } from "../service/axios";
 import { getUserFromLocalStorage } from "../helper/localStore";
+import { USER_ROLE } from '../service/enum';
 
 const SAARCCountryCodes = new Map<string, string>([
   ["Afghanistan", "+93"],
@@ -25,6 +26,18 @@ onMounted(async () => {
     console.error("Failed to fetch employee data:", error);
   }
 });
+
+const allRoles = ref<string[]>([]);
+
+const getRolesFromEnum = () => {
+  allRoles.value = Object.values(USER_ROLE).map(
+    (role) => role.charAt(0).toUpperCase() + role.slice(1)
+  );
+
+  return allRoles;
+};
+
+getRolesFromEnum();
 </script>
 
 <template>
@@ -63,8 +76,11 @@ onMounted(async () => {
             <td class="input-group">
               <select
                 class="form-select"
-                id="role"
-              ></select>
+                id="roles"
+              >
+                <option value="" disabled selected>{{ employee.role }}</option>
+                <option v-for="role in allRoles" :value="role">{{ role }}</option>
+              </select>
             </td>
           </tr>
         </tbody>
