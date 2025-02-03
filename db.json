@@ -7,7 +7,7 @@
       "country": "Bangladesh",
       "contact": "+880 1318241452",
       "password": "Pass209#",
-      "role": "super_admin"
+      "role": "owner"
     },
     {
       "id": "b3d6e32d-d0f9-4f06-a426-30102dc3d1a8",
@@ -16,7 +16,7 @@
       "country": "Bangladesh",
       "contact": "+880 1817530115",
       "password": "Pass130#",
-      "role": "standard"
+      "role": "user"
     },
     {
       "id": "5433be6d-09bf-4a6a-944b-8d5461d092c1",
@@ -25,7 +25,7 @@
       "country": "Bangladesh",
       "contact": "+880 2345678901",
       "password": "Pass111#",
-      "role": "standard"
+      "role": "user"
     },
     {
       "id": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241",
@@ -34,7 +34,7 @@
       "country": "Bangladesh",
       "contact": "+880 1682962010",
       "password": "Pass1567#",
-      "role": "standard"
+      "role": "user"
     },
     {
       "id": "9c3b851d-cc6f-4870-9a41-b7fe8ec9ca05",

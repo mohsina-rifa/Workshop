@@ -18,9 +18,7 @@ const employees = ref<EmployeeRecord[]>([]);
 
 onMounted(async () => {
   try {
-    const response = await Axios.get(
-      `employees`
-    );
+    const response = await Axios.get(`employees`);
     employees.value = response.data;
   } catch (error) {
     console.error("Failed to fetch employee data:", error);
@@ -46,6 +44,7 @@ onMounted(async () => {
             <th>Country</th>
             <th>Contact</th>
             <th>Password</th>
+            <th>Role</th>
           </tr>
         </thead>
         <tbody>
@@ -59,9 +58,8 @@ onMounted(async () => {
                 `${SAARCCountryCodes.get(employee.country)} ${employee.contact}`
               }}
             </td>
-            <td>
-              {{ employee.password }}
-            </td>
+            <td>{{ employee.password }}</td>
+            <td>{{ employee.role }}</td>
           </tr>
         </tbody>
       </table>
