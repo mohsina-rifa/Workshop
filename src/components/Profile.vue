@@ -2,7 +2,10 @@
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { Axios } from "../service/axios";
-import { getUserFromLocalStorage, removeUserFromLocalStorage } from '../helper/localStore'
+import {
+  getUserFromLocalStorage,
+  removeUserFromLocalStorage,
+} from "../helper/localStore";
 import type { EmployeeRecord } from "../types/auth";
 
 const employeeData = ref<{
@@ -12,7 +15,7 @@ const employeeData = ref<{
   contact: string;
 } | null>(null);
 
-const user = computed<EmployeeRecord>( () => getUserFromLocalStorage() )
+const user = computed<EmployeeRecord>(() => getUserFromLocalStorage());
 
 onMounted(async () => {
   try {
@@ -28,7 +31,7 @@ const router = useRouter();
 
 const routeToBoard = () => {
   router.push(`/see-your-board?userID=${user.value.id}`);
-}
+};
 
 const handleLogOut = () => {
   removeUserFromLocalStorage();
@@ -98,4 +101,8 @@ const handleLogOut = () => {
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.text-info {
+  cursor: pointer;
+}
+</style>

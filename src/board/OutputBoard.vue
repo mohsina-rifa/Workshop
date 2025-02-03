@@ -70,9 +70,6 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
 </script>
 
 <template>
-  <!-- <div>
-    {{ allStatus }}
-  </div> -->
   <div class="kanban-board justify-content-center">
     <template v-for="status in allStatus">
       <div
@@ -97,7 +94,10 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
             @dragstart="onDragStart(task.id, $event)"
             @dragend="onDragEnd"
           >
-            <h5>{{ task.taskTitle }}</h5>
+            <div class="task-header">
+              <h5>{{ task.taskTitle }}</h5>
+              <i class="bi bi-pencil-square"></i>
+            </div>
             <p>{{ task.taskDescription }}</p>
           </div>
         </div>
@@ -149,7 +149,22 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.task-card h5 {
+.task-header {
+  display: flex;
+  justify-content: center;
+  align-items: top;
+}
+
+.task-header h5 {
   padding-bottom: 5px;
+}
+
+.bi {
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.bi:hover {
+  color: #007bff;
 }
 </style>
