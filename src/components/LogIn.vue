@@ -72,7 +72,7 @@ const submitForm = async () => {
   <section id="login">
     <div class="container-lg">
       <div class="row justify-content-center my-5">
-        <div class="col-lg-3"><img src="../assets/formimage.svg"</div>
+        <div class="col-lg-3"><img src="../assets/login.svg"</div>
         <div class="col-lg-3"></div>
         <div class="col-lg-5">
           <div class="text-start">

@@ -61,7 +61,7 @@ const SAARCCountryCodes = new Map<string, string>([
 
 const checkAllFieldValidate = ref([]);
 
-provide('checkAllFieldValidate', checkAllFieldValidate);
+provide("checkAllFieldValidate", checkAllFieldValidate);
 
 const isAllFieldValid = () => {
   return checkAllFieldValidate.value.every((field: Function) => {
@@ -71,10 +71,7 @@ const isAllFieldValid = () => {
 
 const saveToDatabase = async (employeeData: EmployeeRecord) => {
   try {
-    const response = await Axios.post(
-      `employees`,
-      employeeData
-    );
+    const response = await Axios.post(`employees`, employeeData);
     console.log("Saved successfully:", response.data);
   } catch (error) {
     console.error("Error saving to database:", error);
@@ -82,7 +79,7 @@ const saveToDatabase = async (employeeData: EmployeeRecord) => {
 };
 
 const submitForm = async () => {
-  if(!isAllFieldValid()) {
+  if (!isAllFieldValid()) {
     toast.error("invalid fields!", {
       position: POSITION.TOP_RIGHT,
       timeout: 3000,
@@ -96,9 +93,11 @@ const submitForm = async () => {
     name: `${employee.value.firstname} ${employee.value.lastname}`,
     username: employee.value.username,
     country: employee.value.country,
-    contact: `${SAARCCountryCodes.get(employee.value.country)} ${employee.value.contact}`,
+    contact: `${SAARCCountryCodes.get(employee.value.country)} ${
+      employee.value.contact
+    }`,
     password: employee.value.password,
-    role: USER_ROLE.USER
+    role: USER_ROLE.USER,
   };
 
   try {
@@ -120,14 +119,16 @@ const submitForm = async () => {
 <template>
   <section id="signup">
     <div class="container-lg">
-      <div class="text-center">
-        <h2>Sign up</h2>
-        <p>Be a part of the community...</p>
-      </div>
-
-      <div class="row justify-content-center my-5">
-        <div class="col-lg-6">
-          <form>
+      <div class="row justify-content-center">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-3"><img src="../assets/signup.svg"</div>
+        <div class="col-lg-2"></div>
+        <div class="col-lg-5">
+          <div class="text-start">
+            <h1>Sign up</h1>
+            <h5>Be a part of the community...</h5>
+          </div>
+          <form class="mt-5">
             <Name
               id="firstname"
               v-model="employee.firstname"
@@ -188,11 +189,22 @@ const submitForm = async () => {
             >
               Submit!
             </button>
+
+            <div class="mt-2">
+              <router-link to="/resume-your-progress" class="p text-info"
+                >Already a member? Log in!</router-link
+              >
+            </div>
           </form>
         </div>
+        <div class="col-lg-1"></div>
       </div>
     </div>
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.col-lg-3 img {
+  padding-top: 100px;
+}
+</style>
