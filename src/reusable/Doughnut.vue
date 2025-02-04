@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, computed } from "vue";
 import { useTaskStore } from "../stores/taskStore";
+import { Doughnut } from "vue-chart-3";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 const props = defineProps({
   userID: {
@@ -10,6 +12,7 @@ const props = defineProps({
 });
 
 const taskStoreInstance = useTaskStore();
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 onMounted(async () => {
   await taskStoreInstance.fetchTasks(props.userID);
