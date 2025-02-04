@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-
 import { useTaskStore } from "../stores/taskStore";
+
+import TaskInputBoard from "../board/TaskInputBoard.vue";
 
 const props = defineProps({
   userID: {
@@ -64,12 +65,21 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
   const draggedElement = event.target as HTMLElement;
   draggedElement.classList.remove("dragging");
 };
+
+const taskBeingEdited = ref("");
+const isEditorVisible = ref(false);
+
+const openTaskEditor = (id: string) => {
+  isEditorVisible.value = true;
+  taskBeingEdited.value = id;
+};
+
+const closeTaskEditor = () => {
+  isEditorVisible.value = false;
+};
 </script>
 
 <template>
-  <!-- <div>
-    {{ allStatus }}
-  </div> -->
   <div class="kanban-board justify-content-center">
     <template v-for="status in allStatus">
       <div
@@ -94,13 +104,17 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
             @dragstart="onDragStart(task.id, $event)"
             @dragend="onDragEnd"
           >
-            <h5>{{ task.taskTitle }}</h5>
+            <div class="task-header">
+              <h5>{{ task.taskTitle }}</h5>
+              <i class="bi bi-pencil-square" @click="openTaskEditor(task.id)"></i>
+            </div>
             <p>{{ task.taskDescription }}</p>
           </div>
         </div>
       </div>
     </template>
   </div>
+  <TaskInputBoard :isVisible="isEditorVisible" :editedTaskID="taskBeingEdited" @close="closeTaskEditor"/>
 </template>
 
 <style scoped>
@@ -146,7 +160,22 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.task-card h5 {
+.task-header {
+  display: flex;
+  justify-content: center;
+  align-items: top;
+}
+
+.task-header h5 {
   padding-bottom: 5px;
+}
+
+.bi {
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.bi:hover {
+  color: #007bff;
 }
 </style>

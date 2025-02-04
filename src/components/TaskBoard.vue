@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRoute } from "vue-router";
 
 import TaskInputBoard from "../board/TaskInputBoard.vue";
 import StatusInputBoard from "../board/StatusInputBoard.vue";
 import OutputBoard from "../board/OutputBoard.vue";
+
+import { getUserFromLocalStorage, isUserAdmin } from '../helper/localStore';
 
 const isModalForTaskVisible = ref(false);
 const isModalForStatusVisible = ref(false);
@@ -25,9 +26,7 @@ const closeModalForStatus = async () => {
   isModalForStatusVisible.value = false;
 };
 
-const route = useRoute();
-
-const userID = route.params.userID as string;
+const userID = getUserFromLocalStorage().id;
 </script>
 
 <template>
@@ -38,7 +37,7 @@ const userID = route.params.userID as string;
         <button class="btn btn-outline-secondary me-2" @click="openModalForTask">
           Add Task
         </button>
-        <button class="btn btn-outline-secondary" @click="openModalForStatus">
+        <button class="btn btn-outline-secondary" v-if="isUserAdmin()" @click="openModalForStatus">
           Add Category
         </button>
       </div>

@@ -23,6 +23,20 @@ export const useTaskStore = defineStore("taskStore", {
         console.error("Error adding task:", error);
       }
     },
+    async editTask(id: string, newTitle: string, newDescription: string) {
+      try {
+        const response = await Axios.patch(
+          `tasks/${id}`,
+          {
+            taskTitle: newTitle,
+            taskDescription: newDescription,
+          }
+        );
+        console.log("Task edited:", response.data);
+      } catch (error) {
+        console.error("Error editing task:", error);
+      }
+    },
 
     async addStatus(status: TaskStatus) {
       try {
@@ -77,6 +91,11 @@ export const useTaskStore = defineStore("taskStore", {
   getters: {
     getTaskList: (state) => state.taskList,
     getStatusList: (state) => state.statusList,
-    getStatusIndex: (state) => state.statusList.length
+    getStatusIndex: (state) => state.statusList.length,
+    getCurrentTask: (state) => {
+      return (taskID: string) => state.taskList.find(
+        (task) => task.id === taskID
+      );
+    }
   },
 });

@@ -2,7 +2,10 @@
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { Axios } from "../service/axios";
-import { getUserFromLocalStorage, removeUserFromLocalStorage } from '../helper/localStore'
+import {
+  getUserFromLocalStorage,
+  removeUserFromLocalStorage,
+} from "../helper/localStore";
 import type { EmployeeRecord } from "../types/auth";
 
 const employeeData = ref<{
@@ -12,7 +15,7 @@ const employeeData = ref<{
   contact: string;
 } | null>(null);
 
-const user = computed<EmployeeRecord>( () => getUserFromLocalStorage() )
+const user = computed<EmployeeRecord>(() => getUserFromLocalStorage());
 
 onMounted(async () => {
   try {
@@ -26,10 +29,6 @@ onMounted(async () => {
 
 const router = useRouter();
 
-const routeToBoard = () => {
-  router.push(`/see-your-board/${user.value.id}`);
-}
-
 const handleLogOut = () => {
   removeUserFromLocalStorage();
   router.push("/");
@@ -39,56 +38,54 @@ const handleLogOut = () => {
 <template>
   <section id="profile">
     <div class="container-lg" v-if="employeeData">
-      <div class="row justify-content-center my-5">
-        <div class="col-lg-8 d-flex justify-content-start align-items-center">
-          <img
-            src="../assets/profile.svg"
-            alt="Profile Image"
-            style="width: 250px; height: 250px; margin-right: 15px"
-          />
-          <div class="d-flex flex-column">
-            <h2>{{ employeeData.username }}</h2>
-            <p class="text-info" @click="routeToBoard">See your progress...</p>
+      <div class="row justify-content-center align-items-start my-5">
+        <div class="col-lg-6 d-flex flex-column">
+          <div class="d-flex justify-content-start align-items-top mb-3">
+            <div>
+              <img
+                src="../assets/profile.svg"
+                alt="Profile Image"
+                style="width: 250px; height: 250px; margin-right: 15px"
+              />
+            </div>
+            <div class="d-flex flex-column">
+              <h2>{{ employeeData.username }}</h2>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger half-width-btn"
+                @click="handleLogOut"
+              >
+                Log out
+              </button>
+            </div>
           </div>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td><strong>Name</strong></td>
+                <td>{{ employeeData.name }}</td>
+              </tr>
+              <tr>
+                <td><strong>Country</strong></td>
+                <td>{{ employeeData.country }}</td>
+              </tr>
+              <tr>
+                <td><strong>Contact</strong></td>
+                <td>{{ employeeData.contact }}</td>
+              </tr>
+              <tr>
+                <td><strong>Password</strong></td>
+                <td>********</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="col-lg-7 d-flex justify-content-start align-items-center">
-          <h5>
-            <strong>Name</strong
-            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
-              employeeData.name
-            }}
-          </h5>
-        </div>
-        <div class="col-lg-7 d-flex justify-content-start align-items-center">
-          <h5>
-            <strong>Country</strong
-            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
-              employeeData.country
-            }}
-          </h5>
-        </div>
-        <div class="col-lg-7 d-flex justify-content-start align-items-center">
-          <h5>
-            <strong>Contact</strong
-            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{
-              employeeData.contact
-            }}
-          </h5>
-        </div>
-        <div class="col-lg-7 d-flex justify-content-start align-items-center">
-          <h5>
-            <strong>Password</strong
-            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;********
-          </h5>
-        </div>
-        <div class="col-lg-6 d-flex justify-content-end">
-          <button
-            type="button"
-            class="btn btn-outline-danger"
-            @click="handleLogOut"
-          >
-            Log out
-          </button>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-4 d-flex justify-content-start align-items-center">
+          <img
+            src="../assets/signup.svg"
+            style="width: 100%; height: 100%; object-fit: contain"
+          />
         </div>
       </div>
     </div>
@@ -98,4 +95,13 @@ const handleLogOut = () => {
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.half-width-btn {
+  width: 60%;
+}
+
+.flex-column h2 {
+  padding-top: 80px;
+  padding-bottom: 5px;
+}
+</style>

@@ -54,7 +54,7 @@ const countryCode = computed(
 
 <template>
   <label for="contact" class="form-label">Contact:</label>
-  <div class="mb-4">
+  <div class="mb-3">
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text">{{

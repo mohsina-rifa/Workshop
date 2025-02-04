@@ -22,9 +22,7 @@ const employees = ref<EmployeeRecord[]>([]);
 
 onMounted(async () => {
   try {
-    const response = await Axios.get(
-      `employees`
-    );
+    const response = await Axios.get(`employees`);
     employees.value = response.data;
   } catch (error) {
     console.error("Failed to fetch employee data:", error);
@@ -71,14 +69,15 @@ const submitForm = async () => {
 <template>
   <section id="login">
     <div class="container-lg">
-      <div class="text-center">
-        <h2>Log In</h2>
-        <p>Pick up where you left...</p>
-      </div>
-
       <div class="row justify-content-center my-5">
-        <div class="col-lg-6">
-          <form>
+        <div class="col-lg-3"><img src="../assets/login.svg"</div>
+        <div class="col-lg-3"></div>
+        <div class="col-lg-5">
+          <div class="text-start">
+            <h1>Log In</h1>
+            <h5>Pick up where you left...</h5>
+          </div>
+          <form class="mt-5">
             <div>
               <label for="username" class="form-label"> Username: </label>
               <div class="input-group">
@@ -90,8 +89,7 @@ const submitForm = async () => {
                 />
               </div>
             </div>
-            <br/>
-            <div>
+            <div class="mt-3">
               <label for="password" class="form-label">Password:</label>
               <div class="input-group">
                 <input
@@ -102,8 +100,7 @@ const submitForm = async () => {
                 />
               </div>
             </div>
-            <br/>
-            <div>
+            <div class="mt-5">
               <button
                 data-mdb-button-init
                 data-mdb-ripple-init
@@ -116,8 +113,14 @@ const submitForm = async () => {
                 Log In!
               </button>
             </div>
+            <div class="mt-3">
+              <router-link to="/join-the-community" class="p text-info"
+                >Don't have an account yet? Sign up!</router-link
+              >
+            </div>
           </form>
         </div>
+        <div class="col-lg-1"></div>
       </div>
     </div>
   </section>

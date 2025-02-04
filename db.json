@@ -7,7 +7,7 @@
       "country": "Bangladesh",
       "contact": "+880 1318241452",
       "password": "Pass209#",
-      "role": "super_admin"
+      "role": "owner"
     },
     {
       "id": "b3d6e32d-d0f9-4f06-a426-30102dc3d1a8",
@@ -16,7 +16,7 @@
       "country": "Bangladesh",
       "contact": "+880 1817530115",
       "password": "Pass130#",
-      "role": "standard"
+      "role": "admin"
     },
     {
       "id": "5433be6d-09bf-4a6a-944b-8d5461d092c1",
@@ -24,8 +24,8 @@
       "username": "0ishi",
       "country": "Bangladesh",
       "contact": "+880 2345678901",
-      "password": "Pass111#",
-      "role": "standard"
+      "password": "Pass999#",
+      "role": "user"
     },
     {
       "id": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241",
@@ -33,8 +33,8 @@
       "username": "Rabbi",
       "country": "Bangladesh",
       "contact": "+880 1682962010",
-      "password": "Pass1567#",
-      "role": "standard"
+      "password": "PassC67#",
+      "role": "user"
     },
     {
       "id": "9c3b851d-cc6f-4870-9a41-b7fe8ec9ca05",
@@ -132,38 +132,131 @@
       "userID": "b3d6e32d-d0f9-4f06-a426-30102dc3d1a8"
     },
     {
-      "id": "556485f7-eefa-45fd-9a1c-eba892c70508",
-      "taskTitle": "Add New Category",
+      "id": "2b29f00e-7379-4c8f-917d-04c3b9758820",
+      "taskTitle": "Add Country List",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
-      "taskStatus": "bugfound",
-      "userID": "b3d6e32d-d0f9-4f06-a426-30102dc3d1a8"
+      "taskStatus": "completed",
+      "userID": "5433be6d-09bf-4a6a-944b-8d5461d092c1"
+    },
+    {
+      "id": "23d1bf6c-242d-4cfc-bbb4-81874257a6d2",
+      "taskTitle": "Merge Country Code",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "unsuccessful",
+      "userID": "5433be6d-09bf-4a6a-944b-8d5461d092c1"
+    },
+    {
+      "id": "4e375bab-750a-40ab-9e0e-b8773794ae6f",
+      "taskTitle": "Country Validation",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "assigned",
+      "userID": "5433be6d-09bf-4a6a-944b-8d5461d092c1"
+    },
+    {
+      "id": "4e375bab-750a-40ab-9y0y-b8773794ae6f",
+      "taskTitle": "Show Country in Dropdown",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "inprogress",
+      "userID": "5433be6d-09bf-4a6a-944b-8d5461d092c1"
+    },
+    {
+      "id": "61152d13-c6e5-4da4-bbb1-346290170604",
+      "taskTitle": "Create New Router",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "completed",
+      "userID": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241"
+    },
+    {
+      "id": "61152d13-c6e5-4da4-kkk1-346290170604",
+      "taskTitle": "Add Route-Guard",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "inprogress",
+      "userID": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241"
+    },
+    {
+      "id": "2079e15c-b653-4640-ae42-d7eb23f30b5f",
+      "taskTitle": "Lazy Loading Update",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "completed",
+      "userID": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241"
+    },
+    {
+      "id": "0cbb29ae-4ae2-46ea-a29b-ebdb10b7588b",
+      "taskTitle": "Seperate Stores",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "assigned",
+      "userID": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241"
+    },
+    {
+      "id": "3d2bde4e-f19f-4ad0-84f2-b5e7fa330e43",
+      "taskTitle": "Fetch ID at Navbar",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "unsuccessful",
+      "userID": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241"
+    },
+    {
+      "id": "e4f64819-ddd5-473c-b2af-647ee08a1e9b",
+      "taskTitle": "Import Axios in Storers",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "assigned",
+      "userID": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241"
+    },
+    {
+      "id": "c69d1279-70f6-4f0d-afa9-544d64368944",
+      "taskTitle": "Create ENUM",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "completed",
+      "userID": "9c3b851d-cc6f-4870-9a41-b7fe8ec9ca05"
+    },
+    {
+      "id": "08f4a8cd-b38d-4ac8-aea6-86d8fb98e356",
+      "taskTitle": "Import ENUM Values",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "inprogress",
+      "userID": "9c3b851d-cc6f-4870-9a41-b7fe8ec9ca05"
+    },
+    {
+      "id": "2774b835-8add-482e-8917-93125b3796d5",
+      "taskTitle": "Fetch ENUM Data to Database",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "unsuccessful",
+      "userID": "9c3b851d-cc6f-4870-9a41-b7fe8ec9ca05"
+    },
+    {
+      "id": "edc27b65-0226-4117-b18c-07f478b0ef6b",
+      "taskTitle": "Update ENUM with New Values",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "assigned",
+      "userID": "9c3b851d-cc6f-4870-9a41-b7fe8ec9ca05"
+    },
+    {
+      "id": "6a055317-e50b-45be-be22-5b3b035cd0da",
+      "taskTitle": "Reuse Editor",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "inprogress",
+      "userID": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241"
     }
   ],
   "task_status": [
     {
-      "id": 0,
+      "id": "0",
       "title": "Assigned",
       "key": "assigned"
     },
     {
-      "id": 1,
+      "id": "1",
       "title": "In Progress",
       "key": "inprogress"
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Completed",
       "key": "completed"
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Unsuccessful",
       "key": "unsuccessful"
-    },
-    {
-      "id": 4,
-      "title": "Bug Found",
-      "key": "bugfound"
     }
   ]
 }

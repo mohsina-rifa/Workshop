@@ -1,5 +1,5 @@
-import { getUserFromLocalStorage } from '../helper/localStore'
-import { USER_ROLE } from '../service/enum'
+import { getUserFromLocalStorage } from '../helper/localStore';
+import { USER_ROLE } from '../service/enum';
 
 export const isAuthenticated = (to, from, next) => {
     const userID = getUserFromLocalStorage()?.id;
