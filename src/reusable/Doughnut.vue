@@ -54,7 +54,27 @@ const chartData = computed(() => {
   const backgroundColors = allStatus.value.map((status) => {
     return statusColors[status.key] || getRandomColor();
   });
+
+  return {
+    labels: allStatus.value.map((status) => status.title),
+    datasets: [
+      {
+        data: Object.values(tasksBasedOnStatus.value),
+        backgroundColor: backgroundColors,
+      },
+    ],
+  }; 
 });
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: "bottom",
+    },
+  },
+}
 </script>
 
 <template></template>
