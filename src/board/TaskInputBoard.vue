@@ -33,13 +33,6 @@ const newTask = ref<TaskDetail>({
   userID: props.userID as string,
 });
 
-const resetForm = () => {
-  newTask.value.id = "";
-  newTask.value.taskTitle = "";
-  newTask.value.taskDescription = "";
-  emit("close");
-};
-
 watch(
   () => props.editedTaskID,
   () => {
@@ -51,11 +44,16 @@ watch(
         newTask.value.taskTitle = currentTask.taskTitle;
         newTask.value.taskDescription = currentTask.taskDescription;
       }
-
-      console.log(currentTask, "onmount function");
     }
   }
 );
+
+const resetForm = () => {
+  newTask.value.id = "";
+  newTask.value.taskTitle = "";
+  newTask.value.taskDescription = "";
+  emit("close");
+};
 
 const createTask = async () => {
   if (props.userID) {

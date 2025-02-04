@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRoute } from "vue-router";
 
 import TaskInputBoard from "../board/TaskInputBoard.vue";
 import StatusInputBoard from "../board/StatusInputBoard.vue";
 import OutputBoard from "../board/OutputBoard.vue";
 
-import { isUserAdmin } from '../helper/localStore';
-// isUserAdmin();
+import { getUserFromLocalStorage, isUserAdmin } from '../helper/localStore';
+
 const isModalForTaskVisible = ref(false);
 const isModalForStatusVisible = ref(false);
 
@@ -27,16 +26,7 @@ const closeModalForStatus = async () => {
   isModalForStatusVisible.value = false;
 };
 
-const route = useRoute();
-
-const userID = route.query.userID as string;
-
-const selectedTaskID = ref("");
-
-const editSelectedTask = (id: string) => {
-  selectedTaskID.value = id;
-  isModalForTaskVisible.value = true;
-}
+const userID = getUserFromLocalStorage().id;
 </script>
 
 <template>
@@ -53,10 +43,10 @@ const editSelectedTask = (id: string) => {
       </div>
     </div>
     <div>
-      <OutputBoard :userID="userID" @edit-task="editSelectedTask"/>
+      <OutputBoard :userID="userID"/>
     </div>
     <div>
-      <TaskInputBoard :isVisible="isModalForTaskVisible" :userID="userID" :editedTaskID="selectedTaskID" @close="closeModalForTask" />
+      <TaskInputBoard :isVisible="isModalForTaskVisible" :userID="userID" @close="closeModalForTask" />
     </div>
     <div>
       <StatusInputBoard :isVisible="isModalForStatusVisible" @close="closeModalForStatus" />

@@ -2,6 +2,8 @@
 import { ref, onMounted, computed } from "vue";
 import { useTaskStore } from "../stores/taskStore";
 
+import TaskInputBoard from "../board/TaskInputBoard.vue";
+
 const props = defineProps({
   userID: {
     type: String,
@@ -67,10 +69,12 @@ const onDrop = async (newStatus: string, event: DragEvent) => {
   draggedElement.classList.remove("dragging");
 };
 
-const emit = defineEmits(["editTask"]);
+const taskBeingEdited = ref("");
+const isEditorVisible = ref(false);
 
 const openTaskEditor = (id: string) => {
-  emit("editTask", id);
+  isEditorVisible.value = true;
+  taskBeingEdited.value = id;
 };
 </script>
 
@@ -109,6 +113,7 @@ const openTaskEditor = (id: string) => {
       </div>
     </template>
   </div>
+  <TaskInputBoard :isVisible="isEditorVisible" :editedTaskID="taskBeingEdited"/>
 </template>
 
 <style scoped>
