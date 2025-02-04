@@ -23,8 +23,6 @@ export const isUserAdmin = () => {
   const user = localStorage.getItem(STORE_ATTRIBUTE.LOGGED_IN_USER);
   const person = JSON.parse(user as string);
 
-  console.log(person, "Person:");
-
   return(
     person.role === 'owner' ||
     person.role === 'admin'

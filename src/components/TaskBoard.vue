@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRoute } from "vue-router";
 
 import TaskInputBoard from "../board/TaskInputBoard.vue";
 import StatusInputBoard from "../board/StatusInputBoard.vue";
 import OutputBoard from "../board/OutputBoard.vue";
 
-import { isUserAdmin } from '../helper/localStore';
-// isUserAdmin();
+import { getUserFromLocalStorage, isUserAdmin } from '../helper/localStore';
+
 const isModalForTaskVisible = ref(false);
 const isModalForStatusVisible = ref(false);
 
@@ -27,9 +26,7 @@ const closeModalForStatus = async () => {
   isModalForStatusVisible.value = false;
 };
 
-const route = useRoute();
-
-const userID = route.query.userID as string;
+const userID = getUserFromLocalStorage().id;
 </script>
 
 <template>
