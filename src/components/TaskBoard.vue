@@ -30,6 +30,13 @@ const closeModalForStatus = async () => {
 const route = useRoute();
 
 const userID = route.query.userID as string;
+
+const selectedTaskID = ref("");
+
+const editSelectedTask = (id: string) => {
+  selectedTaskID.value = id;
+  isModalForTaskVisible.value = true;
+}
 </script>
 
 <template>
@@ -46,10 +53,10 @@ const userID = route.query.userID as string;
       </div>
     </div>
     <div>
-      <OutputBoard :userID="userID"/>
+      <OutputBoard :userID="userID" @edit-task="editSelectedTask"/>
     </div>
     <div>
-      <TaskInputBoard :isVisible="isModalForTaskVisible" :userID="userID" @close="closeModalForTask" />
+      <TaskInputBoard :isVisible="isModalForTaskVisible" :userID="userID" :editedTaskID="selectedTaskID" @close="closeModalForTask" />
     </div>
     <div>
       <StatusInputBoard :isVisible="isModalForStatusVisible" @close="closeModalForStatus" />

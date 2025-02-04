@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useToast, POSITION } from "vue-toastification";
 
 import type { TaskDetail } from "../types/auth";
@@ -13,39 +13,81 @@ const props = defineProps({
   },
   userID: {
     type: String,
-    required: true,
+    required: false,
+  },
+  editedTaskID: {
+    type: String,
+    required: false,
   },
 });
+
+const taskStoreInstance = useTaskStore();
+const toast = useToast();
+const emit = defineEmits(["close"]);
 
 const newTask = ref<TaskDetail>({
   id: "",
   taskTitle: "",
   taskDescription: "",
   taskStatus: "assigned",
-  userID: props.userID
+  userID: props.userID as string,
 });
 
-const taskStoreInstance = useTaskStore();
-const toast = useToast();
+const resetForm = () => {
+  newTask.value.id = "";
+  newTask.value.taskTitle = "";
+  newTask.value.taskDescription = "";
+  emit("close");
+};
 
-const emit = defineEmits(["close"]);
+watch(
+  () => props.editedTaskID,
+  () => {
+    if (props.editedTaskID) {
+      const currentTask = taskStoreInstance.getCurrentTask(props.editedTaskID);
+
+      if (currentTask) {
+        newTask.value.id = currentTask.id;
+        newTask.value.taskTitle = currentTask.taskTitle;
+        newTask.value.taskDescription = currentTask.taskDescription;
+      }
+
+      console.log(currentTask, "onmount function");
+    }
+  }
+);
 
 const createTask = async () => {
+  if (props.userID) {
+    if (newTask.value.taskTitle && newTask.value.taskDescription) {
+      newTask.value.id = crypto.randomUUID();
+
+      await taskStoreInstance.addTask(newTask.value);
+      await taskStoreInstance.fetchTasks(props.userID);
+
+      resetForm();
+    } else {
+      toast.error("Fields cannot be empty!", {
+        position: POSITION.TOP_RIGHT,
+        timeout: 3000,
+      });
+    }
+  }
+};
+
+const editTask = async () => {
   if (newTask.value.taskTitle && newTask.value.taskDescription) {
-    newTask.value.id = crypto.randomUUID();
-    await taskStoreInstance.addTask(newTask.value);
+    if (props.editedTaskID) {
+      const { id, taskTitle, taskDescription } = newTask.value;
+      await taskStoreInstance.editTask(id, taskTitle, taskDescription);
 
-    newTask.value.id = "";
-    newTask.value.taskTitle = "";
-    newTask.value.taskDescription = "";
-
-    await taskStoreInstance.fetchTasks(props.userID);
-    emit("close");
-  } else {
-    toast.error("Fields cannot be empty!", {
-      position: POSITION.TOP_RIGHT,
-      timeout: 3000,
-    });
+      resetForm();
+    } else {
+      toast.error("Fields cannot be empty!", {
+        position: POSITION.TOP_RIGHT,
+        timeout: 3000,
+      });
+    }
   }
 };
 </script>
@@ -56,7 +98,7 @@ const createTask = async () => {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Add New Task</h5>
-          <button type="button" class="btn-close" @click="emit('close')"></button>
+          <button type="button" class="btn-close" @click="resetForm"></button>
         </div>
         <div class="modal-body">
           <input
@@ -75,11 +117,14 @@ const createTask = async () => {
           />
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="emit('close')">
+          <button type="button" class="btn btn-secondary" @click="resetForm">
             Close
           </button>
-          <button type="button" class="btn btn-primary" @click="createTask">
+          <button type="button" v-if="userID" class="btn btn-primary" @click="createTask">
             Save Task
+          </button>
+          <button type="button" v-else-if="editedTaskID" class="btn btn-primary" @click="editTask">
+            Edit Task
           </button>
         </div>
       </div>
