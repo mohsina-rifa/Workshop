@@ -2,6 +2,8 @@
 import { ref, watch } from "vue";
 import { useToast, POSITION } from "vue-toastification";
 
+import { getUserFromLocalStorage } from '../helper/localStore';
+
 import type { TaskDetail } from "../types/auth";
 
 import { useTaskStore } from "../stores/taskStore";
@@ -48,44 +50,49 @@ watch(
   }
 );
 
-const resetForm = () => {
+const resetForm = async () => {
+  await taskStoreInstance.fetchTasks(getUserFromLocalStorage().id);
+
   newTask.value.id = "";
   newTask.value.taskTitle = "";
   newTask.value.taskDescription = "";
+
   emit("close");
 };
 
 const createTask = async () => {
-  if (props.userID) {
-    if (newTask.value.taskTitle && newTask.value.taskDescription) {
-      newTask.value.id = crypto.randomUUID();
+  if (
+    props.userID &&
+    newTask.value.taskTitle &&
+    newTask.value.taskDescription
+  ) {
+    newTask.value.id = crypto.randomUUID();
+    await taskStoreInstance.addTask(newTask.value);
 
-      await taskStoreInstance.addTask(newTask.value);
-      await taskStoreInstance.fetchTasks(props.userID);
-
-      resetForm();
-    } else {
-      toast.error("Fields cannot be empty!", {
-        position: POSITION.TOP_RIGHT,
-        timeout: 3000,
-      });
-    }
+    resetForm();
+  } else {
+    toast.error("Fields cannot be empty!", {
+      position: POSITION.TOP_RIGHT,
+      timeout: 3000,
+    });
   }
 };
 
 const editTask = async () => {
-  if (newTask.value.taskTitle && newTask.value.taskDescription) {
-    if (props.editedTaskID) {
-      const { id, taskTitle, taskDescription } = newTask.value;
-      await taskStoreInstance.editTask(id, taskTitle, taskDescription);
+  if (
+    newTask.value.taskTitle &&
+    newTask.value.taskDescription &&
+    props.editedTaskID
+  ) {
+    const { id, taskTitle, taskDescription } = newTask.value;
+    await taskStoreInstance.editTask(id, taskTitle, taskDescription);
 
-      resetForm();
-    } else {
-      toast.error("Fields cannot be empty!", {
-        position: POSITION.TOP_RIGHT,
-        timeout: 3000,
-      });
-    }
+    resetForm();
+  } else {
+    toast.error("Fields cannot be empty!", {
+      position: POSITION.TOP_RIGHT,
+      timeout: 3000,
+    });
   }
 };
 </script>
@@ -118,10 +125,20 @@ const editTask = async () => {
           <button type="button" class="btn btn-secondary" @click="resetForm">
             Close
           </button>
-          <button type="button" v-if="userID" class="btn btn-primary" @click="createTask">
+          <button
+            type="button"
+            v-if="userID"
+            class="btn btn-primary"
+            @click="createTask"
+          >
             Save Task
           </button>
-          <button type="button" v-else-if="editedTaskID" class="btn btn-primary" @click="editTask">
+          <button
+            type="button"
+            v-else-if="editedTaskID"
+            class="btn btn-primary"
+            @click="editTask"
+          >
             Edit Task
           </button>
         </div>

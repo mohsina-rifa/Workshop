@@ -76,6 +76,10 @@ const openTaskEditor = (id: string) => {
   isEditorVisible.value = true;
   taskBeingEdited.value = id;
 };
+
+const closeTaskEditor = () => {
+  isEditorVisible.value = false;
+};
 </script>
 
 <template>
@@ -113,7 +117,7 @@ const openTaskEditor = (id: string) => {
       </div>
     </template>
   </div>
-  <TaskInputBoard :isVisible="isEditorVisible" :editedTaskID="taskBeingEdited"/>
+  <TaskInputBoard :isVisible="isEditorVisible" :editedTaskID="taskBeingEdited" @close="closeTaskEditor"/>
 </template>
 
 <style scoped>

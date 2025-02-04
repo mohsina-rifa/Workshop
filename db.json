@@ -161,7 +161,7 @@
     },
     {
       "id": "61152d13-c6e5-4da4-bbb1-346290170604",
-      "taskTitle": "Create Router",
+      "taskTitle": "Create New Router",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
       "taskStatus": "completed",
       "userID": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241"
@@ -175,7 +175,7 @@
     },
     {
       "id": "2079e15c-b653-4640-ae42-d7eb23f30b5f",
-      "taskTitle": "Lazy Loading update",
+      "taskTitle": "Lazy Loading Update",
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
       "taskStatus": "completed",
       "userID": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241"
@@ -228,6 +228,13 @@
       "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
       "taskStatus": "assigned",
       "userID": "9c3b851d-cc6f-4870-9a41-b7fe8ec9ca05"
+    },
+    {
+      "id": "6a055317-e50b-45be-be22-5b3b035cd0da",
+      "taskTitle": "Reuse Editor",
+      "taskDescription": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, repellendus facere deleniti minus?",
+      "taskStatus": "inprogress",
+      "userID": "9e6924d0-5cd3-402e-a357-5aaa6f7e1241"
     }
   ],
   "task_status": [
