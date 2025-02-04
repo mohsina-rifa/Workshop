@@ -33,6 +33,17 @@ const tasksBasedOnStatus = computed(() => {
 
   return taskCount;
 });
+
+const chartData = computed(() => {
+  const statusColors: Record<string, string> = {
+    assigned: "#007bff",
+    inprogress: "#6c757d",
+    completed: "#28a745",
+    unsuccessful: "#dc3545",
+  };
+
+  //
+});
 </script>
 
 <template></template>
