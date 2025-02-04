@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { onMounted, computed } from "vue";
 import { useTaskStore } from "../stores/taskStore";
-import { Doughnut } from "vue-chart-3";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 const props = defineProps({
   userID: {
@@ -12,7 +10,6 @@ const props = defineProps({
 });
 
 const taskStoreInstance = useTaskStore();
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 onMounted(async () => {
   await taskStoreInstance.fetchTasks(props.userID);
@@ -63,7 +60,7 @@ const chartData = computed(() => {
         backgroundColor: backgroundColors,
       },
     ],
-  }; 
+  };
 });
 
 const chartOptions = {
@@ -74,9 +71,18 @@ const chartOptions = {
       position: "bottom",
     },
   },
-}
+};
 </script>
 
-<template></template>
+<template>
+  <div class="card flex justify-center">
+    <Chart
+      type="doughnut"
+      :data="chartData"
+      :options="chartOptions"
+      class="w-full md:w-[30rem]"
+    />
+  </div>
+</template>
 
 <style scoped></style>
