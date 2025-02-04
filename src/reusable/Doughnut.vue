@@ -34,6 +34,15 @@ const tasksBasedOnStatus = computed(() => {
   return taskCount;
 });
 
+const getRandomColor = () => {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
 const chartData = computed(() => {
   const statusColors: Record<string, string> = {
     assigned: "#007bff",
@@ -42,7 +51,9 @@ const chartData = computed(() => {
     unsuccessful: "#dc3545",
   };
 
-  //
+  const backgroundColors = allStatus.value.map((status) => {
+    return statusColors[status.key] || getRandomColor();
+  });
 });
 </script>
 
