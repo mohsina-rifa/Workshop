@@ -81,7 +81,7 @@ const changeRole = (id: string, newRole: string) => {
             <td>{{ employee.password }}</td>
             <td class="input-group">
               <div v-if="isAuthorized(employee.role)">
-                <select class="form-select text-capitalize" id="roles" v-model="employee.role" @change="changeRole(employee.id, $event.target.value)">
+                <select class="form-select text-capitalize" id="roles" v-model="employee.role" @change="changeRole(employee.id, ($event.target as HTMLInputElement)?.value)">
                   <option class="text-capitalize" v-for="role in allRoles" :value="role" :disabled="employee.role.toLowerCase() === role.toLowerCase()">
                     {{ role }}
                   </option>
@@ -92,6 +92,7 @@ const changeRole = (id: string, newRole: string) => {
           </tr>
         </tbody>
       </table>
+      <!-- <BaseDataTable :columns="employeeColumns" :dataset="employeeList" /> -->
     </div>
   </div>
 </template>

@@ -21,8 +21,8 @@ export const isAlreadyLoggedIn = (to, from, next) => {
   }
 }
 
-export const isAdminLoggedIn = (to, from, next) => {
-  const isAdmin = getUserFromLocalStorage()?.role === USER_ROLE.ADMIN || getUserFromLocalStorage()?.role === USER_ROLE.OWNER;
+export const isAuthorized = (to, from, next) => {
+  const isAdmin = getUserFromLocalStorage()?.role === USER_ROLE.ADMIN || getUserFromLocalStorage()?.role === USER_ROLE.OWNER || getUserFromLocalStorage()?.role === USER_ROLE.VIEWER;
 
   if (isAdmin) {
     next();
