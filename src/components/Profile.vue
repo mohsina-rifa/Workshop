@@ -7,6 +7,7 @@ import {
   removeUserFromLocalStorage,
 } from "../helper/localStore";
 import type { EmployeeRecord } from "../types/auth";
+import Doughnut from "../reusable/Doughnut.vue";
 
 const employeeData = ref<{
   username: string;
@@ -16,10 +17,11 @@ const employeeData = ref<{
 } | null>(null);
 
 const user = computed<EmployeeRecord>(() => getUserFromLocalStorage());
+const currentID = user.value.id;
 
 onMounted(async () => {
   try {
-    const id = user.value.id;
+    const id = currentID;
     const response = await Axios.get(`employees/${id}`);
     employeeData.value = response.data;
   } catch (error) {
@@ -81,11 +83,16 @@ const handleLogOut = () => {
           </table>
         </div>
         <div class="col-lg-1"></div>
-        <div class="col-lg-4 d-flex justify-content-start align-items-center">
-          <img
-            src="../assets/signup.svg"
-            style="width: 100%; height: 100%; object-fit: contain"
-          />
+        <div class="col-lg-4 d-flex justify-content-center align-items-center">
+          <div class="flex-column">
+            <Doughnut :userID="currentID" />
+            <h5 class="mt-5 text-center">
+              {{ employeeData.username }}'s Progress Overview
+            </h5>
+            <router-link to="/see-your-board" class="h6 text-info text-center"
+              >See your task-board...</router-link
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -103,5 +110,9 @@ const handleLogOut = () => {
 .flex-column h2 {
   padding-top: 80px;
   padding-bottom: 5px;
+}
+
+.text-info {
+  padding-left: 70px;
 }
 </style>

@@ -41,11 +41,9 @@ const router = useRouter();
 const toast = useToast();
 
 const submitForm = async () => {
-  console.log(matchWithDatabase(), "matching");
   const user = matchWithDatabase();
 
   if (user) {
-    // localStorage.setItem("loggedInUser", JSON.stringify(user));
     setUserToLocalStorage(user);
 
     toast.success("Successfully logged in!", {
