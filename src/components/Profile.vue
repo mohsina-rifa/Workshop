@@ -83,8 +83,16 @@ const handleLogOut = () => {
           </table>
         </div>
         <div class="col-lg-1"></div>
-        <div class="col-lg-4 d-flex justify-content-start align-items-center">
-          <Doughnut :userID="currentID"/>
+        <div class="col-lg-4 d-flex justify-content-center align-items-center">
+          <div class="flex-column">
+            <Doughnut :userID="currentID" />
+            <h5 class="mt-5 text-center">
+              {{ employeeData.username }}'s Progress Overview
+            </h5>
+            <router-link to="/see-your-board" class="h6 text-info text-center"
+              >See your task-board...</router-link
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -102,5 +110,9 @@ const handleLogOut = () => {
 .flex-column h2 {
   padding-top: 80px;
   padding-bottom: 5px;
+}
+
+.text-info {
+  padding-left: 70px;
 }
 </style>
