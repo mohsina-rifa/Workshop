@@ -38,14 +38,7 @@ const tasksBasedOnStatus = computed(() => {
 const chartData = ref();
 const chartOptions = ref();
 
-const getRandomColor = () => {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
+const getRandomColor = () => `#${Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0")}`;
 
 const setChartData = () => {
   const statusColors: Record<string, string> = {
