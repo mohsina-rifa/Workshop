@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { ref, onMounted, computed } from "vue";
+import Chart from "primevue/chart";
 import { useTaskStore } from "../stores/taskStore";
 
 const props = defineProps({
@@ -14,6 +15,9 @@ const taskStoreInstance = useTaskStore();
 onMounted(async () => {
   await taskStoreInstance.fetchTasks(props.userID);
   await taskStoreInstance.fetchStatuses();
+
+  chartData.value = setChartData();
+  chartOptions.value = setChartOptions();
 });
 
 const allTasks = computed(() => taskStoreInstance.getTaskList);
@@ -31,6 +35,9 @@ const tasksBasedOnStatus = computed(() => {
   return taskCount;
 });
 
+const chartData = ref();
+const chartOptions = ref();
+
 const getRandomColor = () => {
   const letters = "0123456789ABCDEF";
   let color = "#";
@@ -40,7 +47,7 @@ const getRandomColor = () => {
   return color;
 };
 
-const chartData = computed(() => {
+const setChartData = () => {
   const statusColors: Record<string, string> = {
     assigned: "#007bff",
     inprogress: "#6c757d",
@@ -61,28 +68,27 @@ const chartData = computed(() => {
       },
     ],
   };
-});
+};
 
-const chartOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      position: "bottom",
+const setChartOptions = () => {
+  const documentStyle = getComputedStyle(document.documentElement);
+  const textColor = documentStyle.getPropertyValue("--p-text-color");
+
+  return {
+    plugins: {
+      legend: {
+        labels: {
+          cutout: "60%",
+          color: textColor,
+        },
+      },
     },
-  },
+  };
 };
 </script>
 
 <template>
-  <div class="card flex justify-center">
-    <Chart
-      type="doughnut"
-      :data="chartData"
-      :options="chartOptions"
-      class="w-full md:w-[30rem]"
-    />
-  </div>
+  <Chart type="doughnut" :data="chartData" :options="chartOptions" />
 </template>
 
 <style scoped></style>
