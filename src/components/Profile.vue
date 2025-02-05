@@ -104,7 +104,7 @@ const handleLogOut = () => {
 
 <style scoped>
 .half-width-btn {
-  width: 60%;
+  width: 70px;
 }
 
 .flex-column h2 {

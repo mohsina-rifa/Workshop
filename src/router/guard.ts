@@ -1,7 +1,8 @@
+import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 import { getUserFromLocalStorage } from '../helper/localStore';
 import { USER_ROLE } from '../service/enum';
 
-export const isAuthenticated = (to, from, next) => {
+export const isAuthenticated = (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => {
     const userID = getUserFromLocalStorage()?.id;
 
     if (userID) {
@@ -11,7 +12,7 @@ export const isAuthenticated = (to, from, next) => {
     }
 }
 
-export const isAlreadyLoggedIn = (to, from, next) => {
+export const isAlreadyLoggedIn = (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => {
   const userID = getUserFromLocalStorage()?.id;
 
   if (userID) {
@@ -21,7 +22,7 @@ export const isAlreadyLoggedIn = (to, from, next) => {
   }
 }
 
-export const isAuthorized = (to, from, next) => {
+export const isAuthorized = (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => {
   const isAdmin = getUserFromLocalStorage()?.role === USER_ROLE.ADMIN || getUserFromLocalStorage()?.role === USER_ROLE.OWNER || getUserFromLocalStorage()?.role === USER_ROLE.VIEWER;
 
   if (isAdmin) {
