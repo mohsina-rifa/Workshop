@@ -1,6 +1,4 @@
-<script setup lang="ts">
-//logic here
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="mt-4">
