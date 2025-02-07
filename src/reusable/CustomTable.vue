@@ -9,7 +9,7 @@ const props = defineProps({
     required: true,
   },
   dataset: {
-    type: Array,
+    type: Array as PropType<Array<Record<string, any>>>,
     required: true,
   },
   isInverted: {
@@ -21,7 +21,7 @@ const props = defineProps({
 
 <template>
   <div class="mt-4">
-    <div v-if="isInverted"></div>
+    <div v-if="props.isInverted"></div>
     <div v-else>
       <table class="table table-bordered"></table>
     </div>

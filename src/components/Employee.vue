@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted } from "vue";
 import type { EmployeeRecord, Column } from "../types/auth.ts";
 // import { useEmployeeStore } from "../stores/employeeStore";
 import { Axios } from "../service/axios";
@@ -110,7 +110,7 @@ employeeKeys.forEach((keys) => {
           </tr>
         </tbody>
       </table> -->
-      <CustomTable :columns="columns" :dataset="employeeList" />
+      <CustomTable :columns="columns" :dataset="employees" />
     </div>
   </div>
 </template>
