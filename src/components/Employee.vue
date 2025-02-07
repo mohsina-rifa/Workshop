@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-import type { EmployeeRecord } from "../types/auth.ts";
-import { useEmployeeStore } from "../stores/employeeStore";
+import type { EmployeeRecord, Column } from "../types/auth.ts";
+// import { useEmployeeStore } from "../stores/employeeStore";
 import { Axios } from "../service/axios";
-import { getUserFromLocalStorage } from "../helper/localStore";
-import { USER_ROLE } from "../service/enum";
+// import { getUserFromLocalStorage } from "../helper/localStore";
+// import { USER_ROLE } from "../service/enum";
+import CustomTable from "../reusable/CustomTable.vue";
 
-const SAARCCountryCodes = new Map<string, string>([
-  ["Afghanistan", "+93"],
-  ["Bangladesh", "+880"],
-  ["Bhutan", "+975"],
-  ["India", "+91"],
-  ["Maldives", "+960"],
-  ["Nepal", "+977"],
-  ["Pakistan", "+92"],
-  ["Sri Lanka", "+94"],
-]);
+// const SAARCCountryCodes = new Map<string, string>([
+//   ["Afghanistan", "+93"],
+//   ["Bangladesh", "+880"],
+//   ["Bhutan", "+975"],
+//   ["India", "+91"],
+//   ["Maldives", "+960"],
+//   ["Nepal", "+977"],
+//   ["Pakistan", "+92"],
+//   ["Sri Lanka", "+94"],
+// ]);
 
 const employees = ref<EmployeeRecord[]>([]);
+const columns = ref<Column[]>([]);
 
 onMounted(async () => {
   try {
@@ -28,22 +30,38 @@ onMounted(async () => {
   }
 });
 
-const allRoles = computed<string[]>( () => {
-  return Object.values(USER_ROLE);
+const employeeKeys = Object.keys({} as EmployeeRecord) as Array<keyof EmployeeRecord>;
+
+employeeKeys.forEach((keys) => {
+  if (keys === "id") {
+    columns.value.push({
+      title: keys.charAt(0).toUpperCase() + keys.slice(1),
+      attribute: keys
+    });
+  } else {
+    columns.value.push({
+      title: keys.toUpperCase(),
+      attribute: keys
+    });
+  }
 });
 
-const isAuthorized = (role: string) => {
-  return (
-    role !== USER_ROLE.OWNER &&
-    getUserFromLocalStorage()?.role === USER_ROLE.OWNER
-  );
-};
+// const allRoles = computed<string[]>( () => {
+//   return Object.values(USER_ROLE);
+// });
 
-const employeeStoreInstance = useEmployeeStore();
+// const isAuthorized = (role: string) => {
+//   return (
+//     role !== USER_ROLE.OWNER &&
+//     getUserFromLocalStorage()?.role === USER_ROLE.OWNER
+//   );
+// };
 
-const changeRole = (id: string, newRole: string) => {
-  employeeStoreInstance.changeEmployeeRole(id, newRole);
-}
+// const employeeStoreInstance = useEmployeeStore();
+
+// const changeRole = (id: string, newRole: string) => {
+//   employeeStoreInstance.changeEmployeeRole(id, newRole);
+// }
 </script>
 
 <template>
@@ -55,7 +73,7 @@ const changeRole = (id: string, newRole: string) => {
       >
     </div>
     <div class="mt-4">
-      <table class="table table-bordered">
+      <!-- <table class="table table-bordered">
         <thead>
           <tr>
             <th>ID</th>
@@ -91,8 +109,8 @@ const changeRole = (id: string, newRole: string) => {
             </td>
           </tr>
         </tbody>
-      </table>
-      <!-- <BaseDataTable :columns="employeeColumns" :dataset="employeeList" /> -->
+      </table> -->
+      <CustomTable :columns="columns" :dataset="employeeList" />
     </div>
   </div>
 </template>

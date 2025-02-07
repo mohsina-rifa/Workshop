@@ -39,5 +39,5 @@ export type TaskStatus = {
 
 export type Column = {
   title: string;
-  attributeKey: string;
+  attribute: string;
 }
