@@ -8,6 +8,8 @@ import {
 } from "../helper/localStore";
 import type { EmployeeRecord } from "../types/auth";
 import Doughnut from "../reusable/Doughnut.vue";
+import DataTable from "../reusable/DataTable.vue";
+import type { Column } from "../types/common";
 
 const employeeData = ref<{
   username: string;
@@ -28,6 +30,13 @@ onMounted(async () => {
     console.error("Failed to fetch employee data:", error);
   }
 });
+
+const columns: Column[] = [
+  "name",
+  "country",
+  "contact",
+  "password",
+].map((key) => ({ key, label: key.toUpperCase() }));
 
 const router = useRouter();
 
@@ -61,26 +70,7 @@ const handleLogOut = () => {
               </button>
             </div>
           </div>
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td><strong>Name</strong></td>
-                <td>{{ employeeData.name }}</td>
-              </tr>
-              <tr>
-                <td><strong>Country</strong></td>
-                <td>{{ employeeData.country }}</td>
-              </tr>
-              <tr>
-                <td><strong>Contact</strong></td>
-                <td>{{ employeeData.contact }}</td>
-              </tr>
-              <tr>
-                <td><strong>Password</strong></td>
-                <td>********</td>
-              </tr>
-            </tbody>
-          </table>
+          <DataTable :columns="columns" :dataset="[employeeData]" :is-inverted="true"/>
         </div>
         <div class="col-lg-1"></div>
         <div class="col-lg-4 d-flex justify-content-center align-items-center">

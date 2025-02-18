@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-import type { EmployeeRecord } from "../types/auth.ts";
-import { useEmployeeStore } from "../stores/employeeStore";
+import DataTable from "../reusable/DataTable.vue";
 import { Axios } from "../service/axios";
 import { getUserFromLocalStorage } from "../helper/localStore";
 import { USER_ROLE } from "../service/enum";
+import type { Column } from "../types/common";
+import type { EmployeeRecord } from "../types/auth";
+import { useEmployeeStore } from "../stores/employeeStore";
 
 const SAARCCountryCodes = new Map<string, string>([
   ["Afghanistan", "+93"],
@@ -28,9 +30,17 @@ onMounted(async () => {
   }
 });
 
-const allRoles = computed<string[]>( () => {
-  return Object.values(USER_ROLE);
-});
+const columns: Column[] = [
+  "id",
+  "username",
+  "name",
+  "country",
+  "contact",
+  "password",
+  "role",
+].map((key) => ({ key, label: key.toUpperCase() }));
+
+const allRoles = computed(() => Object.values(USER_ROLE));
 
 const isAuthorized = (role: string) => {
   return (
@@ -43,57 +53,51 @@ const employeeStoreInstance = useEmployeeStore();
 
 const changeRole = (id: string, newRole: string) => {
   employeeStoreInstance.changeEmployeeRole(id, newRole);
-}
+};
 </script>
 
 <template>
   <div class="container">
     <div class="mt-4 d-flex justify-content-between">
-      <h3>Employee List</h3>
+      <h3>Employee List (with Reusable Table)</h3>
       <router-link to="/join-the-community" class="btn btn-info"
         >Add New Employee</router-link
       >
     </div>
-    <div class="mt-4">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Name</th>
-            <th>Country</th>
-            <th>Contact</th>
-            <th>Password</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="employee in employees" :key="employee.id">
-            <td>{{ employee.id }}</td>
-            <td>{{ employee.username }}</td>
-            <td>{{ employee.name }}</td>
-            <td>{{ employee.country }}</td>
-            <td>
-              {{
-                `${SAARCCountryCodes.get(employee.country)} ${employee.contact}`
-              }}
-            </td>
-            <td>{{ employee.password }}</td>
-            <td class="input-group">
-              <div v-if="isAuthorized(employee.role)">
-                <select class="form-select text-capitalize" id="roles" v-model="employee.role" @change="changeRole(employee.id, ($event.target as HTMLInputElement)?.value)">
-                  <option class="text-capitalize" v-for="role in allRoles" :value="role" :disabled="employee.role.toLowerCase() === role.toLowerCase()">
-                    {{ role }}
-                  </option>
-                </select>
-              </div>
-              <div v-else class="text-capitalize" >{{ employee.role }}</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- <BaseDataTable :columns="employeeColumns" :dataset="employeeList" /> -->
-    </div>
+
+    <DataTable :columns="columns" :dataset="employees">
+      <template #contact="{ row }">
+        {{
+          row.contact.startsWith(SAARCCountryCodes.get(row.country)!)
+            ? row.contact
+            : `${SAARCCountryCodes.get(row.country)} ${row.contact}`
+        }}
+      </template>
+
+      <template #role="{ row }">
+        <div v-if="isAuthorized(row.role)">
+          <select
+            class="form-select text-capitalize"
+            v-model="row.role"
+            @change="
+              changeRole(row.id, ($event.target as HTMLInputElement)?.value)
+            "
+          >
+            <option
+              v-for="role in allRoles"
+              :key="role"
+              :value="role"
+              :disabled="row.role.toLowerCase() === role.toLowerCase()"
+            >
+              {{ role }}
+            </option>
+          </select>
+        </div>
+        <div v-else class="text-capitalize">
+          {{ row.role }}
+        </div>
+      </template>
+    </DataTable>
   </div>
 </template>
 

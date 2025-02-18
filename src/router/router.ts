@@ -36,16 +36,6 @@ const routes = [
     name: 'Board',
     component: () => import('../components/TaskBoard.vue'),
     beforeEnter: [isAuthenticated ]
-  },
-  {
-    path: '/datatable',
-    name: 'Datatable',
-    component: () => import('../components/TestDatatable.vue')
-  },
-  {
-    path: '/profiletable',
-    name: 'Profiletable',
-    component: () => import('../components/TestProfile.vue')
   }
 ];
 
