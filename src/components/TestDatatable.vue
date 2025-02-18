@@ -31,14 +31,14 @@ onMounted(async () => {
 });
 
 const columns: Column[] = [
-  { key: "id", label: "ID" },
-  { key: "username", label: "Username" },
-  { key: "name", label: "Name" },
-  { key: "country", label: "Country" },
-  { key: "contact", label: "Contact" },
-  { key: "password", label: "Password" },
-  { key: "role", label: "Role" },
-];
+  "id",
+  "username",
+  "name",
+  "country",
+  "contact",
+  "password",
+  "role",
+].map((key) => ({ key, label: key.toUpperCase() }));
 
 const allRoles = computed(() => Object.values(USER_ROLE));
 
@@ -75,7 +75,9 @@ const changeRole = (id: string, newRole: string) => {
           <select
             class="form-select text-capitalize"
             v-model="row.role"
-            @change="changeRole(row.id, ($event.target as HTMLInputElement)?.value)"
+            @change="
+              changeRole(row.id, ($event.target as HTMLInputElement)?.value)
+            "
           >
             <option
               v-for="role in allRoles"
