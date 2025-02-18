@@ -67,7 +67,11 @@ const changeRole = (id: string, newRole: string) => {
 
     <DataTable :columns="columns" :dataset="employees">
       <template #contact="{ row }">
-        {{ `${SAARCCountryCodes.get(row.country)} ${row.contact}` }}
+        {{
+          row.contact.startsWith(SAARCCountryCodes.get(row.country)!)
+            ? row.contact
+            : `${SAARCCountryCodes.get(row.country)} ${row.contact}`
+        }}
       </template>
 
       <template #role="{ row }">
