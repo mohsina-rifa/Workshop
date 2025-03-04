@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useToast, POSITION } from "vue-toastification";
 
 import type { TaskStatus } from "../types/auth";
@@ -10,7 +10,7 @@ const props = defineProps({
   isVisible: {
     type: Boolean,
     required: true,
-  }
+  },
 });
 
 console.log(props);
@@ -20,6 +20,8 @@ const taskStoreInstance = useTaskStore();
 onMounted(async () => {
   await taskStoreInstance.fetchStatuses();
 });
+
+const allStatus = computed(() => taskStoreInstance.getStatusList);
 
 const newStatus = ref<TaskStatus>({
   id: -1,
@@ -32,7 +34,23 @@ const toast = useToast();
 
 const createStatus = async () => {
   if (newStatus.value.title) {
-    newStatus.value.key = newStatus.value.title.toLowerCase().split(" ").join("");
+    if (
+      allStatus.value.some(
+        (status) =>
+          status.title.toLowerCase() === newStatus.value.title.toLowerCase()
+      )
+    ) {
+      toast.error("Status already exists!", {
+        position: POSITION.TOP_RIGHT,
+        timeout: 3000,
+      });
+      return;
+    }
+
+    newStatus.value.key = newStatus.value.title
+      .toLowerCase()
+      .split(" ")
+      .join("");
     newStatus.value.id = taskStoreInstance.getStatusIndex;
 
     await taskStoreInstance.addStatus(newStatus.value);
@@ -53,7 +71,11 @@ const createStatus = async () => {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Add New Category</h5>
-          <button type="button" class="btn-close" @click="emit('close')"></button>
+          <button
+            type="button"
+            class="btn-close"
+            @click="emit('close')"
+          ></button>
         </div>
         <div class="modal-body">
           <input
@@ -65,7 +87,11 @@ const createStatus = async () => {
           />
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="emit('close')">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="emit('close')"
+          >
             Close
           </button>
           <button type="button" class="btn btn-primary" @click="createStatus">
